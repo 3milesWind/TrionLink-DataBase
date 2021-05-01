@@ -25,13 +25,15 @@ Faculty Entry:
 <a href="Faculty/Faculty_Delete/Faculty_Delete_Page.jsp"><button>Delete</button></a>
 <a href="Faculty/Faculty_DataBase.jsp"><button>Data Entry</button></a>
 <br/><br/>
+Thesis Committee Submission:
+<a href="Thesis_Committee/Thesis_Committee_Submission.jsp"><button>Submission</button></a>
+<a href="Thesis_Committee/Thesis_Committee_DataBase.jsp"><button>Thesis Committee DataBase</button></a>
+<br/><br/>
 <a href="#"><button>Course Entry Form</button></a>
 <br/><br/>
 <a href="#"><button>Class Entry Form</button></a>
 <br/><br/>
 <a href="#"><button>Classes taken in the Past</button></a>
-<br/><br/>
-<a href="#"><button>Thesis Committee Submission</button></a>
 <br/><br/>
 <a href="#"><button>Review Session Info Submission</button></a>
 <br/><br/>
