@@ -26,7 +26,7 @@
     }
 </style>
 <body>
-<h1 align="center"> Undergraduate Table</h1>
+<h1 align="center"> Faculty Table</h1>
 <br/> <br/>
 <table>
     <%

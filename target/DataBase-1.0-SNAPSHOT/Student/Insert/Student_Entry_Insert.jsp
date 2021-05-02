@@ -60,6 +60,7 @@
             conn.commit();
             conn.setAutoCommit(true);
             st.close();
+            conn.close();
 
             session.setAttribute("student_id",Student_ID);
             if(StudentType.equals("Undergraduate")) {

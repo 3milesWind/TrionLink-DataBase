@@ -14,7 +14,7 @@
 Keep working on one more step to finish
 <%! String student_id = "" ;%>
 <%  student_id = (String)session.getAttribute("student_id");%>
-<form action="Master_Entry_Insert.jsp" method="post">
+<form action="PHD_Entry_Insert.jsp" method="post">
     Student ID:  <input type="text" value="<%=student_id%>" name="student_id" readonly/>
     <br/> <br/>
     PHD Type: <select name="Type">

@@ -42,6 +42,9 @@
             out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
                     + "<th>" + st.getString(3) + " "  + st.getString(5) + "</th></tr>");
         }
+        sm.close();
+        st.close();
+        conn.close();
     }catch (Exception e){
         System.out.println(e);
     }

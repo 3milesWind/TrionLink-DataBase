@@ -52,6 +52,9 @@
                         "<th>" +  st.getString(8) +"</th>" +
                         "</tr>");
             }
+            sm.close();
+            st.close();
+            conn.close();
         }catch (Exception e){
             System.out.println(e);
         }
@@ -72,6 +75,58 @@
                 out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
                         + "<th>" + st.getString(3) + "</th>" + "<th>" + st.getString(4)  +"</th></tr>");
             }
+            sm.close();
+            st.close();
+            conn.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    %>
+</table>
+<h1 align="center"> Master Table</h1>
+<br/> <br/>
+<table>
+    <%
+        try{
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(url);
+            Statement sm = conn.createStatement();
+            ResultSet st = sm.executeQuery("select * from Master");
+            out.println("<tr><th>StudentID</th><th>type</th><th>Department</th><th>Thesis</th></tr>");
+            while (st.next()) {
+
+                out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
+                        + "<th>" + st.getString(3) + "</th>" + "<th>" + st.getString(4)  +"</th></tr>");
+            }
+            sm.close();
+            st.close();
+            conn.close();
+        }catch (Exception e){
+            System.out.println(e);
+        }
+    %>
+</table>
+<h1 align="center"> PHD Table</h1>
+<br/> <br/>
+<table>
+    <%
+        try{
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(url);
+            Statement sm = conn.createStatement();
+            ResultSet st = sm.executeQuery("select * from phd");
+            out.println("<tr><th>StudentID</th><th>Department</th><th>Type</th><th>advisor</th><th>Thesis</th><th>Diff_dep_Thesis</th></tr>");
+            while (st.next()) {
+
+                out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
+                        + "<th>" + st.getString(3) + "</th>"
+                        + "<th>" + st.getString(4) + "</th>"
+                        + "<th>" + st.getString(5) + "</th>"
+                        + "<th>" + st.getString(6)  +"</th></tr>");
+            }
+            sm.close();
+            st.close();
+            conn.close();
         }catch (Exception e){
             System.out.println(e);
         }
