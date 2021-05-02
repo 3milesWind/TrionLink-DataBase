@@ -17,14 +17,11 @@ Keep working on one more step to finish
 <form action="Master_Entry_Insert.jsp" method="post">
     Student ID:  <input type="text" value="<%=student_id%>" name="student_id" readonly/>
     <br/> <br/>
-    What is Student major: <input type="text" name="Major" required/>
-    <br/> <br/>
-    what id Student Minor: <input type="text" name="Minor" />
-    <br/> <br/>
     Type: <select name="Type">
     <option>5-year BS/MS</option>
     <option>BS/Ms</option>
     </select>
+    <br/> <br/>
     Department: <select name="Department">
     <option>CSE</option>
     <option>Math</option>

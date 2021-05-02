@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: guoyili
-  Date: 4/30/21
-  Time: 3:54 PM
+  Date: 5/1/21
+  Time: 1:03 AM
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page import="java.sql.*" contentType="text/html;charset=UTF-8" language="java" %>
@@ -10,6 +10,7 @@
 <head>
     <title>Title</title>
 </head>
+<body>
 <style>
     table {
         font-family: sans-serif;
@@ -25,22 +26,23 @@
         background-color: #dddddd;
     }
 </style>
-<body>
-<h1 align="center"> Faculty Table</h1>
-<br/> <br/>
 <table>
     <%
         try{
+            String student_id = request.getParameter("student_id");
             String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
-            Statement sm = conn.createStatement();
-            ResultSet st = sm.executeQuery("select * from faculty");
-            out.println("<tr><th>faculty name</th><th>Title</th><th>Department</th></tr>");
+            PreparedStatement sm = conn.prepareStatement("select * from past_course where student_id = ?");
+            sm.setString(1,student_id);
+            ResultSet st = sm.executeQuery();
+            out.println("<H3 align=\"center\">Student DataBase</h3>");
+            out.println("<tr><th>StudentID</th><th>CourseID</th><th>SectionID</th><th>Quarter</th><th>Grade</th></tr>");
             while (st.next()) {
 
                 out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
-                        + "<th>" + st.getString(3)  +"</th></tr>");
+                        + "<th>" + st.getString(3) + "</th>" + "<th>" + st.getString(4)  +"</th>" +
+                        "<th>" + st.getString(5)  +"</th></tr>");
             }
         }catch (Exception e){
             System.out.println(e);

@@ -52,6 +52,7 @@
         conn.commit();
         conn.setAutoCommit(true);
         st.close();
+        conn.close();
     } catch (Exception e) {
         System.out.println(e);
     }

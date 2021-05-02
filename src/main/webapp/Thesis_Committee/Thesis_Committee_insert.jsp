@@ -19,6 +19,7 @@
     String program = "";
     String Department  = "";
     String name = "";
+    String add_one = "";
     boolean is_correct = false;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
@@ -37,7 +38,13 @@
          /*
          *  Check if the Student id whether if valid or not
          * */
-        String sql_id = "select * from student where student_id = ?";
+        String sql_id = "";
+        if (program.equals("Master")) {
+            sql_id = "select * from master where student_id = ?";
+        } else {
+            sql_id = "select * from phd where student_id = ?";
+        }
+//        String sql_id = "select * from student where student_id = ?";
         PreparedStatement ID_Check = conn.prepareStatement(sql_id);
         ID_Check.setString(1,student_id);
         ResultSet ID_St = ID_Check.executeQuery();
@@ -60,6 +67,7 @@
         ResultSet Thesis_St = Thesis_Check.executeQuery();
 
         if (!ID_St.next() || !Name_St.next() || Thesis_St.next()) {
+            is_correct = false;
             System.out.println("ID/Faculty does not exist");
         } else {
             /*
@@ -72,7 +80,35 @@
             ps.setString(2,program);
             ps.setString(3,name);
             ps.setString(4,Department);
-            ps.executeQuery();
+            ps.executeUpdate();
+            /*
+            *  Update the student's Thesis committee
+            * */
+            System.out.println(program);
+            if (program.equals("Master")) {
+                add_one = "update master Set thesis_committee = thesis_committee + 1 where student_id = ?";
+            } else {
+                String choice  = "Select Department from phd where student_id = ?";
+                PreparedStatement ch = conn.prepareStatement(choice);
+                ch.setString(1,student_id);
+                ResultSet st = ch.executeQuery();
+                String thesis_choice = "";
+                if (st.next()) {
+                    thesis_choice = st.getString("department");
+                    System.out.println(thesis_choice);
+                }
+                if (thesis_choice.equals(Department)) {
+                    add_one = "update phd Set thesis_committee = thesis_committee + 1 where student_id = ?";
+                } else {
+                    add_one = "update phd Set diff_depart_thesis = diff_depart_thesis + 1 where student_id = ?";
+                }
+                st.close();
+                ch.close();
+            }
+            PreparedStatement ao = conn.prepareStatement(add_one);
+            ao.setString(1,student_id);
+            ao.executeUpdate();
+            ao.close();
             ps.close();
         }
         ID_Check.close();
@@ -92,7 +128,7 @@
 <br/>
 <h3>Student Id/faculty name may not correct</h3>
 <br/>
-<h3> it exist in our dataBase</h3>
+<h3> or do you select a right program</h3>
 <% } %>
 <a href="./Thesis_Committee_Submission.jsp"><button> Enter More </button></a>
 <a href="./Thesis_Committee_DataBase.jsp"><button> Check Database </button></a>

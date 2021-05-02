@@ -29,11 +29,16 @@ Thesis Committee Submission:
 <a href="Thesis_Committee/Thesis_Committee_Submission.jsp"><button>Submission</button></a>
 <a href="Thesis_Committee/Thesis_Committee_DataBase.jsp"><button>Thesis Committee DataBase</button></a>
 <br/><br/>
+Past Courses:
+<a href="Past_Course/Past_Course_Submission.jsp"><button>Classes taken in the Past</button></a>
+<a href="Past_Course/Past_Course_DataBase.jsp"><button>Past Course DataBase</button></a>
+<a href="Past_Course/Past_Course_Search_ByID.jsp"><button>Past Course DataBase By ID</button></a>
+<br/><br/>
 <a href="#"><button>Course Entry Form</button></a>
 <br/><br/>
 <a href="#"><button>Class Entry Form</button></a>
 <br/><br/>
-<a href="#"><button>Classes taken in the Past</button></a>
+<a href="#"><button>Course Enrollment:</button></a>
 <br/><br/>
 <a href="#"><button>Review Session Info Submission</button></a>
 <br/><br/>
