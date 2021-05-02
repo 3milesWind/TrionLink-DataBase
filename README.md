@@ -14,8 +14,8 @@ String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4
    并未检查courseID的正确和SectionID的正确
 3. 完成基本功能Past_course
 ```
-
 ```sql
+
 CREATE TABLE Student(
     Student_ID TEXT,
     SSN TEXT NOT NULL UNIQUE,
@@ -24,6 +24,7 @@ CREATE TABLE Student(
     LastName TEXT NOT NULL,
     Residency TEXT NOT NULL,
     Enrollment TEXT NOT NULL,
+		stu_type text not null,
     PRIMARY KEY (Student_ID)
 );
 
@@ -94,5 +95,23 @@ Create Table past_course (
 	Taken_Quarter TEXT not null,
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Course_ID) references course(course_id) on Delete CASCADE on update CASCADE
+)
+
+create Table DegreeInfo(
+ 	Degree_Name Text not null,
+	Degree_Type text not null,
+	Total_unit int default 120,
+	primary key(Degree_Name,Degree_Type)
+)
+
+Create table degreeCate (
+	degree_name text not null,
+	degree_type text not null,
+	department text not null,
+	minimum_units int default 0,
+	average_grade DECIMAL default 3.0,
+	concentration text,
+	primary key(degree_name,degree_type,department),
+	Foreign Key (degree_name,degree_type) references degreeinfo(degree_name,degree_type) on Delete CASCADE on update CASCADE
 )
 ```

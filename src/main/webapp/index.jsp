@@ -34,6 +34,11 @@ Past Courses:
 <a href="Past_Course/Past_Course_DataBase.jsp"><button>Past Course DataBase</button></a>
 <a href="Past_Course/Past_Course_Search_ByID.jsp"><button>Past Course DataBase By ID</button></a>
 <br/><br/>
+Degree Requirements:
+<a href="./Deg_Requirement/DegreePage.jsp"><button>Degree Requirements’ Submission</button></a>
+<a href="./Deg_Requirement/DegreeCate.jsp"><button>Degree Categories’ Submission</button></a>
+<a href="./Deg_Requirement/DegreeDataBase.jsp"><button>Degree DataBase</button></a>
+<br/><br/>
 <a href="#"><button>Course Entry Form</button></a>
 <br/><br/>
 <a href="#"><button>Class Entry Form</button></a>
@@ -42,8 +47,6 @@ Past Courses:
 <br/><br/>
 <a href="#"><button>Review Session Info Submission</button></a>
 <br/><br/>
-<a href="#"><button>Degree Requirements’ Info Submission</button></a>
-
 
 </body>
 </html>
