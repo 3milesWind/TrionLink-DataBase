@@ -14,6 +14,7 @@ String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4
    并未检查courseID的正确和SectionID的正确
 3. 完成基本功能Past_course
 ```
+
 ```sql
 
 CREATE TABLE Student(
