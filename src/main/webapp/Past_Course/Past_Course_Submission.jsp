@@ -46,7 +46,7 @@ Past Course Form
     <option value="2002">2002</option>
     <option value="2001">2001</option>
     <option value="2000">2000</option>
-</select>
+    </select>
     <br/><br/>
     Grade: <select name="grade">
     <option value="A+">A+</option>
@@ -59,8 +59,8 @@ Past Course Form
     <option value="C">C</option>
     <option value="C-">C-</option>
     <option value="D">D</option>
-</select>
-<input type="submit" value="Submit"/>
+    </select>
+    <input type="submit" value="Submit"/>
 </form>
 </body>
 </html>
