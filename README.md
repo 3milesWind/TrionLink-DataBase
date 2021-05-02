@@ -70,7 +70,7 @@ create table Faculty(
 	Title TEXT not null,
 	Department TEXT not null,
 	primary key(faculty_name)
-)
+);
 
 create table Thesis_committee (
 	Student_id Text not null,
@@ -79,12 +79,7 @@ create table Thesis_committee (
 	Faculty_Dep text not null,
 	Foreign Key (Student_id) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Faculty_name) references faculty(faculty_name) on Delete CASCADE on update CASCADE
-)
-
-Create Table Course(
-	Course_ID TEXT not null,
-	primary key (Course_ID)
-)
+);
 
 Create Table past_course (
 	Student_ID TEXT not NUll,
@@ -94,5 +89,55 @@ Create Table past_course (
 	Taken_Quarter TEXT not null,
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Course_ID) references course(course_id) on Delete CASCADE on update CASCADE
-)
+);
+
+create table Course(
+	CourseId          Text Not Null,
+	Course_name       Text Not Null,
+	Department        Text Not Null,
+	Prerequisites     Text,
+	// Units             Int
+	GradeOption       Text Not Null,
+	Lab               Text Not Null, // not sure
+	MinUnits          Int Not Null,
+	MaxUnits          Int Not Null,
+	Primary key       (CourseId),
+	Check (MinUnits <= MaxUnits)
+);
+
+create table Class(
+	ClassId           Text Not Null,  
+	CourseId          Text Not Null,
+	Title             Text Not Null,
+	Quarter           Text Not Null,
+	Year              Text Not Null,
+	NumberSec         Text Not Null,
+	Primary key       (ClassId),
+	Foreign key       (CourseId) references Course,
+	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
+);
+
+create table Section(
+	SectionId         Text Not Null,
+	ClassId           Text Not Null,
+	Quarter           Text Not Null,
+	Year              Text Not Null,
+	Instructor        Text Not Null,
+	EnrollmentLimit   Text Not Null,
+	WaitList          Text Not Null,
+	Primary key       (SectionId),
+	Foreign key       (ClassId) references class
+);
+
+create table Enrollment(
+	StudentId         Text Not Null,
+	CourseId          Text Not Null,
+	SectionId         Text Not Null,
+	
+	Primary key       (StudentId, CourseId),
+  Foreign key       (StudentId) references Student,
+	Foreign key       (CourseId) references Course
+);
+
+
 ```
