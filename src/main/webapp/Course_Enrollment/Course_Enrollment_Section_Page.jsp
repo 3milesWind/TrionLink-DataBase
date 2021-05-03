@@ -14,14 +14,18 @@
 Keep working on one more step to finish
 <%! String student_id = "" ;%>
 <%! String course_id = "" ;%>
+<%! String units = "" ;%>
 <%  student_id = (String)session.getAttribute("student_id");%>
 <%  course_id = (String)session.getAttribute("course_id");%>
+<%  units = (String)session.getAttribute("units");%>
 <form action="Course_Enrollment_Section.jsp" method="post">
     Student ID:  <input type="text" value="<%=student_id%>" name="StudentID" readonly/>
     <br/> <br/>
     Course ID: <input type="text" value="<%=course_id%>" name="CourseID" readonly/>
     <br/> <br/>
     Section ID: <input type="text" name="SectionID" required/>
+    <br/> <br/>
+    Units: <input type="text" value="<%=units%>" name="Units" readonly/>
     <br/> <br/>
     <input type="submit" value="Submit"/>
 </form>

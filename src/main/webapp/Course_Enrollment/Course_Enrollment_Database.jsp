@@ -41,11 +41,13 @@
             out.println("<tr><th>Student ID</th>"
                         + "<th>Course ID</th>"
                         + "<th>Section ID</th>"
+                        + "<th>Units</th>"
                         + "</tr>");
             while(st.next()) {
                 out.print("<tr><th>" + st.getString(1) + "</th>"
                         + "<th>" + st.getString(2) + "</th>"
                         + "<th>" + st.getString(3) + "</th>"
+                        + "<th>" + st.getString(4) + "</th>"
                         + "</tr>");
             }
             sm.close();

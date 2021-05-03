@@ -112,7 +112,7 @@
                 out.println("<H3><u>Successful Insert new Class into the dataBase</u></b>");
             }
         } else {
-            out.println("<H3><u>The Class ID and Course ID shown below have existed , Please, try again</u></b>");
+            out.println("<H3><u>The Class ID shown below have existed , Please, try again</u></b>");
         }
     }
 %>

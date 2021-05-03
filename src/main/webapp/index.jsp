@@ -50,6 +50,7 @@ Course Enrollment:
 <a href="Course_Enrollment/Course_Enrollment_Submission.jsp"><button>Course Enrollment Submission</button></a>
 <a href="Course_Enrollment/Course_Enrollment_Database.jsp"><button>Course Enrollment Database</button></a>
 <br/><br/>
+Review Session
 <a href="#"><button>Review Session Info Submission</button></a>
 <br/><br/>
 <a href="#"><button>Degree Requirements’ Info Submission</button></a>

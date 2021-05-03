@@ -21,6 +21,10 @@
     String Year = "";
     boolean is_correct = false;
     boolean already_existed = false;
+    boolean no_section_existed = false;
+    boolean no_student_existed = false;
+    boolean no_course_existed = false;
+    boolean no_class_existed = false;
 %>
 <%
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -31,7 +35,7 @@
         Course_ID = request.getParameter("CourseID");
         Quarter = request.getParameter("Quarter");
         Year = request.getParameter("Year");
-        String sql = "INSERT INTO Enrollment VALUES (?,?,?)";
+        String sql = "INSERT INTO Enrollment VALUES (?,?,?,?)";
         String sql_ck_1 = "SELECT * FROM Student WHERE Student_Id = ?";
         String sql_ck_2 = "SELECT * FROM Course WHERE CourseId = ?";
         String sql_ck_3 = "SELECT * FROM Class WHERE CourseId = ? AND Quarter = ? AND Year = ?";
@@ -52,10 +56,15 @@
         ck_3.setString(3, Year);
         ResultSet rs_3 = ck_3.executeQuery();
 
+        no_student_existed = false;
+        no_course_existed = false;
+        no_class_existed = false;
+        is_correct = false;
         // student id does not exist
         if (!rs_1.next()) {
+            no_student_existed = true;
             System.out.println("no such a student");
-            conn.setAutoCommit(true);
+//            conn.setAutoCommit(true);
             ck_1.close();
             ck_2.close();
             ck_3.close();
@@ -63,8 +72,9 @@
         }
         // course id does not exist
         else if (!rs_2.next()) {
+            no_course_existed = true;
             System.out.println("no such a course");
-            conn.setAutoCommit(true);
+//            conn.setAutoCommit(true);
             ck_1.close();
             ck_2.close();
             ck_3.close();
@@ -72,15 +82,15 @@
         }
         // class id does not exist
         else if (!rs_3.next()) {
+            no_class_existed = true;
             System.out.println("no such a class");
-            conn.setAutoCommit(true);
+//            conn.setAutoCommit(true);
             ck_1.close();
             ck_2.close();
             ck_3.close();
             System.out.println("Course enrollment insert -- no data");
         }
         else {
-            is_correct = true;
 
             // if info is correct, then consider next
             String find_num_sec = "SELECT ClassId, numbersec From Class WHERE CourseId = ? AND Quarter = ? AND Year = ?";
@@ -103,71 +113,88 @@
             st_2.setString(1, Course_ID);
             ResultSet rs_b = st_2.executeQuery();
             rs_b.next();
-            Float min_units = Float.parseFloat( rs_b.getString("minunits") );
-            Float max_units = Float.parseFloat( rs_b.getString("maxunits") );
+            Double min_units = Double.parseDouble( rs_b.getString("minunits") );
+            Double max_units = Double.parseDouble( rs_b.getString("maxunits") );
             st_2.close();
             rs_b.close();
 
-            System.out.println(num_sec);
-            System.out.println(min_units);
-            System.out.println(max_units);
-
-            // if multiple sections & flexible on units
-            if (num_sec > 1 && min_units < max_units) {
-                // direct to another page to prompt for section id and choose of units
-                session.setAttribute("student_id", Student_ID);
-                session.setAttribute("course_id", Course_ID);
-                response.sendRedirect("./Course_Enrollment_Sec_Unit_Page.jsp");
-            }
-            // if only multiple sections (numbersec from table class)
-            else if (num_sec > 1) {
-                // direct to another page to prompt for section id only
-                session.setAttribute("student_id", Student_ID);
-                session.setAttribute("course_id", Course_ID);
-                response.sendRedirect("./Course_Enrollment_Section_Page.jsp");
-//                System.out.println("should direct to another page");
-            }
-            // if only flexible on units
-            else if (min_units < max_units) {
-                // direct to another page to prompt for choose of units only
-                session.setAttribute("student_id", Student_ID);
-                session.setAttribute("course_id", Course_ID);
-                response.sendRedirect("./Course_Enrollment_Unit_Page.jsp");
-            }
-            // insert into the database without directing to another page
-            else {
-                // first check if (student id, course id) already exists
-                PreparedStatement st_3 = conn.prepareStatement("SELECT * FROM Enrollment WHERE StudentId = ? AND CourseId = ?");
-                st_3.setString(1, Student_ID);
-                st_3.setString(2, Course_ID);
-                ResultSet rs_c = st_3.executeQuery();
-                // if found, then should not insert
-                if (rs_c.next()) {
-                    already_existed = true;
-                    System.out.println("Such an enrollment already exists");
-                    conn.setAutoCommit(true);
-                    st_3.close();
-                    System.out.println("Course enrollment insert -- no data");
-                } else {
-                    already_existed = false;
-                    // otherwise, find the section id and insert
+            // first check if (student id, course id) already exists
+            PreparedStatement st_3 = conn.prepareStatement("SELECT * FROM Enrollment WHERE StudentId = ? AND CourseId = ?");
+            st_3.setString(1, Student_ID);
+            st_3.setString(2, Course_ID);
+            ResultSet rs_c = st_3.executeQuery();
+            // if found, then should not insert
+            if (rs_c.next()) {
+                already_existed = true;
+                System.out.println("Such an enrollment already exists");
+//                st_3.close();
+                System.out.println("Course enrollment insert -- no data");
+            } else {
+                already_existed = false;
+                // decide which page to direct
+                // if multiple sections & flexible on units
+                if (num_sec > 1 && min_units < max_units) {
+                    // direct to another page to prompt for section id and choose of units
+                    session.setAttribute("student_id", Student_ID);
+                    session.setAttribute("course_id", Course_ID);
+                    session.setAttribute("min_units", min_units);
+                    session.setAttribute("max_units", max_units);
+                    response.sendRedirect("./Course_Enrollment_Sec_Unit_Page.jsp");
+                }
+                // if only multiple sections (numbersec from table class)
+                else if (num_sec > 1) {
+                    // direct to another page to prompt for section id only
+                    session.setAttribute("student_id", Student_ID);
+                    session.setAttribute("course_id", Course_ID);
+                    // min_units == max_units in this case
+                    session.setAttribute("units", String.valueOf(min_units));
+                    response.sendRedirect("./Course_Enrollment_Section_Page.jsp");
+                }
+                // only one section
+                else {
+                    // find the section id first
                     PreparedStatement st_4 = conn.prepareStatement("SELECT SectionId FROM Section WHERE ClassId = ?");
                     st_4.setString(1, Class_Id);
                     ResultSet rs_d = st_4.executeQuery();
-                    rs_d.next();
-                    String section_id = rs_d.getString("SectionId");
+                    if (rs_d.next()) {
+                        no_section_existed = false;
+                        String section_id = rs_d.getString("SectionId");
+//                        System.out.println(section_id);
+                        // if flexible on units
+                        if (min_units < max_units) {
+                            // direct to another page to prompt for choose of units only
+                            session.setAttribute("student_id", Student_ID);
+                            session.setAttribute("course_id", Course_ID);
+                            session.setAttribute("section_id", section_id);
+                            session.setAttribute("min_units", min_units);
+                            session.setAttribute("max_units", max_units);
+                            response.sendRedirect("./Course_Enrollment_Unit_Page.jsp");
+                        }
+                        // otherwise, just insert
+                        else {
+                            is_correct = true;
+                            // insert the enrollment
+                            PreparedStatement st = conn.prepareStatement(sql);
+                            st.setString(1, Student_ID);
+                            st.setString(2, Course_ID);
+                            st.setString(3, section_id);
+                            st.setString(4, String.valueOf(min_units));
+                            st.executeUpdate();
+                            st.close();
+                        }
+                    } else { // no section id is found
+                        no_section_existed = true;
+                        System.out.println("No such a section.");
+//                        conn.setAutoCommit(true);
+                        System.out.println("Course enrollment insert -- no data");
+                    }
                     st_4.close();
                     rs_d.close();
-
-                    // insert the enrollment
-                    PreparedStatement st = conn.prepareStatement(sql);
-                    st.setString(3, section_id);
-                    st.setString(1, Student_ID);
-                    st.setString(2, Course_ID);
-                    st.executeUpdate();
                 }
-                rs_c.close();
             }
+            st_3.close();
+            rs_c.close();
+
             ck_1.close();
             ck_2.close();
             ck_3.close();
@@ -184,15 +211,30 @@
 %>
 
 <%
-    if (is_correct) {
+    if (!is_correct) {
         if (already_existed) {
             out.println("<H3><u>The enrollment shown below already exists in the database, Please, try again</u></b>");
-        } else {
-            out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
         }
-    } else {
-        out.println("<H3><u>Either Student ID, Course ID, or corresponding section shown below does not exist in the database, Please, try again</u></b>");
+        else if (no_section_existed) {
+            out.println("<H3><u>The section ID shown below does not exists, Please, try again</u></b>");
+        }
+        else if (no_class_existed) {
+            out.println("<H3><u>The class ID shown below does not exists, Please, try again</u></b>");
+        }
+        else if (no_course_existed) {
+            out.println("<H3><u>The course ID shown below does not exists, Please, try again</u></b>");
+        }
+        else if (no_student_existed) {
+            out.println("<H3><u>The student ID shown below does not exists, Please, try again</u></b>");
+        }
     }
+    else {
+        out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
+    }
+
+//    } else {
+//        out.println("<H3><u>Either Student ID, Course ID, or corresponding section shown below does not exist in the database, Please, try again</u></b>");
+//    }
 %>
 
 <br/><br/>
