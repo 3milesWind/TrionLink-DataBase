@@ -133,11 +133,24 @@ create table Enrollment(
 	StudentId         Text Not Null,
 	CourseId          Text Not Null,
 	SectionId         Text Not Null,
-	
+	Units             Text Not Null,
 	Primary key       (StudentId, CourseId),
-  Foreign key       (StudentId) references Student,
-	Foreign key       (CourseId) references Course
+    Foreign key       (StudentId) references Student,
+	Foreign key       (CourseId) references Course,
+	Foreign key       (SectionId) references Section
 );
 
+create table ReviewSession(
+	CourseId          Text Not Null,
+    SectionId         Text Not Null,
+	Review_date       Text Not Null,
+	Start_time        Text Not Null,
+	End_time          Text Not Null,
+	Review_building   Text Not Null,
+	Review_room       Text Not Null,
+	Primary key       (CourseId, SectionId, Review_date, Start_time, End_time, Review_building, Review_room),
+	Foreign key       (CourseId) references Course,
+	Foreign key       (SectionId) references Section
+);
 
 ```
