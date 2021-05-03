@@ -50,14 +50,6 @@
         }else {
             is_correct = true;
             PreparedStatement st = conn.prepareStatement(sql);
-//            System.out.println(course_ID);
-//            System.out.println(course_name);
-//            System.out.println(department);
-//            System.out.println(prerequisites);
-//            System.out.println(grade_option);
-//            System.out.println(lab);
-//            System.out.println(min_units);
-//            System.out.println(max_units);
 
             st.setString(1, course_ID);
             st.setString(2, course_name);

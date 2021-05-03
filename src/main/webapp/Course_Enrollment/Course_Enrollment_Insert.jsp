@@ -19,6 +19,8 @@
     String Course_ID = "";
     String Quarter = "";
     String Year = "";
+    String Section_id = "";
+    String Units = "";
     boolean is_correct = false;
     boolean already_existed = false;
     boolean no_section_existed = false;
@@ -158,14 +160,13 @@
                     ResultSet rs_d = st_4.executeQuery();
                     if (rs_d.next()) {
                         no_section_existed = false;
-                        String section_id = rs_d.getString("SectionId");
-//                        System.out.println(section_id);
+                        Section_id = rs_d.getString("SectionId");
                         // if flexible on units
                         if (min_units < max_units) {
                             // direct to another page to prompt for choose of units only
                             session.setAttribute("student_id", Student_ID);
                             session.setAttribute("course_id", Course_ID);
-                            session.setAttribute("section_id", section_id);
+                            session.setAttribute("section_id", Section_id);
                             session.setAttribute("min_units", min_units);
                             session.setAttribute("max_units", max_units);
                             response.sendRedirect("./Course_Enrollment_Unit_Page.jsp");
@@ -177,7 +178,8 @@
                             PreparedStatement st = conn.prepareStatement(sql);
                             st.setString(1, Student_ID);
                             st.setString(2, Course_ID);
-                            st.setString(3, section_id);
+                            st.setString(3, Section_id);
+                            Units = String.valueOf(min_units);
                             st.setString(4, String.valueOf(min_units));
                             st.executeUpdate();
                             st.close();
@@ -231,16 +233,18 @@
     else {
         out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
     }
-
-//    } else {
-//        out.println("<H3><u>Either Student ID, Course ID, or corresponding section shown below does not exist in the database, Please, try again</u></b>");
-//    }
 %>
-
-<br/><br/>
-Student ID: <%=Student_ID%>
-<br/><br/>
+<%
+    String secID =
+%>
+<br/><br>
+Student ID: <%= Student_ID%>
+<br/><br>
 Course ID: <%=Course_ID%>
+<br/><br>
+Section ID: <%=Section_id%>
+<br/><br>
+Units: <%=Units%>
 <br/><br/>
 <a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
 <a href="./Course_Enrollment_Database.jsp"><button> Check Database </button></a>

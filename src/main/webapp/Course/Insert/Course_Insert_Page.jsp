@@ -11,7 +11,7 @@
     <title>Course Insertion</title>
 </head>
 <body>
-<h1 align="center">Faculty Insert Entry</h1>
+<h1 align="center">Course Insert Entry</h1>
 <form action="Course_Entry_Insert.jsp" method="post">
     Course ID: <input type="text" name="CourseID" required/>
     <br/> <br/>
