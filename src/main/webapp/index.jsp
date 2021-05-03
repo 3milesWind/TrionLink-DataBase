@@ -34,13 +34,25 @@ Past Courses:
 <a href="Past_Course/Past_Course_DataBase.jsp"><button>Past Course DataBase</button></a>
 <a href="Past_Course/Past_Course_Search_ByID.jsp"><button>Past Course DataBase By ID</button></a>
 <br/><br/>
-<a href="#"><button>Course Entry Form</button></a>
+Course Entry:
+<a href="Course/Insert/Course_Insert_Page.jsp"><button>Insert</button></a>
+<a href="Course/Update/Course_Update_Page.jsp"><button>Update</button></a>
+<a href="Course/Delete/Course_Delete_Page.jsp"><button>Delete</button></a>
+<a href="Course/Course_DataBase_Info.jsp"><button>Course Info Database</button></a>
 <br/><br/>
-<a href="#"><button>Class Entry Form</button></a>
+Class Entry:
+<a href="Class/Insert/Class_Insert_Page.jsp"><button>Insert</button></a>
+<a href="Class/Update/Class_Update_Page.jsp"><button>Update</button></a>
+<a href="Class/Delete/Class_Delete_Page.jsp"><button>Delete</button></a>
+<a href="Class/Class_Database_Info.jsp"><button>Class Info Database</button></a>
 <br/><br/>
-<a href="#"><button>Course Enrollment:</button></a>
+Course Enrollment:
+<a href="Course_Enrollment/Course_Enrollment_Submission.jsp"><button>Course Enrollment Submission</button></a>
+<a href="Course_Enrollment/Course_Enrollment_Database.jsp"><button>Course Enrollment Database</button></a>
 <br/><br/>
-<a href="#"><button>Review Session Info Submission</button></a>
+Review Session Info:
+<a href="Review_Session/Review_Session_Submission.jsp"><button>Review Session Submission</button></a>
+<a href="Review_Session/Review_Session_Database.jsp"><button>Database</button></a>
 <br/><br/>
 <a href="#"><button>Degree Requirements’ Info Submission</button></a>
 

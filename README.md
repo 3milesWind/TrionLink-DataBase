@@ -72,7 +72,7 @@ create table Faculty(
 	Title TEXT not null,
 	Department TEXT not null,
 	primary key(faculty_name)
-)
+);
 
 create table Thesis_committee (
 	Student_id Text not null,
@@ -81,12 +81,7 @@ create table Thesis_committee (
 	Faculty_Dep text not null,
 	Foreign Key (Student_id) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Faculty_name) references faculty(faculty_name) on Delete CASCADE on update CASCADE
-)
-
-Create Table Course(
-	Course_ID TEXT not null,
-	primary key (Course_ID)
-)
+);
 
 Create Table past_course (
 	Student_ID TEXT not NUll,
@@ -96,14 +91,78 @@ Create Table past_course (
 	Taken_Quarter TEXT not null,
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Course_ID) references course(course_id) on Delete CASCADE on update CASCADE
-)
+
+);
+
+create table Course(
+	CourseId          Text Not Null,
+	Course_name       Text Not Null,
+	Department        Text Not Null,
+	Prerequisites     Text,
+	// Units             Int
+	GradeOption       Text Not Null,
+	Lab               Text Not Null, // not sure
+	MinUnits          Int Not Null,
+	MaxUnits          Int Not Null,
+	Primary key       (CourseId),
+	Check (MinUnits <= MaxUnits)
+);
+
+create table Class(
+	ClassId           Text Not Null,  
+	CourseId          Text Not Null,
+	Title             Text Not Null,
+	Quarter           Text Not Null,
+	Year              Text Not Null,
+	NumberSec         Text Not Null,
+	Primary key       (ClassId),
+	Foreign key       (CourseId) references Course,
+	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
+);
+
+create table Section(
+	SectionId         Text Not Null,
+	ClassId           Text Not Null,
+	Quarter           Text Not Null,
+	Year              Text Not Null,
+	Instructor        Text Not Null,
+	EnrollmentLimit   Text Not Null,
+	WaitList          Text Not Null,
+	Primary key       (SectionId),
+	Foreign key       (ClassId) references class
+);
+
+create table Enrollment(
+	StudentId         Text Not Null,
+	CourseId          Text Not Null,
+	SectionId         Text Not Null,
+	Units             Text Not Null,
+	Primary key       (StudentId, CourseId),
+    Foreign key       (StudentId) references Student,
+	Foreign key       (CourseId) references Course,
+	Foreign key       (SectionId) references Section
+);
+
+create table ReviewSession(
+	CourseId          Text Not Null,
+    SectionId         Text Not Null,
+	Review_date       Text Not Null,
+	Start_time        Text Not Null,
+	End_time          Text Not Null,
+	Review_building   Text Not Null,
+	Review_room       Text Not Null,
+	Primary key       (CourseId, SectionId, Review_date, Start_time, End_time, Review_building, Review_room),
+	Foreign key       (CourseId) references Course,
+	Foreign key       (SectionId) references Section
+);
+
 
 create Table DegreeInfo(
  	Degree_Name Text not null,
 	Degree_Type text not null,
 	Total_unit int default 120,
 	primary key(Degree_Name,Degree_Type)
-)
+);
 
 Create table degreeCate (
 	degree_name text not null,
@@ -114,5 +173,6 @@ Create table degreeCate (
 	concentration text,
 	primary key(degree_name,degree_type,department),
 	Foreign Key (degree_name,degree_type) references degreeinfo(degree_name,degree_type) on Delete CASCADE on update CASCADE
-)
+);
+
 ```
