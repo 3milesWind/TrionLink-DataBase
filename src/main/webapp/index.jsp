@@ -47,8 +47,8 @@ Class:
 <a href="Class/Class_Database_Info.jsp"><button>Class Info Database</button></a>
 <br/><br/>
 Course Enrollment:
-<a href="Course_Enrollment/Course_Enrollment_Submission.jsp"><button>Course Enrollment Submission:</button></a>
-<a href="Course_Enrollment/Course_Enrollment_Database.jsp"><button>Course Enrollment Database:</button></a>
+<a href="Course_Enrollment/Course_Enrollment_Submission.jsp"><button>Course Enrollment Submission</button></a>
+<a href="Course_Enrollment/Course_Enrollment_Database.jsp"><button>Course Enrollment Database</button></a>
 <br/><br/>
 <a href="#"><button>Review Session Info Submission</button></a>
 <br/><br/>

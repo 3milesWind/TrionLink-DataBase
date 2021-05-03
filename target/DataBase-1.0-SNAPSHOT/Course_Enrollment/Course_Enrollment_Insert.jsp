@@ -19,7 +19,8 @@
     String Course_ID = "";
     String Quarter = "";
     String Year = "";
-    Boolean is_correct = false;
+    boolean is_correct = false;
+    boolean already_existed = false;
 %>
 <%
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -58,7 +59,7 @@
             ck_1.close();
             ck_2.close();
             ck_3.close();
-//            System.out.println("Course enrollment insert -- no data");
+            System.out.println("Course enrollment insert -- no data");
         }
         // course id does not exist
         else if (!rs_2.next()) {
@@ -67,7 +68,7 @@
             ck_1.close();
             ck_2.close();
             ck_3.close();
-//            System.out.println("Course enrollment insert -- no data");
+            System.out.println("Course enrollment insert -- no data");
         }
         // class id does not exist
         else if (!rs_3.next()) {
@@ -76,70 +77,96 @@
             ck_1.close();
             ck_2.close();
             ck_3.close();
-//            System.out.println("Course enrollment insert -- no data");
+            System.out.println("Course enrollment insert -- no data");
         }
-
-
-//        if (!rs_1.next() || !rs_2.next() || !rs_3.next()) {
-//            conn.setAutoCommit(true);
-//            ck_1.close();
-//            ck_2.close();
-//            ck_3.close();
-//            System.out.println("Course enrollment insert -- no data");
-//        }
         else {
             is_correct = true;
-//            PreparedStatement st = conn.prepareStatement(sql);
-//            st.setString(1, Student_ID);
-//            st.setString(2, Course_ID);
-//            st.executeUpdate();
-//            ck_1.close();
-//            ck_2.close();
-//            ck_3.close();
 
             // if info is correct, then consider next
             String find_num_sec = "SELECT ClassId, numbersec From Class WHERE CourseId = ? AND Quarter = ? AND Year = ?";
+            String find_min_max = "SELECT minunits, maxunits From Course WHERE CourseId = ?";
             conn.setAutoCommit(false);
+
             PreparedStatement st_1 = conn.prepareStatement(find_num_sec);
             st_1.setString(1, Course_ID);
             st_1.setString(2, Quarter);
             st_1.setString(3, Year);
-            ResultSet rs = st_1.executeQuery();
+            ResultSet rs_a = st_1.executeQuery();
             // use courseid, quarter, year to find numbersec in Class
-            rs.next();
-            String Class_Id = rs.getString("ClassId");
-            Integer num_sec = Integer.parseInt( rs.getString("numbersec") );
+            rs_a.next();
+            String Class_Id = rs_a.getString("ClassId");
+            Integer num_sec = Integer.parseInt( rs_a.getString("numbersec") );
+            st_1.close();
+            rs_a.close();
+
+            PreparedStatement st_2 = conn.prepareStatement(find_min_max);
+            st_2.setString(1, Course_ID);
+            ResultSet rs_b = st_2.executeQuery();
+            rs_b.next();
+            Float min_units = Float.parseFloat( rs_b.getString("minunits") );
+            Float max_units = Float.parseFloat( rs_b.getString("maxunits") );
+            st_2.close();
+            rs_b.close();
 
             System.out.println(num_sec);
+            System.out.println(min_units);
+            System.out.println(max_units);
 
-
-            st_1.close();
-            rs.close();
-            // if multiple sections (numbersec from table class)
-            if (num_sec > 1) {
-
-                // direct to another page to prompt for section id
+            // if multiple sections & flexible on units
+            if (num_sec > 1 && min_units < max_units) {
+                // direct to another page to prompt for section id and choose of units
+                session.setAttribute("student_id", Student_ID);
+                session.setAttribute("course_id", Course_ID);
+                response.sendRedirect("./Course_Enrollment_Sec_Unit_Page.jsp");
+            }
+            // if only multiple sections (numbersec from table class)
+            else if (num_sec > 1) {
+                // direct to another page to prompt for section id only
                 session.setAttribute("student_id", Student_ID);
                 session.setAttribute("course_id", Course_ID);
                 response.sendRedirect("./Course_Enrollment_Section_Page.jsp");
-                System.out.println("should direct to another page");
-            } else {
-                // find the section id
-                PreparedStatement st_2 = conn.prepareStatement("SELECT SectionId From Section WHERE ClassId = ?");
-                st_2.setString(1, Class_Id);
-                ResultSet rs_a = st_2.executeQuery();
-                rs_a.next();
-                String section_id = rs.getString("SectionId");
-                st_2.close();
-                rs_a.close();
+//                System.out.println("should direct to another page");
+            }
+            // if only flexible on units
+            else if (min_units < max_units) {
+                // direct to another page to prompt for choose of units only
+                session.setAttribute("student_id", Student_ID);
+                session.setAttribute("course_id", Course_ID);
+                response.sendRedirect("./Course_Enrollment_Unit_Page.jsp");
+            }
+            // insert into the database without directing to another page
+            else {
+                // first check if (student id, course id) already exists
+                PreparedStatement st_3 = conn.prepareStatement("SELECT * FROM Enrollment WHERE StudentId = ? AND CourseId = ?");
+                st_3.setString(1, Student_ID);
+                st_3.setString(2, Course_ID);
+                ResultSet rs_c = st_3.executeQuery();
+                // if found, then should not insert
+                if (rs_c.next()) {
+                    already_existed = true;
+                    System.out.println("Such an enrollment already exists");
+                    conn.setAutoCommit(true);
+                    st_3.close();
+                    System.out.println("Course enrollment insert -- no data");
+                } else {
+                    already_existed = false;
+                    // otherwise, find the section id and insert
+                    PreparedStatement st_4 = conn.prepareStatement("SELECT SectionId FROM Section WHERE ClassId = ?");
+                    st_4.setString(1, Class_Id);
+                    ResultSet rs_d = st_4.executeQuery();
+                    rs_d.next();
+                    String section_id = rs_d.getString("SectionId");
+                    st_4.close();
+                    rs_d.close();
 
-                // insert the enrollment
-                PreparedStatement st = conn.prepareStatement(sql);
-                st.setString(3, section_id);
-                st.setString(1, Student_ID);
-                st.setString(2, Course_ID);
-                st.executeUpdate();
-
+                    // insert the enrollment
+                    PreparedStatement st = conn.prepareStatement(sql);
+                    st.setString(3, section_id);
+                    st.setString(1, Student_ID);
+                    st.setString(2, Course_ID);
+                    st.executeUpdate();
+                }
+                rs_c.close();
             }
             ck_1.close();
             ck_2.close();
@@ -158,10 +185,24 @@
 
 <%
     if (is_correct) {
-        out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
+        if (already_existed) {
+            out.println("<H3><u>The enrollment shown below already exists in the database, Please, try again</u></b>");
+        } else {
+            out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
+        }
     } else {
         out.println("<H3><u>Either Student ID, Course ID, or corresponding section shown below does not exist in the database, Please, try again</u></b>");
     }
 %>
+
+<br/><br/>
+Student ID: <%=Student_ID%>
+<br/><br/>
+Course ID: <%=Course_ID%>
+<br/><br/>
+<a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
+<a href="./Course_Enrollment_Database.jsp"><button> Check Database </button></a>
+<a href="./../index.jsp"><button> Homepage </button></a>
+<jsp:include page="../footer.jsp"/>
 </body>
 </html>

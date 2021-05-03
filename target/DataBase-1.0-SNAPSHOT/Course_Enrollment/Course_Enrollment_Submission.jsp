@@ -18,7 +18,12 @@
     <br/> <br/>
     Course ID: <input type="text" name="CourseID" required/>
     <br/> <br/>
-    Quarter: <input type="text" name="Quarter" required/>
+    Quarter: <select name="Quarter">
+    <option>Fall</option>
+    <option>Winter</option>
+    <option>Spring</option>
+    <option>Summer</option>
+    </select>
     <br/> <br/>
     Year: <input type="text" name="Year" required/>
     <br/> <br/>
