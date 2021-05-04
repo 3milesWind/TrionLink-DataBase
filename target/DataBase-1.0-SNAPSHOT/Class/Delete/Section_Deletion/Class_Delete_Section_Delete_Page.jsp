@@ -4,14 +4,14 @@
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
-  Date: 2021/5/2
-  Time: 上午 03:29
+  Date: 2021/5/4
+  Time: 上午 01:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Course Deletion</title>
+    <title>Section Deletion</title>
 </head>
 <style>
     table {
@@ -38,15 +38,12 @@
                 Class.forName("org.postgresql.Driver");
                 Connection conn = DriverManager.getConnection(url);
                 Statement sm = conn.createStatement();
-                ResultSet st = sm.executeQuery("SELECT * FROM Course");
-                out.println("<tr><th>Course ID</th>" +
-                        "<th>Course Name</th>" +
-                        "<th>Department</th>" +
-                        "<th>Prerequisites</th>" +
-                        "<th>Grade Option</th>" +
-                        "<th>Lab</th>" +
-                        "<th>Min. Units</th>" +
-                        "<th>Max Units</th>" +
+                ResultSet st = sm.executeQuery("SELECT * FROM Section");
+                out.println("<tr><th>Section ID</th>" +
+                        "<th>Class ID</th>" +
+                        "<th>Faculty Name</th>" +
+                        "<th>Enrollment Limit</th>" +
+                        "<th>Wait List</th>" +
                         " </tr>");
                 while(st.next()) {
                     out.print("<tr><th>" + st.getString(1) + "</th>"
@@ -54,9 +51,6 @@
                             + "<th>" + st.getString(3) + "</th>"
                             + "<th>" + st.getString(4) + "</th>"
                             + "<th>" + st.getString(5) + "</th>"
-                            + "<th>" + st.getString(6) + "</th>"
-                            + "<th>" + st.getString(7) + "</th>"
-                            + "<th>" + st.getString(8) + "</th>"
                             + "</tr>");
                 }
                 sm.close();
@@ -68,9 +62,9 @@
         %>
     </table>
 </div>
-<P> Please, Input Name for Deleting Course</P>
-<form action="Course_Delete.jsp" method="post">
-    Course ID: <input type="text" name="CourseID" required/>
+<P> Please, Input Section ID for Deleting Section</P>
+<form action="Class_Delete_Section_Delete.jsp" method="post">
+    Section ID: <input type="text" name="SectionID" required/>
     <br/> <br/>
     <input type="submit" value="Submit"/>
 </form>
