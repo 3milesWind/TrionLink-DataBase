@@ -59,10 +59,42 @@
             conn.close();
 
         } catch(Exception e) {
-
+            System.out.println(e);
         }
     %>
 </table>
+<h1 align="center"> Section Database </h1>
+<table>
+    <%
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(url);
+            Statement sm = conn.createStatement();
+            ResultSet st = sm.executeQuery("SELECT * FROM Section");
+            out.println("<tr><th>Section ID</th>" +
+                    "<th>Class ID</th>" +
+                    "<th>Instructor</th>" +
+                    "<th>Enrollment Limit</th>" +
+                    "<th>Wait List</th>" +
+                    "</tr>");
+            while(st.next()) {
+                out.print("<tr><th>" + st.getString(1) + "</th>"
+                        + "<th>" + st.getString(2) + "</th>"
+                        + "<th>" + st.getString(3) + "</th>"
+                        + "<th>" + st.getString(4) + "</th>"
+                        + "<th>" + st.getString(5) + "</th>"
+                        + "</tr>");
+            }
+            sm.close();
+            st.close();
+            conn.close();
+
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    %>
+</table>
+
 <a href="../index.jsp"><button>Back to HomePage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>
