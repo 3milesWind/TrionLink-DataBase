@@ -234,9 +234,7 @@
         out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
     }
 %>
-<%
-    String secID =
-%>
+
 <br/><br>
 Student ID: <%= Student_ID%>
 <br/><br>

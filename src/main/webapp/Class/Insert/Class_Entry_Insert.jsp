@@ -22,6 +22,8 @@
     boolean class_not_exist = false;
     boolean course_not_exist = false;
     boolean dup_year_quarter = false;
+    boolean correct_num_sec = false;
+    boolean is_correct = false;
 %>
 <%
     try {
@@ -58,27 +60,50 @@
         ck_2.setString(3, course_ID);
         ResultSet rs_2 = ck_2.executeQuery();
 
+        course_not_exist = false;
+        class_not_exist = false;
+        dup_year_quarter = false;
+        correct_num_sec = true;
+        is_correct = false;
         // insert class when course is already existed
         if (!rs_1.next()) {
             course_not_exist = true;
-//            conn.setAutoCommit(true);
             ck_1.close();
+            System.out.println("no such a course");
+            System.out.println("Class insert -- no data");
+        } else if (rs.next()) {
+            ck.close();
+            System.out.println("no such a course");
             System.out.println("Class insert -- no data");
         } else {
-            course_not_exist = false;
-            if (rs.next()) {
-//                conn.setAutoCommit(true);
-                ck.close();
+            class_not_exist = true;
+            if (rs_2.next()) {
+                dup_year_quarter = true;
+                ck_2.close();
+                System.out.println("duplicate quarter and year");
                 System.out.println("Class insert -- no data");
             } else {
-                class_not_exist = true;
-                if (rs_2.next()) {
-                    dup_year_quarter = true;
-//                    conn.setAutoCommit(true);
-                    ck_2.close();
+//                dup_year_quarter = false;
+                // just before insertion, prompt for insertion of section
+                // if numbersec is larger than 0
+
+                // if numbersec is not numeric
+                if ( ! numbersec.chars().allMatch(Character::isDigit) ) {
+                    correct_num_sec = false;
+                    System.out.println("Number of sections is not numeric");
                     System.out.println("Class insert -- no data");
+                }
+                // direct to another page prompting for insertion of section
+                else if (Integer.parseInt(numbersec) > 0) {
+                    session.setAttribute("class_id", class_ID);
+                    session.setAttribute("course_id", course_ID);
+                    session.setAttribute("title", title);
+                    session.setAttribute("quarter", quarter);
+                    session.setAttribute("year", year);
+                    session.setAttribute("numbersec", numbersec);
+                    response.sendRedirect("./Class_Section_Insert_Page.jsp");
                 } else {
-                    dup_year_quarter = false;
+                    // otherwise, just insert
                     PreparedStatement st = conn.prepareStatement(sql);
                     st.setString(1, class_ID);
                     st.setString(2, course_ID);
@@ -108,6 +133,8 @@
         if (class_not_exist) {
             if (dup_year_quarter) {
                 out.println("<H3><u>The Quarter and Year of the same Course is already existed. Please, try again</u></b>");
+            } else if (! correct_num_sec) {
+                out.println("<H3><u>The number of sections is invalid. Please, try again</u></b>");
             } else {
                 out.println("<H3><u>Successful Insert new Class into the dataBase</u></b>");
             }
