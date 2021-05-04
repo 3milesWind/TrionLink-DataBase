@@ -116,19 +116,21 @@ create table Class(
 	Year              Text Not Null,
 	NumberSec         Text Not Null,
 	Primary key       (ClassId),
-	Foreign key       (CourseId) references Course,
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
 	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
 );
 
 create table Section(
 	SectionId         Text Not Null,
 	ClassId           Text Not Null,
+
 	Instructor        Text Not Null,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
 	Primary key       (SectionId),
-	Foreign key       (ClassId) references class
+	Foreign key       (ClassId) references class on Delete CASCADE on update CASCADE
 );
+
 
 create table Enrollment(
 	StudentId         Text Not Null,
@@ -136,9 +138,9 @@ create table Enrollment(
 	SectionId         Text Not Null,
 	Units             Text Not Null,
 	Primary key       (StudentId, CourseId),
-    Foreign key       (StudentId) references Student,
-	Foreign key       (CourseId) references Course,
-	Foreign key       (SectionId) references Section
+  Foreign key       (StudentId) references Student on Delete CASCADE on update CASCADE,
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
+	Foreign key       (SectionId) references Section on Delete CASCADE on update CASCADE
 );
 
 create table Meeting(
@@ -150,7 +152,7 @@ create table Meeting(
 	Meet_date         Text Not Null,
 	Meet_room         Text Not Null,
 	Primary key       (MeetingId),
-	Foreign key       (SectionId) references Section,
+	Foreign key       (SectionId) references Section on Delete CASCADE on update CASCADE,
 	Check (Meet_type IN ('LE', 'DI', 'LA'))
 );
 
