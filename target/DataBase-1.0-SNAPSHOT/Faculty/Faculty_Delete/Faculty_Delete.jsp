@@ -55,18 +55,13 @@
         System.out.println(e);
     }
 %>
-<% if(is_correct) {%>
-<h3>Successful Updated</h3>
-<br/> <br/>
-<a href="./Faculty_Delete_Page.jsp"><button> Delete More </button></a>
-<a href="../Faculty_DataBase.jsp"><button> Check Database </button></a>
-<a href="../../index.jsp"><button> Homepage</button></a>
-<jsp:include page="../../footer.jsp"/>
+<% if(is_correct == true) {%>
+<h3>Successful Delete</h3>
 <% } else {%>
 <h3>Please,check the faculty's name. And try again </h3>
-<a href="Faculty_Update_Page.jsp"><button> Re-Enter </button></a>
+<% } %>
+<a href="Faculty_Delete_Page.jsp"><button> Re-Enter </button></a>
 <a href="../../index.jsp"><button> HomePage </button></a>
 <jsp:include page="../../footer.jsp"/>
-<% } %>
 </body>
 </html>

@@ -39,7 +39,7 @@ Degree Requirements:
 <a href="./Deg_Requirement/DegreePage.jsp"><button>Degree Requirements’ Submission</button></a>
 <a href="./Deg_Requirement/DegreeCate.jsp"><button>Degree Categories’ Submission</button></a>
 <a href="./Deg_Requirement/DegreeDataBase.jsp"><button>Degree DataBase</button></a>
-
+<br/><br/>
 Course Entry:
 <a href="Course/Insert/Course_Insert_Page.jsp"><button>Insert</button></a>
 <a href="Course/Update/Course_Update_Page.jsp"><button>Update</button></a>

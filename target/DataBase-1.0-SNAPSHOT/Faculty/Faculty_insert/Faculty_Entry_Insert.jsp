@@ -36,7 +36,11 @@
         String sql_ck = "Select * from faculty where faculty_name = ?";
         conn.setAutoCommit(false);
         PreparedStatement ck = conn.prepareStatement(sql_ck);
-        name = FirstName + " " + middleName + " " + LastName;
+        if (middleName == "") {
+            name = FirstName + " " + LastName;
+        } else {
+            name = FirstName + " " + middleName + " " + LastName;
+        }
         name = name.toLowerCase();
         ck.setString(1, name);
         ResultSet st = ck.executeQuery();
