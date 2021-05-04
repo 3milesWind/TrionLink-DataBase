@@ -42,8 +42,10 @@
         ResultSet st = ck.executeQuery();
         if (st.next()) {
             ck.close();
+            System.out.println("no");
             System.out.println("Faculty is existed");
         } else {
+            System.out.println("yes");
             is_correct = true;
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,name);
