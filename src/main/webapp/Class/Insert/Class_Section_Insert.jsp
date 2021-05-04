@@ -68,7 +68,7 @@
             PreparedStatement st_sec = conn.prepareStatement(sql_insert_sec);
             st_sec.setString(1, Section_ID);
             st_sec.setString(2, Class_ID);
-            st_sec.setString(3, Instructor);
+            st_sec.setString(3, Instructor.toLowerCase());
             st_sec.setString(4, Enrollment_Limit);
             st_sec.setString(5, Wait_List);
             st_sec.executeUpdate();
