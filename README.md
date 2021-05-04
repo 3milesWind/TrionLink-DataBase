@@ -123,8 +123,6 @@ create table Class(
 create table Section(
 	SectionId         Text Not Null,
 	ClassId           Text Not Null,
-	Quarter           Text Not Null,
-	Year              Text Not Null,
 	Instructor        Text Not Null,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
@@ -143,17 +141,17 @@ create table Enrollment(
 	Foreign key       (SectionId) references Section
 );
 
-create table ReviewSession(
-	CourseId          Text Not Null,
-    SectionId         Text Not Null,
-	Review_date       Text Not Null,
-	Start_time        Text Not Null,
-	End_time          Text Not Null,
-	Review_building   Text Not Null,
-	Review_room       Text Not Null,
-	Primary key       (CourseId, SectionId, Review_date, Start_time, End_time, Review_building, Review_room),
-	Foreign key       (CourseId) references Course,
-	Foreign key       (SectionId) references Section
+create table Meeting(
+	MeetingId         Text Not Null,
+	SectionId         Text Not Null,
+	Meet_required     Text Not Null,
+	Meet_type	        Text Not Null,
+	Meet_time         Text Not Null,
+	Meet_date         Text Not Null,
+	Meet_room         Text Not Null,
+	Primary key       (MeetingId),
+	Foreign key       (SectionId) references Section,
+	Check (Meet_type IN ('LE', 'DI', 'LA'))
 );
 
 
