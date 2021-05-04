@@ -120,17 +120,18 @@ create table Class(
 	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
 );
 
+
 create table Section(
 	SectionId         Text Not Null,
 	ClassId           Text Not Null,
 
-	Instructor        Text Not Null,
+	Faculty_name TEXT not NULL,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
 	Primary key       (SectionId),
+	Foreign key       (Faculty_name) references Faculty on Delete CASCADE on update CASCADE,
 	Foreign key       (ClassId) references class on Delete CASCADE on update CASCADE
 );
-
 
 create table Enrollment(
 	StudentId         Text Not Null,
