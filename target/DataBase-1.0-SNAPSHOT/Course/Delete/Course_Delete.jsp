@@ -15,19 +15,20 @@
 </head>
 <body>
 <%!
-    String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
     String course_id = "";
     boolean is_correct = false;
 %>
 <%
     try {
+        String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
+        conn.setAutoCommit(false);
 
         course_id = request.getParameter("CourseID");
         String sql = "DELETE FROM Course WHERE CourseId = ?";
         String sql_ck = "SELECT * FROM Course WHERE CourseId = ?";
-        conn.setAutoCommit(false);
+
         PreparedStatement ck = conn.prepareStatement(sql_ck);
         ck.setString(1, course_id);
         ResultSet st = ck.executeQuery();
@@ -45,6 +46,7 @@
         conn.setAutoCommit(true);
         ck.close();
         st.close();
+        conn.close();
     } catch (Exception e) {
         System.out.println(e);
     }
@@ -58,7 +60,7 @@
     <a href="../../index.jsp"><button> Homepage</button></a>
     <jsp:include page="../../footer.jsp"/>
 <% } else {%>
-    <h3>Please,check the faculty's name. And try again </h3>
+    <h3>Please, check the course ID. And try again </h3>
     <a href="Course_Delete_Page.jsp"><button> Re-Enter </button></a>
     <a href="../../index.jsp"><button> HomePage </button></a>
     <jsp:include page="../../footer.jsp"/>
