@@ -132,6 +132,7 @@
         }
     %>
 </table>
+<br/><br/><br/>
 <a href="../index.jsp"><button>back HomePage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>

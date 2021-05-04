@@ -34,6 +34,12 @@ Past Courses:
 <a href="Past_Course/Past_Course_DataBase.jsp"><button>Past Course DataBase</button></a>
 <a href="Past_Course/Past_Course_Search_ByID.jsp"><button>Past Course DataBase By ID</button></a>
 <br/><br/>
+
+Degree Requirements:
+<a href="./Deg_Requirement/DegreePage.jsp"><button>Degree Requirements’ Submission</button></a>
+<a href="./Deg_Requirement/DegreeCate.jsp"><button>Degree Categories’ Submission</button></a>
+<a href="./Deg_Requirement/DegreeDataBase.jsp"><button>Degree DataBase</button></a>
+
 Course Entry:
 <a href="Course/Insert/Course_Insert_Page.jsp"><button>Insert</button></a>
 <a href="Course/Update/Course_Update_Page.jsp"><button>Update</button></a>
@@ -53,9 +59,8 @@ Course Enrollment:
 Review Session Info:
 <a href="Review_Session/Review_Session_Submission.jsp"><button>Review Session Submission</button></a>
 <a href="Review_Session/Review_Session_Database.jsp"><button>Database</button></a>
-<br/><br/>
-<a href="#"><button>Degree Requirements’ Info Submission</button></a>
 
+<br/><br/>
 
 </body>
 </html>

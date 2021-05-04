@@ -175,4 +175,4 @@ Create table degreeCate (
 	Foreign Key (degree_name,degree_type) references degreeinfo(degree_name,degree_type) on Delete CASCADE on update CASCADE
 );
 
-```
+
