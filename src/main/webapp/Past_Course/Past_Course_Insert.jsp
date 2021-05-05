@@ -18,7 +18,7 @@
     String quarter  = "";
     String year = "";
     String grade = "";
-    boolean is_correct = false;
+    boolean is_correct = true;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
 <%
@@ -59,6 +59,7 @@
 //        ResultSet Thesis_St = Thesis_Check.executeQuery();
 
         if (!ID_St.next()) {
+            is_correct = false;
             System.out.println("ID/Faculty does not exist");
         } else {
             /*
@@ -72,7 +73,7 @@
             ps.setString(3,Section_ID);
             ps.setString(4,time);
             ps.setString(5,grade);
-            ps.executeQuery();
+            ps.executeUpdate();
             ps.close();
         }
         ID_Check.close();
@@ -82,6 +83,7 @@
 //        Thesis_Check.close();
 //        Thesis_St.close();
     } catch (Exception e) {
+        is_correct = false;
         System.out.println(e);
     }
 %>
@@ -94,8 +96,8 @@
 <br/>
 <h3> or it may existed in our dataBase</h3>
 <% } %>
-<a href="./Thesis_Committee_Submission.jsp"><button> Enter More </button></a>
-<a href="./Thesis_Committee_DataBase.jsp"><button> Check Database </button></a>
+<a href="./Past_Course_Submission.jsp"><button> Enter More </button></a>
+<a href="./Past_Course_DataBase.jsp"><button> Check Database </button></a>
 <a href="../index.jsp"><button> Homepage</button></a>
 <jsp:include page="../footer.jsp"/>
 </body>

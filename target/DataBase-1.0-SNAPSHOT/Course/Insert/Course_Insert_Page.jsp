@@ -27,9 +27,9 @@
     Prerequisites: <input type="text" name="Prerequisites"/>
     <br/> <br/>
     Grade Option: <select name="GradeOption" required>
-    <option>P/NP</option>
     <option>Letter</option>
-    <option>P/NP or Letter</option>
+    <option>S/U</option>
+    <option>Letter or S/U</option>
     </select>
     <br/> <br/>
     Lab: <select name="Lab" required>
