@@ -31,7 +31,7 @@
         course_ID = request.getParameter("CourseID");
         course_name = request.getParameter("CourseName");
         department = request.getParameter("Department");
-        prerequisites = request.getParameter("Prerequisite");
+        prerequisites = request.getParameter("Prerequisites");
         grade_option = request.getParameter("GradeOption");
         lab = request.getParameter("Lab");
         min_units = request.getParameter("MinUnits");
