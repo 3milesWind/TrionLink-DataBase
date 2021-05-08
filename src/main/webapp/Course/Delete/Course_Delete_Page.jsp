@@ -29,7 +29,7 @@
     }
 </style>
 <body>
-<h1 align="Center">Infomation Table</h1>
+<h1 align="Center">Information Table</h1>
 <div style="height: 200px; overflow: scroll">
     <table>
         <%

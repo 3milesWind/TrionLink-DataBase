@@ -4,14 +4,14 @@
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
-  Date: 2021/5/3
-  Time: 下午 08:54
+  Date: 2021/5/4
+  Time: 上午 01:20
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Section Insertion</title>
+    <title>Section Deletion</title>
 </head>
 <style>
     table {
@@ -29,7 +29,7 @@
     }
 </style>
 <body>
-<h1 align="Center">Infomation Table</h1>
+<h1 align="Center">Information Table</h1>
 <div style="height: 200px; overflow: scroll">
     <table>
         <%
@@ -38,15 +38,19 @@
                 Class.forName("org.postgresql.Driver");
                 Connection conn = DriverManager.getConnection(url);
                 Statement sm = conn.createStatement();
-                ResultSet st = sm.executeQuery("SELECT * FROM Faculty");
-                out.println("<tr><th>Faculty Name</th>" +
-                        "<th>Tile</th>" +
-                        "<th>Department</th>" +
+                ResultSet st = sm.executeQuery("SELECT * FROM Section");
+                out.println("<tr><th>Section ID</th>" +
+                        "<th>Class ID</th>" +
+                        "<th>Faculty Name</th>" +
+                        "<th>Enrollment Limit</th>" +
+                        "<th>Wait List</th>" +
                         " </tr>");
                 while(st.next()) {
                     out.print("<tr><th>" + st.getString(1) + "</th>"
                             + "<th>" + st.getString(2) + "</th>"
                             + "<th>" + st.getString(3) + "</th>"
+                            + "<th>" + st.getString(4) + "</th>"
+                            + "<th>" + st.getString(5) + "</th>"
                             + "</tr>");
                 }
                 sm.close();
@@ -58,19 +62,9 @@
         %>
     </table>
 </div>
-Keep working on one more step to finish
-<%! String Class_ID = "" ;%>
-<%  Class_ID = (String)session.getAttribute("class_id");%>
-<form action="Class_Section_Insert.jsp" method="post">
+<P> Please, Input Section ID for Deleting Section</P>
+<form action="Class_Delete_Section_Delete.jsp" method="post">
     Section ID: <input type="text" name="SectionID" required/>
-    <br/> <br/>
-    Class ID: <input type="text" value="<%=Class_ID%>" name="ClassID" readonly/>
-    <br/> <br/>
-    Instructor: <input type="text" name="Instructor" required/>
-    <br/> <br/>
-    Enrollment Limit: <input type="text" name="EnrollmentLimit" required/>
-    <br/> <br/>
-    Wait list: <input type="text" name="WaitList" required/>
     <br/> <br/>
     <input type="submit" value="Submit"/>
 </form>

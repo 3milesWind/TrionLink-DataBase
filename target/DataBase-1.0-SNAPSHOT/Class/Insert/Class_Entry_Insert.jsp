@@ -151,6 +151,7 @@ Course ID: <%=course_ID%>
 <br/><br/>
 Title: <%=title%>
 <br/><br/>
+<a href="Class_Insert_Page.jsp"><button> Resubmit Again </button></a>
 <a href="../Class_Database_Info.jsp"><button> Check Database </button></a>
 <a href="./../../index.jsp"><button> Homepage </button></a>
 <jsp:include page="../../footer.jsp"/>

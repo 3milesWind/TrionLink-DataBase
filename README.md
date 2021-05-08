@@ -14,6 +14,21 @@ String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4
    并未检查courseID的正确和SectionID的正确
 3. 完成基本功能Past_course
 ```
+```MD
+- General
+1. attributes(ex. year, units, enrollmentlimit,
+waitlist): should check if numeric (但我還沒catch error)
+
+- Course
+1. table 會check minunits <= maxunits, 
+但是我沒有catch error, 所以insert invalid values
+會報錯
+2. should check if minunits & maxunits are numeric
+
+- Section
+1. CSE 132A and CSE 132B can both have section A00.
+--> should change primary key (not done yet)
+```
 
 ```sql
 
@@ -120,17 +135,18 @@ create table Class(
 	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
 );
 
+
 create table Section(
 	SectionId         Text Not Null,
 	ClassId           Text Not Null,
 
-	Instructor        Text Not Null,
+	Faculty_name TEXT not NULL,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
 	Primary key       (SectionId),
+	Foreign key       (Faculty_name) references Faculty on Delete CASCADE on update CASCADE,
 	Foreign key       (ClassId) references class on Delete CASCADE on update CASCADE
 );
-
 
 create table Enrollment(
 	StudentId         Text Not Null,
