@@ -60,7 +60,7 @@
     }
 
 %>
-<% if(!is_correct) { %>
+<% if(is_correct == false) { %>
 <H3><u>The PID does not exist, Please, try again</u></h3>
 <br/> <br/>
 <a href="./../../index.jsp"><button> homepage </button></a>
