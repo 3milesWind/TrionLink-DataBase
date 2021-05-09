@@ -61,6 +61,6 @@ Review Session Info:
 <a href="Review_Session/Review_Session_Database.jsp"><button>Database</button></a>
 
 <br/><br/>
-
+<a href="./index.jsp"><button>Homepage</button></a>
 </body>
 </html>

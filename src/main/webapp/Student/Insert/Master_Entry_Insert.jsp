@@ -46,7 +46,7 @@ Student ID: <%= Student_ID%>
 <br/><br>
 <H3>Successfully inserted</H3>
 <a href="../Student_DataBase_Info.jsp"><button> Check Database </button></a>
-<a href="./../../index.jsp"><button> homepage </button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="../../footer.jsp"/>
 </body>
 </html>

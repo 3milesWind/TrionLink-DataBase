@@ -98,7 +98,7 @@
 <% } %>
 <a href="./Past_Course_Submission.jsp"><button> Enter More </button></a>
 <a href="./Past_Course_DataBase.jsp"><button> Check Database </button></a>
-<a href="../index.jsp"><button> Homepage</button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="../footer.jsp"/>
 </body>
 </html>

@@ -85,7 +85,7 @@
     %>
 </table>
 <%}%>
-<a href="../../index.jsp"><button>HomePage</button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <a href="./DeleteByStudentID.jsp"><button> Delete more </button></a>
 <a href="../Student_DataBase_Info.jsp"><button> More detail </button></a>
 <jsp:include page="../../footer.jsp"/>

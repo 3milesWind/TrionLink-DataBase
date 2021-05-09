@@ -36,7 +36,6 @@
         lab = request.getParameter("Lab");
         min_units = request.getParameter("MinUnits");
         max_units = request.getParameter("MaxUnits");
-
         String sql = "INSERT INTO Course VALUES (?,?,?,?,?,?,?,?)";
         String sql_ck = "SELECT * FROM Course WHERE CourseId = ?";
         conn.setAutoCommit(false);
