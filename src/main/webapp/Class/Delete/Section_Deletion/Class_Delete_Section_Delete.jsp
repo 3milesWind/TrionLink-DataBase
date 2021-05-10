@@ -20,10 +20,7 @@
 %>
 <%
     try {
-        String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
-        Class.forName("org.postgresql.Driver");
-        Connection conn = DriverManager.getConnection(url);
-        conn.setAutoCommit(false);
+
 
         section_id = request.getParameter("SectionID");
         String sql_ck = "SELECT * FROM Section WHERE SectionId = ?";
