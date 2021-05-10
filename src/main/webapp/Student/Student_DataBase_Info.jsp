@@ -17,12 +17,8 @@
         width: 100%;
     }
     td, th {
-        border: 1px solid #dddddd;
+        border: 1px solid black;
         text-align: left;
-        padding: 5px;
-    }
-    tr:nth-child(even) {
-        background-color: #dddddd;
     }
 </style>
 <body>
@@ -133,7 +129,7 @@
     %>
 </table>
 <br/><br/><br/>
-<a href="../index.jsp"><button>back HomePage</button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>
 </html>

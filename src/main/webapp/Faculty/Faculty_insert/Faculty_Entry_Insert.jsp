@@ -69,11 +69,12 @@
 <h3>Successfully inserted the information of faculty </h3>
 <a href="./Faculty_Insert_Page.jsp"><button> Enter More </button></a>
 <a href="../Faculty_DataBase.jsp"><button> Check Database </button></a>
-<a href="../../index.jsp"><button> Homepage</button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="../../footer.jsp"/>
 <% } else {%>
 <h3>Please,check the faculty's name. And try again </h3>
 <a href="Faculty_Insert_Page.jsp"><button> Re-Enter </button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="../../footer.jsp"/>
 <% } %>
 </body>

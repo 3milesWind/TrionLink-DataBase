@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AmberWang
-  Date: 2021/5/10
-  Time: 上午 08:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -77,3 +70,4 @@ Review Session Info:
 <a href="./index.jsp"><button>Homepage</button></a>
 </body>
 </html>
+

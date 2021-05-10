@@ -19,7 +19,7 @@ Keep working on one more step to finish
     <br/> <br/>
     Type: <select name="Type">
     <option>5-year BS/MS</option>
-    <option>BS/Ms</option>
+    <option>Master</option>
     </select>
     <br/> <br/>
     Department: <select name="Department">
