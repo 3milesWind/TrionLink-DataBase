@@ -70,11 +70,12 @@
 <% if(is_correct) {%>
 <h3> Successfully, add information into probation database </h3>>
 <a href="./Probation_find_ID.jsp"><button> Check Probation  </button></a>
-<a href="../../index.jsp"><button> homepage </button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="../footer.jsp"/>
 <% } else { %>
 <h3> The id/time you enter may not correct, Please Try again </h3>>
 <a href="./Probation_Entry_Submission.jsp"><button> Probation Page </button></a>
+<a href="../../insertPage.jsp"><button> Homepage</button></a>
 <% } %>
 </body>
 </html>

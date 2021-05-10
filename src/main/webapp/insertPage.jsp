@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: AmberWang
-  Date: 2021/5/10
-  Time: 上午 08:45
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html>
@@ -59,12 +52,14 @@ Class Entry:
 <a href="Class/Delete/Class_Delete_Page.jsp"><button>Delete</button></a>
 <a href="Class/Class_Database_Info.jsp"><button>Class Info Database</button></a>
 <br/><br/>
+
 Section Entry:
 <a href="Section/Insert/Section_Insert_Page.jsp"><button>Insert</button></a>
 <a href="Section/Update/Section_Update_Page.jsp"><button>Update</button></a>
 <a href="Section/Delete/Section_Delete_Page.jsp"><button>Delete</button></a>
 <a href="Section/Section_Database_Info.jsp"><button>Section Info Database</button></a>
 <br/><br/>
+
 Course Enrollment:
 <a href="Course_Enrollment/Course_Enrollment_Submission.jsp"><button>Course Enrollment Submission</button></a>
 <a href="Course_Enrollment/Course_Enrollment_Database.jsp"><button>Course Enrollment Database</button></a>
@@ -77,3 +72,4 @@ Review Session Info:
 <a href="./index.jsp"><button>Homepage</button></a>
 </body>
 </html>
+
