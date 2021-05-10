@@ -53,7 +53,7 @@
         ck.setString(1, class_ID);
         ResultSet rs = ck.executeQuery();
 
-        // check if quarter & year are duplicate
+        // check if course ID & quarter & year are duplicate
         PreparedStatement ck_2 = conn.prepareStatement(sql_ck_2);
         ck_2.setString(1, quarter);
         ck_2.setString(2, year);
@@ -68,41 +68,21 @@
         // insert class when course is already existed
         if (!rs_1.next()) {
             course_not_exist = true;
-            ck_1.close();
-            System.out.println("no such a course");
-            System.out.println("Class insert -- no data");
+            System.out.println("Class insert -- no such a course");
         } else if (rs.next()) {
-            ck.close();
-            System.out.println("no such a course");
-            System.out.println("Class insert -- no data");
+            System.out.println("Class insert -- duplicate class");
         } else {
             class_not_exist = true;
             if (rs_2.next()) {
                 dup_year_quarter = true;
-                ck_2.close();
-                System.out.println("duplicate quarter and year");
-                System.out.println("Class insert -- no data");
+                System.out.println("Class insert -- duplicate quarter and year of same course");
             } else {
-//                dup_year_quarter = false;
-                // just before insertion, prompt for insertion of section
-                // if numbersec is larger than 0
-
                 // if numbersec is not numeric
-                if ( ! numbersec.chars().allMatch(Character::isDigit) ) {
+                if ( (! numbersec.chars().allMatch(Character::isDigit)) || (Integer.parseInt(numbersec) <= 0) ) {
                     correct_num_sec = false;
-                    System.out.println("Number of sections is not numeric");
-                    System.out.println("Class insert -- no data");
+                    System.out.println("Class insert -- Number of sections is not numeric or not larger than 0");
                 }
-                // direct to another page prompting for insertion of section
-                else if (Integer.parseInt(numbersec) > 0) {
-                    session.setAttribute("class_id", class_ID);
-                    session.setAttribute("course_id", course_ID);
-                    session.setAttribute("title", title);
-                    session.setAttribute("quarter", quarter);
-                    session.setAttribute("year", year);
-                    session.setAttribute("numbersec", numbersec);
-                    response.sendRedirect("./Class_Section_Insert_Page.jsp");
-                } else {
+                else {
                     // otherwise, just insert
                     PreparedStatement st = conn.prepareStatement(sql);
                     st.setString(1, class_ID);
@@ -116,10 +96,11 @@
                 }
             }
         }
-
+        rs_1.close();
+        rs.close();
+        rs_2.close();
         conn.commit();
         conn.setAutoCommit(true);
-        rs.close();
         conn.close();
     } catch (Exception e) {
         System.out.println(e);
@@ -134,7 +115,7 @@
             if (dup_year_quarter) {
                 out.println("<H3><u>The Quarter and Year of the same Course is already existed. Please, try again</u></b>");
             } else if (! correct_num_sec) {
-                out.println("<H3><u>The number of sections is invalid. Please, try again</u></b>");
+                out.println("<H3><u>The number of sections is invalid (Either not numeric or not larger than 0). Please, try again</u></b>");
             } else {
                 out.println("<H3><u>Successful Insert new Class into the dataBase</u></b>");
             }

@@ -5,11 +5,11 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1 align="center"><%= "CSE132B Demo" %> </h1>
-<br/>
-Select the Entry you want to go
-<br/><br/>
-<a href="insertPage.jsp"><button>Insert Entry</button></a>
-<a href="report.jsp"><button>Report</button></a>
+    <h1 align="center"><%= "CSE132B Demo" %> </h1>
+    <br/>
+    Select the Entry you want to go
+    <br/><br/>
+    <a href="insertPage.jsp"><button>Insert Entry</button></a>
+    <a href="report.jsp"><button>Report</button></a>
 </body>
 </html>

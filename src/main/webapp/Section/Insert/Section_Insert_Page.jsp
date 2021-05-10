@@ -4,8 +4,8 @@
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
-  Date: 2021/5/3
-  Time: 下午 08:54
+  Date: 2021/5/10
+  Time: 上午 01:13
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -58,19 +58,20 @@
         %>
     </table>
 </div>
-Keep working on one more step to finish
-<%! String Class_ID = "" ;%>
-<%  Class_ID = (String)session.getAttribute("class_id");%>
-<form action="Class_Section_Insert.jsp" method="post">
+<h1 align="center">Section Insert Entry</h1>
+<form action="Section_Insert.jsp" method="post">
+    <br/> <br/>
+    Course ID: <input type="text" name="CourseID" required/>
+    <br/> <br/>
+    Class ID: <input type="text" name="ClassID" required/>
+    <br/> <br/>
     Section ID: <input type="text" name="SectionID" required/>
     <br/> <br/>
-    Class ID: <input type="text" value="<%=Class_ID%>" name="ClassID" readonly/>
-    <br/> <br/>
-    Instructor: <input type="text" name="Instructor" required/>
+    Faculty Name: <input type="text" name="FacultyName" required/>
     <br/> <br/>
     Enrollment Limit: <input type="text" name="EnrollmentLimit" required/>
     <br/> <br/>
-    Wait list: <input type="text" name="WaitList" required/>
+    Wait List: <input type="text" name="WaitList" required/>
     <br/> <br/>
     <input type="submit" value="Submit"/>
 </form>

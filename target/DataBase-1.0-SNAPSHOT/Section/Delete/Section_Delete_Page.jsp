@@ -4,14 +4,14 @@
 <%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
-  Date: 2021/5/2
-  Time: 上午 10:38
+  Date: 2021/5/10
+  Time: 上午 01:12
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Class Deletion</title>
+    <title>Section Deletion</title>
 </head>
 <style>
     table {
@@ -30,7 +30,7 @@
 </style>
 <body>
     <h1 align="Center">Information Table</h1>
-    <div style="...">
+    <div style="height: 200px; overflow: scroll">
         <table>
             <%
                 try {
@@ -38,13 +38,13 @@
                     Class.forName("org.postgresql.Driver");
                     Connection conn = DriverManager.getConnection(url);
                     Statement sm = conn.createStatement();
-                    ResultSet st = sm.executeQuery("SELECT * FROM Class");
-                    out.println("<tr><th>Class ID</th>" +
-                            "<th>Course ID</th>" +
-                            "<th>Title</th>" +
-                            "<th>Quarter</th>" +
-                            "<th>Year</th>" +
-                            "<th>Number of Sections</th>" +
+                    ResultSet st = sm.executeQuery("SELECT * FROM Section");
+                    out.println("<tr><th>Course ID</th>" +
+                            "<th>Class ID</th>" +
+                            "<th>Section ID</th>" +
+                            "<th>Faculty Name</th>" +
+                            "<th>Enrollment Limit</th>" +
+                            "<th>Wait List</th>" +
                             " </tr>");
                     while(st.next()) {
                         out.print("<tr><th>" + st.getString(1) + "</th>"
@@ -64,12 +64,14 @@
             %>
         </table>
     </div>
-    <P> Please, Input Class ID for Deleting Class</P>
-    <form action="Class_Delete.jsp" method="post">
+    <P> Please, Input Section ID for Deleting Section</P>
+    <form action="Section_Delete.jsp" method="post">
         <br/> <br/>
-        Class ID: <input type="text" name="ClassID" required/>
+        Course ID: <input type="text" name="CourseID" required/>
         <br/> <br/>
-        <input type="submit" value="Submit" />
+        Section ID: <input type="text" name="SectionID" required/>
+        <br/> <br/>
+        <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>
