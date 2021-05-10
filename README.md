@@ -25,9 +25,9 @@ waitlist): should check if numeric (但我還沒catch error)
 會報錯
 2. should check if minunits & maxunits are numeric
 
-- Section
-1. CSE 132A and CSE 132B can both have section A00.
---> should change primary key (not done yet)
+- updated table creation code
+1. Since I modified enrollment & meeting table, there might be errors
+while testing the corresponding parts.
 ```
 
 ```sql
@@ -137,15 +137,16 @@ create table Class(
 
 
 create table Section(
+	CourseId          Text Not Null,
+	ClassId           Text Not Null,	
 	SectionId         Text Not Null,
-	ClassId           Text Not Null,
-
 	Faculty_name TEXT not NULL,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
-	Primary key       (SectionId),
+	Primary key       (CourseId, SectionId),
 	Foreign key       (Faculty_name) references Faculty on Delete CASCADE on update CASCADE,
-	Foreign key       (ClassId) references class on Delete CASCADE on update CASCADE
+	Foreign key       (ClassId) references class on Delete CASCADE on update CASCADE,
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE
 );
 
 create table Enrollment(
@@ -154,21 +155,22 @@ create table Enrollment(
 	SectionId         Text Not Null,
 	Units             Text Not Null,
 	Primary key       (StudentId, CourseId),
-  Foreign key       (StudentId) references Student on Delete CASCADE on update CASCADE,
+    Foreign key       (StudentId) references Student on Delete CASCADE on update CASCADE,
 	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
-	Foreign key       (SectionId) references Section on Delete CASCADE on update CASCADE
+	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
 );
 
 create table Meeting(
+	CourseId          Text Not Null,
+	SectionId         Text Not Null,	
 	MeetingId         Text Not Null,
-	SectionId         Text Not Null,
 	Meet_required     Text Not Null,
-	Meet_type	        Text Not Null,
+	Meet_type	      Text Not Null,
 	Meet_time         Text Not Null,
 	Meet_date         Text Not Null,
 	Meet_room         Text Not Null,
 	Primary key       (MeetingId),
-	Foreign key       (SectionId) references Section on Delete CASCADE on update CASCADE,
+	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE,
 	Check (Meet_type IN ('LE', 'DI', 'LA'))
 );
 
