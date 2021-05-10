@@ -17,12 +17,12 @@ String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4
 ```MD
 - General
 1. attributes(ex. year, units, enrollmentlimit,
-waitlist): should check if numeric (但我還沒catch error)
+waitlist): should check if numeric (but not yet)
 
 - Course
-1. table 會check minunits <= maxunits, 
-但是我沒有catch error, 所以insert invalid values
-會報錯
+1. table should check minunits <= maxunits, 
+but I didn't catch error, so insert invalid values
+might mess up
 2. should check if minunits & maxunits are numeric
 
 - updated table creation code
