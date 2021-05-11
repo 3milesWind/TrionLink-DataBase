@@ -25,6 +25,9 @@ but I didn't catch error, so insert invalid values
 might mess up
 2. should check if minunits & maxunits are numeric
 
+- Section
+1. check if enrollmentlimit and waitlist are numeric
+
 - updated table creation code
 1. Since I modified enrollment & meeting table, there might be errors
 while testing the corresponding parts.
