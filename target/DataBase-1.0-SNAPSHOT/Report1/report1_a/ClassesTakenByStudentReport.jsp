@@ -90,8 +90,8 @@
     out.print("<h3>" + wrong + "</h3>");
 }%>
 <br/><br/>
-<a href="./../report.jsp"><button> Homepage </button></a>
-<a href="./ClassesTakenByStudent.jsp"><button> Check Others </button></a>
-<jsp:include page="../footer.jsp"/>
+<a href="../../report.jsp"><button> Homepage </button></a>
+<a href="ClassesTakenByStudent.jsp"><button> Check Others </button></a>
+<jsp:include page="../../footer.jsp"/>
 </body>
 </html>

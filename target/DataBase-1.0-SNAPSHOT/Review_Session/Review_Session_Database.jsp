@@ -34,12 +34,14 @@
             Connection conn = DriverManager.getConnection(url);
             Statement sm = conn.createStatement();
             ResultSet st = sm.executeQuery("SELECT * FROM Meeting");
-            out.println("<tr><th>Meeting ID</th>"
+            out.println("<tr><th>Course ID</th>"
                         + "<th>Section ID</th>"
+                        + "<th>Meeting ID</th>"
                         + "<th>Required</th>"
                         + "<th>Type</th>"
+                        + "<th>Start Date</th>"
+                        + "<th>End Date</th>"
                         + "<th>Time</th>"
-                        + "<th>Date</th>"
                         + "<th>Room</th>"
                         + "</tr>");
             while(st.next()) {
