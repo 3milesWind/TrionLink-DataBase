@@ -11,7 +11,7 @@
     <title>Weekly Meeting Submission</title>
 </head>
 <body>
-    <h1 align="center">Review Session Insert Entry</h1>
+    <h1 align="center">Weekly Meeting Insert Entry</h1>
     <form action="Meeting_Insert.jsp" method="post">
         Course ID: <input type="text" name="CourseID" required/>
         <br/> <br/>

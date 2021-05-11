@@ -20,7 +20,6 @@
         String meeting_ID = "";
         String required = "";
         String type = "";
-//        String day[];
         String start_time = "";
         String end_time = "";
         String room = "";
