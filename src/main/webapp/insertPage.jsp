@@ -69,6 +69,7 @@ Review Session Info:
 <a href="Review_Session/Update/Review_Session_Update_Page.jsp"><button>Update</button></a>
 <a href="Review_Session/Delete/Review_Session_Delete_Page.jsp"><button>Delete</button></a>
 <a href="Review_Session/Review_Session_Database.jsp"><button>Database</button></a>
+<br/><br/>
 Meeting Info:
 <a href="Weekly_Meeting/Insert/Meeting_Insert_Page.jsp"><button>Insert</button></a>
 <a href="Weekly_Meeting/Update/Meeting_Update_Page.jsp"><button>Update</button></a>

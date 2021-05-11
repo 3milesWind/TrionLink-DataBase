@@ -119,8 +119,8 @@ Date: <%=date%>
 Room: <%=room%>
 <br/><br/>
 <a href="Review_Session_Submission.jsp"><button> Submit again </button></a>
-<a href="./Review_Session_Database.jsp"><button> Check Database </button></a>
-<a href="./../index.jsp"><button> Homepage </button></a>
-<jsp:include page="../footer.jsp"/>
+<a href="../Review_Session_Database.jsp"><button> Check Database </button></a>
+<a href="../../index.jsp"><button> Homepage </button></a>
+<jsp:include page="../../footer.jsp"/>
 </body>
 </html>
