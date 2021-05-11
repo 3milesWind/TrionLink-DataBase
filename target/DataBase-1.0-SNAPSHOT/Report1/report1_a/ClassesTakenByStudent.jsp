@@ -59,7 +59,7 @@
     <input name="ssn" type="text"/>
     <input type="submit" value="Submit" />
 </form>
-<a href="./../report.jsp"><button> Homepage </button></a>
-<jsp:include page="../footer.jsp"/>
+<a href="../../report.jsp"><button> Homepage </button></a>
+<jsp:include page="../../footer.jsp"/>
 </body>
 </html>
