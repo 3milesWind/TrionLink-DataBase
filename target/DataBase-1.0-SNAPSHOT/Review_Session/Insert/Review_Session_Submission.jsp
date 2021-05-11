@@ -13,24 +13,17 @@
 <body>
     <h1 align="center">Review Session Insert Entry</h1>
     <form action="Review_Session_Insert.jsp" method="post">
-        Meeting ID: <input type="text" name="MeetingID" required/>
+        Course ID: <input type="text" name="CourseID" required/>
         <br/> <br/>
         Section ID: <input type="text" name="SectionID" required/>
         <br/> <br/>
-        Required: <select name="Required" required>
-        <option>Yes</option>
-        <option>No</option>
-        </select>
-        <br/> <br/>
-        Type: <select name="Type" required>
-        <option>LE</option>
-        <option>DI</option>
-        <option>LA</option>
-        </select>
-        <br/> <br/>
-        Time: <input type="text" name="Time" required/>
+        Review ID: <input type="text" name="ReviewID" required/>
         <br/> <br/>
         Date: <input type="text" name="Date" required/>
+        <br/> <br/>
+        Start Time: <input type="text" name="StartTime" required/>
+        <br/> <br/>
+        End Time: <input type="text" name="EndTime" required/>
         <br/> <br/>
         Room: <input type="text" name="Room" required/>
         <br/> <br/>

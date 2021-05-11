@@ -106,6 +106,8 @@
             conn.setAutoCommit(true);
             rs_1.close();
             rs_2.close();
+            ck_1.close();
+            ck_2.close();
             conn.close();
         } catch (Exception e) {
             System.out.println(e);

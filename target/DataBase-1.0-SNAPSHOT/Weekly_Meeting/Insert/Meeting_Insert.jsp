@@ -20,7 +20,6 @@
         String meeting_ID = "";
         String required = "";
         String type = "";
-//        String day[];
         String start_time = "";
         String end_time = "";
         String room = "";
@@ -86,23 +85,18 @@
                     System.out.println("Meeting insert -- start time later than end time");
                 } else {
                     // if all correct, then insert
-                    System.out.println("asdasdas-88");
                     String days = String.join(",", day);
                     String sql_insert = "INSERT INTO Meeting VALUES (?,?,?,?,?,?,?,?,?)";
-                    System.out.println("asdasdas-92");
                     PreparedStatement st = conn.prepareStatement(sql_insert);
                     st.setString(1, course_ID);
                     st.setString(2, section_ID);
                     st.setString(3, meeting_ID);
                     st.setString(4, required);
                     st.setString(5, type);
-                    System.out.println("asdasdas-99");
-                    st.setString(6, String.valueOf(days));
-                    System.out.println("asdasdas-101");
+                    st.setString(6, days);
                     st.setString(7, start_time);
                     st.setString(8, end_time);
                     st.setString(9, room);
-                    System.out.println("asdasdas");
                     st.executeUpdate();
                     st.close();
                 }
@@ -112,6 +106,8 @@
             conn.setAutoCommit(true);
             rs_1.close();
             rs_2.close();
+            ck_1.close();
+            ck_2.close();
             conn.close();
         } catch (Exception e) {
             System.out.println(e);
