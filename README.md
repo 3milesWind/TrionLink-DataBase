@@ -143,7 +143,7 @@ create table Section(
 	CourseId          Text Not Null,
 	ClassId           Text Not Null,	
 	SectionId         Text Not Null,
-	Faculty_name TEXT not NULL,
+	Faculty_name      TEXT not NULL,
 	EnrollmentLimit   Text Not Null,
 	WaitList          Text Not Null,
 	Primary key       (CourseId, SectionId),
@@ -169,14 +169,27 @@ create table Meeting(
 	MeetingId         Text Not Null,
 	Meet_required     Text Not Null,
 	Meet_type	      Text Not Null,
-	Meet_time         Text Not Null,
-	Meet_date         Text Not Null,
+	Meet_day          Text Not Null,
+	Start_time        Text Not Null,
+	End_time          Text Not Null,
 	Meet_room         Text Not Null,
 	Primary key       (MeetingId),
 	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE,
 	Check (Meet_type IN ('LE', 'DI', 'LA'))
 );
 
+create table ReviewSession(
+	CourseId          Text Not Null,
+  SectionId         Text Not Null,
+  ReviewId          Text Not Null,
+	Review_date       Text Not Null,
+	Start_time        Text Not Null,
+	End_time          Text Not Null,
+	Review_room       Text Not Null,
+	Primary key       (ReviewId),
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
+	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
+);
 
 create Table DegreeInfo(
  	Degree_Name Text not null,
