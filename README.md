@@ -9,10 +9,57 @@ password: 4645<br/>
 String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 ```
 ```MD
-1. Past_course 目前只连接了course,section并未链接.
-2. Past_course condition check 只对student ID做了
-   并未检查courseID的正确和SectionID的正确
-3. 完成基本功能Past_course
+## 我update Degree, concenration, past_course, Grade_conversion -- checkout 
+下面是我修改过的Sql,我也update到总的sql 文档哪里儿！
+删掉了旧的degree 我重新按照database写了一个  外加 concentration，GRADE_CONVERSION 这两个table
+```
+```sql
+create Table Degree(
+ 	Degree_Name Text not null,
+	Degree_Type text not null,
+	Department text not null,
+	Total_unit int default 0,
+	lowerDivisionUnit int default 0,
+	UpperDivisionUnit int default 0,
+	ElectiveUnit int default 0,
+	primary key(Degree_Name,Degree_Type)
+);
+create table concentration (
+	concen_Name text not null,
+	Degree_Name Text not null,
+	Degree_Type text not null,
+	courses text not null,
+	elective text not null,
+	minGPA DECIMAL default 2.0,
+	minUnit int default 0,
+	primary key(concen_Name,degree_name,degree_type),
+	Foreign Key (degree_name,degree_type) references degree(degree_name,degree_type) on Delete CASCADE on update CASCADE
+)
+Create Table past_course (
+	Student_ID TEXT not NUll,
+	Course_ID TEXT not null,
+	Units int default 2,
+	Grade TEXT not null,
+	Taken_Quarter TEXT not null,
+	primary key(Student_ID,Course_ID),
+	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
+	Foreign Key (Course_ID) references course(courseid) on Delete CASCADE on update CASCADE
+
+);
+create table GRADE_CONVERSION(
+      LETTER_GRADE CHAR(2) NOT NULL,
+      NUMBER_GRADE DECIMAL(2,1)
+ );
+ insert into grade_conversion values('A+', 4.3);
+ insert into grade_conversion values('A', 4);
+ insert into grade_conversion values('A-', 3.7);
+ insert into grade_conversion values('B+', 3.4);
+ insert into grade_conversion values('B', 3.1);
+ insert into grade_conversion values('B-', 2.8);
+ insert into grade_conversion values('C+', 2.5);
+ insert into grade_conversion values('C', 2.2);
+ insert into grade_conversion values('C-', 1.9);
+ insert into grade_conversion values('D', 1.6)
 ```
 ```MD
 - General
@@ -104,13 +151,51 @@ create table Thesis_committee (
 Create Table past_course (
 	Student_ID TEXT not NUll,
 	Course_ID TEXT not null,
-	Section_ID TEXT not Null,
+	Units int default 2,
 	Grade TEXT not null,
 	Taken_Quarter TEXT not null,
+	primary key(Student_ID,Course_ID),
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
-	Foreign Key (Course_ID) references course(course_id) on Delete CASCADE on update CASCADE
+	Foreign Key (Course_ID) references course(courseid) on Delete CASCADE on update CASCADE
 
 );
+
+create table concentration (
+	concen_Name text not null,
+	Degree_Name Text not null,
+	Degree_Type text not null,
+	courses text not null,
+	elective text not null,
+	minGPA DECIMAL default 2.0,
+	minUnit int default 0,
+	primary key(concen_Name,degree_name,degree_type),
+	Foreign Key (degree_name,degree_type) references degree(degree_name,degree_type) on Delete CASCADE on update CASCADE
+)
+create Table Degree(
+ 	Degree_Name Text not null,
+	Degree_Type text not null,
+	Department text not null,
+	Total_unit int default 0,
+	lowerDivisionUnit int default 0,
+	UpperDivisionUnit int default 0,
+	ElectiveUnit int default 0,
+	primary key(Degree_Name,Degree_Type)
+);
+
+create table GRADE_CONVERSION(
+      LETTER_GRADE CHAR(2) NOT NULL,
+      NUMBER_GRADE DECIMAL(2,1)
+ );
+ insert into grade_conversion values('A+', 4.3);
+ insert into grade_conversion values('A', 4);
+ insert into grade_conversion values('A-', 3.7);
+ insert into grade_conversion values('B+', 3.4);
+ insert into grade_conversion values('B', 3.1);
+ insert into grade_conversion values('B-', 2.8);
+ insert into grade_conversion values('C+', 2.5);
+ insert into grade_conversion values('C', 2.2);
+ insert into grade_conversion values('C-', 1.9);
+ insert into grade_conversion values('D', 1.6)
 
 create table Course(
 	CourseId          Text Not Null,
@@ -189,24 +274,6 @@ create table ReviewSession(
 	Primary key       (ReviewId),
 	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
 	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
-);
-
-create Table DegreeInfo(
- 	Degree_Name Text not null,
-	Degree_Type text not null,
-	Total_unit int default 120,
-	primary key(Degree_Name,Degree_Type)
-);
-
-Create table degreeCate (
-	degree_name text not null,
-	degree_type text not null,
-	department text not null,
-	minimum_units int default 0,
-	average_grade DECIMAL default 3.0,
-	concentration text,
-	primary key(degree_name,degree_type,department),
-	Foreign Key (degree_name,degree_type) references degreeinfo(degree_name,degree_type) on Delete CASCADE on update CASCADE
 );
 
 
