@@ -19,10 +19,13 @@
     String quarter = "";
     String year = "";
     String numbersec = "";
+    String nextoffer_quarter = "";
+    String nextoffer_year = "";
     boolean class_not_exist = false;
     boolean course_not_exist = false;
     boolean dup_year_quarter = false;
     boolean correct_num_sec = false;
+    boolean offer_year_not_correct = false;
     boolean is_correct = false;
 %>
 <%
@@ -35,8 +38,10 @@
         quarter = request.getParameter("Quarter");
         year = request.getParameter("Year");
         numbersec = request.getParameter("NumberSec");
+        nextoffer_quarter = request.getParameter("NextOfferQuarter");
+        nextoffer_year = request.getParameter("NextOfferYear");
 
-        String sql = "INSERT INTO Class VALUES (?,?,?,?,?,?)";
+        String sql = "INSERT INTO Class VALUES (?,?,?,?,?,?,?)";
         String sql_ck = "SELECT * FROM Class WHERE ClassID = ?";
         String sql_ck_1 = "SELECT * FROM Course WHERE CourseID = ?";
         String sql_ck_2 = "SELECT * FROM Class WHERE Quarter = ? AND Year = ? AND CourseID = ?";
@@ -64,6 +69,7 @@
         class_not_exist = false;
         dup_year_quarter = false;
         correct_num_sec = true;
+        offer_year_not_correct = false;
         is_correct = false;
         // insert class when course is already existed
         if (!rs_1.next()) {
@@ -81,18 +87,29 @@
                 if ( (! numbersec.chars().allMatch(Character::isDigit)) || (Integer.parseInt(numbersec) <= 0) ) {
                     correct_num_sec = false;
                     System.out.println("Class insert -- Number of sections is not numeric or not larger than 0");
+                } else if ( ! nextoffer_year.chars().allMatch(Character::isDigit) ) {
+                    offer_year_not_correct = true;
+                    System.out.println("Class insert -- Offer year is not numeric");
                 }
                 else {
-                    // otherwise, just insert
-                    PreparedStatement st = conn.prepareStatement(sql);
-                    st.setString(1, class_ID);
-                    st.setString(2, course_ID);
-                    st.setString(3, title);
-                    st.setString(4, quarter);
-                    st.setString(5, year);
-                    st.setString(6, numbersec);
-                    st.executeUpdate();
-                    ck.close();
+                    if (Integer.parseInt(nextoffer_year) < Integer.parseInt(year)) {
+                        offer_year_not_correct = true;
+                        System.out.println("Class insert -- Offer year should be larger or equal to current year");
+                    }
+                    else {
+                        // otherwise, just insert
+                        PreparedStatement st = conn.prepareStatement(sql);
+                        st.setString(1, class_ID);
+                        st.setString(2, course_ID);
+                        st.setString(3, title);
+                        st.setString(4, quarter);
+                        st.setString(5, year);
+                        st.setString(6, numbersec);
+                        String nextoffer = nextoffer_quarter + "," + nextoffer_year;
+                        st.setString(7, nextoffer);
+                        st.executeUpdate();
+                        ck.close();
+                    }
                 }
             }
         }
@@ -116,6 +133,8 @@
                 out.println("<H3><u>The Quarter and Year of the same Course is already existed. Please, try again</u></b>");
             } else if (! correct_num_sec) {
                 out.println("<H3><u>The number of sections is invalid (Either not numeric or not larger than 0). Please, try again</u></b>");
+            } else if (offer_year_not_correct) {
+                out.println("<H3><u>The offer is invalid (Either not numeric or not larger or equal to current year). Please, try again</u></b>");
             } else {
                 out.println("<H3><u>Successful Insert new Class into the dataBase</u></b>");
             }
