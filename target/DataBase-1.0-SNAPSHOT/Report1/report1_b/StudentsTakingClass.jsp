@@ -32,7 +32,6 @@
         List<String> arr_quarter = new ArrayList<>();
         List<String> arr_year = new ArrayList<>();
         List<String> arr_classId = new ArrayList<>();
-        String option = "";
     %>
     <%
         // if uses the back button, arraylist will be added on
@@ -63,7 +62,7 @@
         }
     %>
     <form action="StudentsTakingClassReport.jsp" method="post">
-        <h3>Pick a Class for report</h3>
+        <h3>Pick a class for report</h3>
         Select Class: <select name="classId">
         <% for (int i = 0; i < arr_courseId.size(); i++) { %>
         <option value="<%=arr_classId.get(i)%>">

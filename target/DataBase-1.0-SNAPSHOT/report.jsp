@@ -9,6 +9,8 @@
     <br/><br/>
     <a href="Report1/report1_b/StudentsTakingClass.jsp"><button>Report1.b: Students taking or taken class x</button></a>
     <br/><br/>
+    <a href="Report1/report1_c/GradeReportByStudent.jsp"><button>Report1.c: Grade report of student x</button></a>
+    <br/><br/>
     <a href="Report1/report1_e/MsStudentDegree.jsp"><button>Report1.e: Check MS Degree</button></a>
     <br/><br/>
     <a href="./index.jsp"><button>Homepage</button></a>
