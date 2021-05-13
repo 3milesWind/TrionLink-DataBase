@@ -65,6 +65,7 @@ create table GRADE_CONVERSION(
 - General
 1. attributes(ex. year, units, enrollmentlimit,
 waitlist): should check if numeric (but not yet)
+2. list some required formats on corresponding pages
 
 - Course
 1. table should check minunits <= maxunits, 
@@ -74,6 +75,9 @@ might mess up
 
 - Class
 1. current year should only be 2018?
+
+- Meeting
+1. time format (hh:mm) check for hh and mm
 
 - Section
 1. should check if enrollmentlimit and waitlist are numeric
