@@ -280,20 +280,20 @@ create table Meeting(
 	Start_time        Text Not Null,
 	End_time          Text Not Null,
 	Meet_room         Text Not Null,
-	Primary key       (MeetingId),
+	Primary key       (CourseId, MeetingId),
 	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE,
 	Check (Meet_type IN ('LE', 'DI', 'LA'))
 );
 
 create table ReviewSession(
 	CourseId          Text Not Null,
-  SectionId         Text Not Null,
-  ReviewId          Text Not Null,
+    SectionId         Text Not Null,
+    ReviewId          Text Not Null,
 	Review_date       Text Not Null,
 	Start_time        Text Not Null,
 	End_time          Text Not Null,
 	Review_room       Text Not Null,
-	Primary key       (ReviewId),
+	Primary key       (CourseId, ReviewId),
 	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
 	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
 );
