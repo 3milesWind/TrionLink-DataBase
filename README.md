@@ -76,6 +76,8 @@ might mess up
 
 - Class
 1. current year should only be 2018?
+2. attribute (nextOffer) should be if it is a duplicate (quarter,year)
+with the same course id
 
 - Meeting
 1. time format (hh:mm) check for hh and mm

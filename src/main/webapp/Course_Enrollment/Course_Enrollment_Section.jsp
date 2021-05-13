@@ -34,7 +34,10 @@
     String Course_ID = "";
     String Section_ID = "";
     String Units = "";
+    String GradeOption = "";
+    boolean is_correct = true;
     boolean no_section_existed = false;
+    String wrong = "";
 %>
 <%
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -46,6 +49,7 @@
         Course_ID = request.getParameter("CourseID");
         Section_ID = request.getParameter("SectionID");
         Units = request.getParameter("Units");
+        GradeOption = request.getParameter("GradeOption");
 
         // check if section ID exists in the section table
         PreparedStatement st_ck_section = conn.prepareStatement("SELECT * FROM Section WHERE SectionId = ?");
@@ -54,12 +58,13 @@
         // section exists, insert
         if (rs_ck.next()) {
             no_section_existed = false;
-            String sql_insert = "INSERT INTO Enrollment VALUES (?,?,?,?)";
+            String sql_insert = "INSERT INTO Enrollment VALUES (?,?,?,?,?)";
             PreparedStatement st = conn.prepareStatement(sql_insert);
             st.setString(1, Student_ID);
             st.setString(2, Course_ID);
             st.setString(3, Section_ID);
             st.setString(4, Units);
+            st.setString(5, GradeOption);
             st.executeUpdate();
             st.close();
         } else { // resubmit again
@@ -74,6 +79,8 @@
         conn.close();
 
     } catch (Exception e) {
+        is_correct = false;
+        wrong = e.toString();
         System.out.println(e);
     }
 %>
@@ -82,6 +89,8 @@
 <%
     if (no_section_existed) {
         out.println("<H3><u>The section ID shown below does not exists, Please, try again</u></b>");
+    } else if (is_correct == false) {
+        out.print("<h3>" + wrong + "</h3>");
     }
     else {
         out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
@@ -95,6 +104,8 @@ Course ID: <%=Course_ID%>
 Section ID: <%=Section_ID%>
 <br/><br>
 Units: <%=Units%>
+<br/><br>
+Grade Option: <%=GradeOption%>
 <br/><br>
 <a href="../Course_Enrollment/Course_Enrollment_Database.jsp"><button> Check Database </button></a>
 <a href="./../index.jsp"><button> Homepage </button></a>

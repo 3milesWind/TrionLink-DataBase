@@ -115,8 +115,8 @@
             st_2.setString(1, Course_ID);
             ResultSet rs_b = st_2.executeQuery();
             rs_b.next();
-            Double min_units = Double.parseDouble( rs_b.getString("minunits") );
-            Double max_units = Double.parseDouble( rs_b.getString("maxunits") );
+            Integer min_units = Integer.parseInt( rs_b.getString("minunits") );
+            Integer max_units = Integer.parseInt( rs_b.getString("maxunits") );
             st_2.close();
             rs_b.close();
 
