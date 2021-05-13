@@ -35,12 +35,6 @@
         Section_ID = request.getParameter("SectionID");
         Units = request.getParameter("Units");
         GradeOption = request.getParameter("GradeOption");
-//        if (request.getParameter("GradeOption") == null) {
-//            GradeOption = request.getParameter("GradeOption1");
-//        } else {
-//            GradeOption = request.getParameter("GradeOption");
-//        }
-        System.out.println(GradeOption);
         // check if section ID exists in the section table
         PreparedStatement st_ck_section = conn.prepareStatement("SELECT * FROM Section WHERE SectionId = ?");
         st_ck_section.setString(1, Section_ID);
