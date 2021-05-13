@@ -38,12 +38,14 @@
                         + "<th>Course ID</th>"
                         + "<th>Section ID</th>"
                         + "<th>Units</th>"
+                        + "<th>Grade Option</th>"
                         + "</tr>");
             while(st.next()) {
                 out.print("<tr><th>" + st.getString(1) + "</th>"
                         + "<th>" + st.getString(2) + "</th>"
                         + "<th>" + st.getString(3) + "</th>"
                         + "<th>" + st.getString(4) + "</th>"
+                        + "<th>" + st.getString(5) + "</th>"
                         + "</tr>");
             }
             sm.close();

@@ -31,6 +31,7 @@
         List<String> arr_courseId = new ArrayList<>();
         List<String> arr_quarter = new ArrayList<>();
         List<String> arr_year = new ArrayList<>();
+        List<String> arr_classId = new ArrayList<>();
         String option = "";
     %>
     <%
@@ -39,12 +40,13 @@
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             Statement sm = conn.createStatement();
-            String sql_st = "SELECT Course.CourseId, Class.Quarter, Class.Year FROM Course INNER JOIN Class ON Course.CourseId = Class.CourseId GROUP BY Course.CourseId, Class.Quarter, Class.Year";
+            String sql_st = "SELECT Course.CourseId, Class.Quarter, Class.Year, Class.ClassId FROM Course INNER JOIN Class ON Course.CourseId = Class.CourseId GROUP BY Course.CourseId, Class.Quarter, Class.Year";
             ResultSet st = sm.executeQuery(sql_st);
             while(st.next()) {
                 if (!arr_courseId.contains(st.getString(1))) arr_courseId.add(st.getString(1));
                 if (!arr_quarter.contains(st.getString(2))) arr_quarter.add(st.getString(2));
                 if (!arr_year.contains(st.getString(3))) arr_year.add(st.getString(3));
+                if (!arr_classId.contains(st.getString(4))) arr_classId.add(st.getString(4));
             }
             sm.close();
             st.close();
@@ -57,7 +59,7 @@
         <h3>Pick a Class for report</h3>
         Select Class: <select name="classId">
         <% for (int i = 0; i < arr_courseId.size(); i++) { %>
-        <option><%=arr_courseId.get(i)%>, <%=arr_quarter.get(i)%>, <%=arr_year.get(i)%></option>
+        <option value=<%=arr_classId.get(i)%>><%=arr_courseId.get(i)%>, <%=arr_quarter.get(i)%>, <%=arr_year.get(i)%></option>
         <% } %>
         </select>
         <br/><br/>
