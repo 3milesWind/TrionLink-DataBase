@@ -25,6 +25,7 @@
     boolean course_not_exist = false;
     boolean dup_year_quarter = false;
     boolean correct_num_sec = false;
+    boolean current_year_not_correct = false;
     boolean offer_year_not_correct = false;
     boolean is_correct = false;
 %>
@@ -69,6 +70,7 @@
         class_not_exist = false;
         dup_year_quarter = false;
         correct_num_sec = true;
+        current_year_not_correct = false;
         offer_year_not_correct = false;
         is_correct = false;
         // insert class when course is already existed
@@ -90,11 +92,17 @@
                 } else if ( ! nextoffer_year.chars().allMatch(Character::isDigit) ) {
                     offer_year_not_correct = true;
                     System.out.println("Class insert -- Offer year is not numeric");
+                } else if ( ! year.chars().allMatch(Character::isDigit) ) {
+                    current_year_not_correct = true;
+                    System.out.println("Class insert -- Current year is not numeric");
                 }
                 else {
-                    if (Integer.parseInt(nextoffer_year) < Integer.parseInt(year)) {
+                    if (Integer.parseInt(nextoffer_year) < 2020) {
                         offer_year_not_correct = true;
-                        System.out.println("Class insert -- Offer year should be larger or equal to current year");
+                        System.out.println("Class insert -- Offer year should be larger or equal to 2020");
+                    } else if (Integer.parseInt(year) > 2018) {
+                        current_year_not_correct = true;
+                        System.out.println("Class insert -- Current year should be less or equal to 2018");
                     }
                     else {
                         // otherwise, just insert
@@ -134,7 +142,9 @@
             } else if (! correct_num_sec) {
                 out.println("<H3><u>The number of sections is invalid (Either not numeric or not larger than 0). Please, try again</u></b>");
             } else if (offer_year_not_correct) {
-                out.println("<H3><u>The offer is invalid (Either not numeric or not larger or equal to current year). Please, try again</u></b>");
+                out.println("<H3><u>The offer year is invalid (Either not numeric or not larger or equal to 2020). Please, try again</u></b>");
+            } else if (current_year_not_correct) {
+                out.println("<H3><u>The current year is invalid (Either not numeric or not less or equal to 2018). Please, try again</u></b>");
             } else {
                 out.println("<H3><u>Successful Insert new Class into the dataBase</u></b>");
             }
