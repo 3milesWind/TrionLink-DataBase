@@ -40,13 +40,13 @@ Create Table past_course (
 	Course_ID TEXT not null,
 	Units int default 2,
 	Grade TEXT not null,
-	Taken_Quarter TEXT not null,
+	Quarter text not null,
+	year text not null,
 	SectionId text not null,
 	primary key(Student_ID,Course_ID),
 	Foreign Key (Course_ID,SectionId) references Section on Delete CASCADE on update CASCADE,
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Course_ID) references course(courseid) on Delete CASCADE on update CASCADE
-
 );
 create table GRADE_CONVERSION(
       LETTER_GRADE CHAR(2) NOT NULL,
@@ -165,11 +165,13 @@ Create Table past_course (
 	Course_ID TEXT not null,
 	Units int default 2,
 	Grade TEXT not null,
-	Taken_Quarter TEXT not null,
+	Quarter text not null,
+	year text not null,
+	SectionId text not null,
 	primary key(Student_ID,Course_ID),
+	Foreign Key (Course_ID,SectionId) references Section on Delete CASCADE on update CASCADE,
 	Foreign Key (Student_ID) references student(student_id) on Delete CASCADE on update CASCADE,
 	Foreign Key (Course_ID) references course(courseid) on Delete CASCADE on update CASCADE
-
 );
 
 create table concentration (
