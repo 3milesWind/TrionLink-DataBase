@@ -58,8 +58,9 @@
     conn.close();
 
     } catch(Exception e) {
-    System.out.println(e);
-    }%>
+        System.out.println(e);
+    }
+%>
 <table/>
 <form method="post" action="ClassesTakenByStudentReport.jsp">
     <h3>Enter Student SSN for report</h3>
