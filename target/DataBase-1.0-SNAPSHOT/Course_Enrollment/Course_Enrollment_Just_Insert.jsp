@@ -64,7 +64,6 @@
         } catch (Exception e) {
             is_correct = false;
             wrong = e.toString();
-            System.out.print("catch---");
             System.out.println(e);
         }
     %>
