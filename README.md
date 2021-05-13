@@ -211,11 +211,24 @@ create table Course(
 	Check (MinUnits <= MaxUnits)
 );
 
+create table Class(
+	ClassId           Text Not Null,  
+	CourseId          Text Not Null,
+	Title             Text Not Null,
+	Quarter           Text Not Null,
+	Year              Text Not Null,
+	NumberSec         Text Not Null,
+	NextOffer         Text Not Null,
+	Primary key       (ClassId),
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
+	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
+);
+
 
 create table ReviewSession(
 	CourseId          Text Not Null,
-  SectionId         Text Not Null,
-  ReviewId          Text Not Null,
+    SectionId         Text Not Null,
+    ReviewId          Text Not Null,
 	Review_date       Text Not Null,
 	Start_time        Text Not Null,
 	End_time          Text Not Null,
