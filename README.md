@@ -66,6 +66,7 @@ create table GRADE_CONVERSION(
 1. attributes(ex. year, units, enrollmentlimit,
 waitlist): should check if numeric (but not yet)
 2. list some required formats on corresponding pages
+3. Each button check duplicate
 
 - Course
 1. table should check minunits <= maxunits, 

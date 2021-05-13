@@ -26,6 +26,7 @@
         boolean no_course_existed = false;
         boolean no_section_existed = false;
         boolean no_day_selected = false;
+        boolean dup_course_meeting = false;
         boolean time_format_not_match = false;
         boolean start_gt_end = false; // check start < end
     %>
