@@ -40,6 +40,7 @@
                         "<th>Quarter</th>" +
                         "<th>Year</th>" +
                         "<th>Number of Sections</th>" +
+                        "<th>Next Offer Time</th>" +
                         "</tr>");
                 while(st.next()) {
                     out.print("<tr><th>" + st.getString(1) + "</th>"
@@ -48,6 +49,7 @@
                             + "<th>" + st.getString(4) + "</th>"
                             + "<th>" + st.getString(5) + "</th>"
                             + "<th>" + st.getString(6) + "</th>"
+                            + "<th>" + st.getString(7) + "</th>"
                             + "</tr>");
                 }
                 sm.close();
