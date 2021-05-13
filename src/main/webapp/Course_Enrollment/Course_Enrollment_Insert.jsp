@@ -161,28 +161,37 @@
                     if (rs_d.next()) {
                         no_section_existed = false;
                         Section_id = rs_d.getString("SectionId");
+
+                        session.setAttribute("student_id", Student_ID);
+                        session.setAttribute("course_id", Course_ID);
+                        session.setAttribute("section_id", Section_id);
+
                         // if flexible on units
                         if (min_units < max_units) {
                             // direct to another page to prompt for choose of units only
-                            session.setAttribute("student_id", Student_ID);
-                            session.setAttribute("course_id", Course_ID);
-                            session.setAttribute("section_id", Section_id);
+//                            session.setAttribute("student_id", Student_ID);
+//                            session.setAttribute("course_id", Course_ID);
+//                            session.setAttribute("section_id", Section_id);
                             session.setAttribute("min_units", min_units);
                             session.setAttribute("max_units", max_units);
                             response.sendRedirect("./Course_Enrollment_Unit_Page.jsp");
                         }
-                        // otherwise, just insert
+                        // otherwise, just direct to another page for insertion
                         else {
                             is_correct = true;
-                            // insert the enrollment
-                            PreparedStatement st = conn.prepareStatement(sql);
-                            st.setString(1, Student_ID);
-                            st.setString(2, Course_ID);
-                            st.setString(3, Section_id);
                             Units = String.valueOf(min_units);
-                            st.setString(4, String.valueOf(min_units));
-                            st.executeUpdate();
-                            st.close();
+                            session.setAttribute("units", Units);
+                            response.sendRedirect("./Course_Enrollment_Just_Insert_Page.jsp");
+
+//                            // insert the enrollment
+//                            PreparedStatement st = conn.prepareStatement(sql);
+//                            st.setString(1, Student_ID);
+//                            st.setString(2, Course_ID);
+//                            st.setString(3, Section_id);
+//                            Units = String.valueOf(min_units);
+//                            st.setString(4, String.valueOf(min_units));
+//                            st.executeUpdate();
+//                            st.close();
                         }
                     } else { // no section id is found
                         no_section_existed = true;

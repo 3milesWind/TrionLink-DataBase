@@ -25,7 +25,7 @@
     }
 </style>
 <body>
-<h1 align="center"> Course Enrollment Database</h1>
+<h1 align="center"> Course Enrollment Database </h1>
 <table>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
