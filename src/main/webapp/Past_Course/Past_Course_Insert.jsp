@@ -14,7 +14,7 @@
 <%!
     String student_id = "";
     String Course_Id = "";
-    String Section_ID = "";
+    int Units = 0;
     String quarter  = "";
     String year = "";
     String grade = "";
@@ -25,7 +25,7 @@
     student_id = request.getParameter("Student_Id");
     System.out.println(student_id);
     Course_Id = request.getParameter("Course_Id");
-    Section_ID = request.getParameter("Section_ID");
+    Units = Integer.parseInt(request.getParameter("Units"));
     quarter = request.getParameter("quarter");
     year = request.getParameter("year");
     grade = request.getParameter("grade");
@@ -70,9 +70,9 @@
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,student_id);
             ps.setString(2,Course_Id);
-            ps.setString(3,Section_ID);
-            ps.setString(4,time);
-            ps.setString(5,grade);
+            ps.setInt(3,Units);
+            ps.setString(4,grade);
+            ps.setString(5,time);
             ps.executeUpdate();
             ps.close();
         }

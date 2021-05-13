@@ -50,9 +50,9 @@
         student_id = rs_id.getString(1);
 
         // generate the class that student current take
-        String sql = "select * from (Enrollment e left outer join \n" +
-                "(select * from class left outer join Section on section.ClassId = class.ClassId) t\n" +
-                "on e.courseid = t.courseid and e.sectionid = t.sectionid) as foo where foo.studentid = ?";
+        String sql = "select * from enrollment e left outer join class c\n" +
+                "on e.courseid = c.courseId\n" +
+                "where e.studentid = ?\n";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1,student_id);
         ResultSet res = ps.executeQuery();
@@ -65,8 +65,8 @@
                 "</tr>");
         while(res.next()) {
             out.print("<tr><th>" + res.getString(2) + "</th>"
-                    + "<th>" + res.getString(11) + "</th>"
-                    + "<th>" + res.getString(6) + "</th>"
+                    + "<th>" + res.getString(5) + "</th>"
+                    + "<th>" + res.getString(7) + "</th>"
                     + "<th>" + res.getString(10) + "</th>"
                     + "<th>" + res.getString(3) + "</th>"
                     + "<th>" + res.getString(4) + "</th>"

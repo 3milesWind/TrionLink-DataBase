@@ -18,19 +18,32 @@
     boolean is_correct = true;
     String error = "";
     int units = 0;
+    String department = "";
+    int lowerDivisonUnit = 0;
+    int UpperDivisionUnit = 0;
+    int ElectiveUnit = 0;
 %>
 <%
     degreeName = request.getParameter("degreeName");
     Type =  request.getParameter("Type");
-    units = Integer.parseInt(request.getParameter("Units"));
+    department = request.getParameter("department");
+//    units = Integer.parseInt(request.getParameter("Units"));
+    lowerDivisonUnit = Integer.parseInt(request.getParameter("lowerDivisonUnit"));
+    UpperDivisionUnit = Integer.parseInt(request.getParameter("UpperDivisionUnit"));
+    ElectiveUnit = Integer.parseInt(request.getParameter("ElectiveUnit"));
     try {
+        units = lowerDivisonUnit + UpperDivisionUnit + ElectiveUnit;
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
-        String sql = "insert into degreeinfo values(?,?,?)";
+        String sql = "insert into degree values(?,?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1,degreeName);
         ps.setString(2,Type);
-        ps.setInt(3,units);
+        ps.setString(3,department);
+        ps.setInt(4,units);
+        ps.setInt(5,lowerDivisonUnit);
+        ps.setInt(6,UpperDivisionUnit);
+        ps.setInt(7,ElectiveUnit);
         ps.executeUpdate();
     } catch (Exception e) {
         is_correct = false;

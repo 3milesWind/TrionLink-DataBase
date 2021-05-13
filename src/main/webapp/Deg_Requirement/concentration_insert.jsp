@@ -15,34 +15,40 @@
 <%!
     String degreeName = "";
     String degreeType = "";
-    String department = "";
-    int minimum_units = 0;
-    double Minimum_Average_Grade = 0;
-    String concentration = "";
+    String name = "";
+    String courses = "";
+    String elective = "";
+    int minUnit = 0;
+    double minGPA = 0;
     boolean is_correct = true;
+    String exception = "";
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
 <%
+    name =  request.getParameter("concentration_name");
     degreeName = request.getParameter("degreeName");
     degreeType =  request.getParameter("Type");
-    department =  request.getParameter("Department");
-    minimum_units = Integer.parseInt(request.getParameter("units"));
-    Minimum_Average_Grade = Double.parseDouble(request.getParameter("grade"));
-    concentration = request.getParameter("concentration");
+    courses =  request.getParameter("courses");
+    elective =  request.getParameter("elective");
+    minGPA = Double.parseDouble(request.getParameter("minGPA"));
+    minUnit = Integer.parseInt(request.getParameter("minUnit"));
+
     try {
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
-        String sql = "Insert  into degreeCate values(?,?,?,?,?,?)";
+        String sql = "Insert  into concentration values(?,?,?,?,?,?,?)";
         PreparedStatement ps = conn.prepareStatement(sql);
-        ps.setString(1,degreeName);
-        ps.setString(2,degreeType);
-        ps.setString(3,department);
-        ps.setInt(4,minimum_units);
-        ps.setDouble(5,Minimum_Average_Grade);
-        ps.setString(6,concentration);
+        ps.setString(1,name);
+        ps.setString(2,degreeName);
+        ps.setString(3,degreeType);
+        ps.setString(4,courses);
+        ps.setString(5,elective);
+        ps.setDouble(6,minGPA);
+        ps.setInt(7,minUnit);
         ps.executeUpdate();
     }catch (Exception e){
         is_correct = false;
+        exception = e.toString();
         System.out.println(e);
     }
 
@@ -53,8 +59,9 @@
 <% } else { %>
 <h3>Please,check input data.</h3>
 <h3>Degree may have/haven't been exited.</h3>
+<h3><%=exception%></h3>>
 <% } %>
-<a href="./DegreeCate.jsp"><button> Enter More </button></a>
+<a href="concentration.jsp"><button> Enter More </button></a>
 <a href="./DegreeDataBase.jsp"><button> Check Database </button></a>
 <a href="../index.jsp"><button> Homepage</button></a>
 <jsp:include page="../footer.jsp"/>

@@ -17,8 +17,10 @@ Past Course Form
     <br/> <br/>
     Course ID: <input type="text" name="Course_Id" required/>
     <br/> <br/>
-    Section <input type="text" name="Section_ID" required/>
+    Units: <input type="number" name="Units" required/>
     <br/> <br/>
+<%--    Section <input type="text" name="Section_ID" required/>--%>
+<%--    <br/> <br/>--%>
     Quarter:
     <select name="quarter">
         <option value="Winter">Winter</option>
@@ -27,9 +29,6 @@ Past Course Form
         <option value="Fall">Fall</option>
     </select>
     Years: <select name="year">
-    <option value="2020">2020</option>
-    <option value="2019">2019</option>
-    <option value="2018">2018</option>
     <option value="2017">2017</option>
     <option value="2016">2016</option>
     <option value="2015">2015</option>
@@ -61,6 +60,8 @@ Past Course Form
     <option value="C">C</option>
     <option value="C-">C-</option>
     <option value="D">D</option>
+    <option value="incomplete">incomplete</option>
+    <option value="S/U">S/U</option>
     </select>
     <input type="submit" value="Submit"/>
 </form>
