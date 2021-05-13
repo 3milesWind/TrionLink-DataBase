@@ -18,6 +18,7 @@
     String quarter  = "";
     String year = "";
     String grade = "";
+    String section = "";
     boolean is_correct = true;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
@@ -28,6 +29,7 @@
     quarter = request.getParameter("quarter");
     year = request.getParameter("year");
     grade = request.getParameter("grade");
+    section = request.getParameter("Section_ID");
     String time = quarter + " " + year;
     try {
         Class.forName("org.postgresql.Driver");
@@ -65,13 +67,14 @@
              *  create a new Thesis committee
              * */
             is_correct = true;
-            String sql = "Insert into past_course values (?,?,?,?,?)";
+            String sql = "Insert into past_course values (?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,student_id);
             ps.setString(2,Course_Id);
             ps.setInt(3,Units);
             ps.setString(4,grade);
             ps.setString(5,time);
+            ps.setString(6,section);
             ps.executeUpdate();
             ps.close();
         }

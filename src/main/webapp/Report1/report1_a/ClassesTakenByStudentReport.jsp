@@ -27,11 +27,11 @@
     String student_id = "";
     boolean is_correct = true;
     String wrong = "";
+    String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
 <H3>Classes Taken By Student X</H3>
 <table>
 <%
-    String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
     try {
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);

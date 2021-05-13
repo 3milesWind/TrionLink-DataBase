@@ -30,7 +30,7 @@
     String DegreeType = "";
     String Exception = "";
     boolean is_Error = true;
-    boolean BUG = true;
+    boolean BUG = false;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 //    HashMap<String,List<String>> require_courses = new HashMap<>();
     HashMap<String,String> require_courses = new HashMap<>();
@@ -157,11 +157,19 @@
                 System.out.println();
             }
         }
+        conn.commit();
+        conn.setAutoCommit(true);
+        ps_task1.close();
+        ps_task2.close();
+        rs.close();
+        rs2.close();
+        conn.close();
     } catch (Exception e) {
         is_Error = false;
         Exception = e.toString();
         System.out.println(e);
     }
+
 %>
 <%if(is_Error == false) {
     out.print("<h3>" + Exception +  "<h3/>");
@@ -196,7 +204,28 @@
         if (!li.isEmpty()) {
             out.print("<h4>" + key + " Concentration shown below"  + "</h4>");
             for ( String course: li) {
-                out.print("<h5>" + course + "</h5>");
+                try {
+                    Class.forName("org.postgresql.Driver");
+                    Connection conn = DriverManager.getConnection(url);
+                    String sql = "Select * from class where CourseId = ? and Quarter = ? and Year = ?";
+                    PreparedStatement ps_task4 = conn.prepareStatement(sql);
+                    ps_task4.setString(1,course);
+                    ps_task4.setString(2,"Spring");
+                    ps_task4.setString(3,"2018");
+                    ResultSet rs4 = ps_task4.executeQuery();
+                    if (rs4.next()) {
+                        out.print("<h5>" + course + "------------" + "Next Offer: "+ rs4.getString(7) +"</h5>");
+                    } else {
+                        out.print("<h5>" + course + " ------------" + "Next Offer: Do not have schedule"  + "</h5>");
+                    }
+                    ps_task4.close();
+                    rs4.close();
+                    conn.close();
+                } catch (Exception e) {
+                    is_Error = false;
+                    Exception = e.toString();
+                    System.out.println(e);
+                }
             }
         }
     }

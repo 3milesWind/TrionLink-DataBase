@@ -19,8 +19,8 @@ Past Course Form
     <br/> <br/>
     Units: <input type="number" name="Units" required/>
     <br/> <br/>
-<%--    Section <input type="text" name="Section_ID" required/>--%>
-<%--    <br/> <br/>--%>
+    Section <input type="text" name="Section_ID" required/>
+    <br/> <br/>
     Quarter:
     <select name="quarter">
         <option value="Winter">Winter</option>
