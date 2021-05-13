@@ -33,7 +33,7 @@
             sm.setString(1,student_id);
             ResultSet st = sm.executeQuery();
             out.println("<H3 align=\"center\">Student DataBase</h3>");
-            out.println("<tr><th>StudentID</th><th>CourseID</th><th>SectionID</th><th>Quarter</th><th>Grade</th></tr>");
+            out.println("<tr><th>StudentID</th><th>CourseID</th><th>Units</th><th>Quarter</th><th>Grade</th></tr>");
             while (st.next()) {
 
                 out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
@@ -45,7 +45,7 @@
         }
     %>
 </table>
-<a href="../../insertPage.jsp"><button> Homepage</button></a>
+<a href="./../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>
 </html>

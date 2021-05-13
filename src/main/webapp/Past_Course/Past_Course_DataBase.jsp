@@ -31,7 +31,7 @@
             Statement sm = conn.createStatement();
             ResultSet st = sm.executeQuery("select * from past_course");
             out.println("<H3 align=\"center\">Past Course DataBase</h3>");
-            out.println("<tr><th>StudentID</th><th>CourseID</th><th>SectionID</th><th>Quarter</th><th>Grade</th></tr>");
+            out.println("<tr><th>StudentID</th><th>CourseID</th><th>Units</th><th>Grade</th><th>Quarter</th></tr>");
             while (st.next()) {
 
                 out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
@@ -46,7 +46,7 @@
     %>
 </table>
 <br/><br/><br/>
-<a href="../../insertPage.jsp"><button> Homepage</button></a>
+<a href="../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>
 </html>

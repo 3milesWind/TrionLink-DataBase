@@ -15,19 +15,34 @@
 <form action="Degree_insert.jsp" method="post">
     Degree Name:
     <select name="degreeName">
-        <option>UnderGraduate_Degree</option>
-        <option>Master_Degree</option>
-        <option>PHD_Degree</option>
+        <option>B.S.</option>
+        <option>B.A.</option>
+        <option>M.S</option>
+        <option>M.A</option>
+        <option>Phd</option>
     </select>
     <br/> <br/>
     Type: <select name="Type">
-    <option>BS</option>
-    <option>BA</option>
-    <option>BS/MS</option>
+    <option>Computer Science</option>
+    <option>Philosophy</option>
+    <option>Mechanical Engineering</option>
     </select>
+    department: <select name="department">
+    <option>CSE</option>
+    <option>Math</option>
+    <option>Science</option>
+    </select>
+
+<%--    <br/> <br/>--%>
+<%--    Total Unit: <input type="number" name="Units" min="20">--%>
     <br/> <br/>
-    Total Unit: <input type="number" name="Units" min="180">
+    Lower Division Unit: <input type="number" name="lowerDivisonUnit" min="0">
     <br/> <br/>
+    Upper Division Unit: <input type="number" name="UpperDivisionUnit" min="0">
+    <br/> <br/>
+    Elective Unit: <input type="number" name="ElectiveUnit" min="0">
+    <br/> <br/>
+
     <input type="submit" value="Submit">
 </form>
 </body>

@@ -33,16 +33,22 @@
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             Statement sm = conn.createStatement();
-            ResultSet st = sm.executeQuery("select * from degreeinfo");
-            out.println("<tr><th>Degree_Name</th>" +
-                    "<th>Degree_Type</th>" +
-                    "<th>Total_unit</th>" +
+            ResultSet st = sm.executeQuery("select * from degree");
+            out.println("<tr><th>Degree name/th>" +
+                    "<th>Department</th>" +
+                    "<th>Total units</th>" +
+                    "<th>lower Division Unit</th>" +
+                    "<th>Upper Division Unit</th>" +
+                    "<th>Elective Unit</th>" +
                     " </tr>");
             while (st.next()) {
 
-                out.print("<tr><th>" + st.getString(1) + "</th>"
-                        + "<th>" + st.getString(2)  + "</th>" +
-                        "<th>" +  st.getString(3) +"</th>" +
+                out.print("<tr><th>" + st.getString(1) + " in " + st.getString(2) + "</th>"
+                        + "<th>" + st.getString(3)  + "</th>" +
+                        "<th>" +  st.getString(4) +"</th>" +
+                        "<th>" +  st.getString(5) +"</th>" +
+                        "<th>" +  st.getString(6) +"</th>" +
+                        "<th>" +  st.getString(7) +"</th>" +
                         "</tr>");
             }
             sm.close();
@@ -53,20 +59,21 @@
         }
     %>
 </table>
-<h1 align="center"> Degree Categories DataBase</h1>
+<h1 align="center"> Concentration DataBase</h1>
 <table>
     <%
         try{
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             Statement sm = conn.createStatement();
-            ResultSet st = sm.executeQuery("select * from degreecate");
-            out.println("<tr><th>Degree_Name</th>" +
+            ResultSet st = sm.executeQuery("select * from concentration");
+            out.println("<tr><th>Concentration</th>" +
+                    "<th>Degree_Name</th>" +
                     "<th>Degree_Type</th>" +
-                    "<th>department</th>" +
-                    "<th>minimum_units</th>" +
+                    "<th>Courses</th>" +
+                    "<th>Elective</th>" +
                     "<th>average_grade</th>" +
-                    "<th>concentration</th>" +
+                    "<th>minimum_units</th>" +
                     " </tr>");
             while (st.next()) {
 
@@ -76,6 +83,7 @@
                         "<th>" +  st.getString(4) +"</th>" +
                         "<th>" +  st.getString(5) +"</th>" +
                         "<th>" +  st.getString(6) +"</th>" +
+                        "<th>" +  st.getString(7) +"</th>" +
                         "</tr>");
             }
             sm.close();
@@ -88,7 +96,7 @@
 </table>
 <br/><br/><br/>
 <a href="./DegreePage.jsp"><button> Enter Degree Info </button></a>
-<a href="./DegreeCate.jsp"><button> Enter Degree Categories </button></a>
+<a href="concentration.jsp"><button> Enter Degree Categories </button></a>
 <a href="../index.jsp"><button> Homepage</button></a>
 <jsp:include page="../footer.jsp"/>
 </body>

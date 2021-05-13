@@ -43,7 +43,7 @@
         }
     %>
 </table>
-<a href="../../insertPage.jsp"><button> Homepage</button></a>
+<a href="./../insertPage.jsp"><button> Homepage</button></a>
 <jsp:include page="./../footer.jsp"/>
 </body>
 </html>
