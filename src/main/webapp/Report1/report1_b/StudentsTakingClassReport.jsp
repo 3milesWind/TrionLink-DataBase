@@ -37,6 +37,7 @@
         <%
             String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
             try {
+                is_correct = true;
                 Class.forName("org.postgresql.Driver");
                 Connection conn = DriverManager.getConnection(url);
                 conn.setAutoCommit(false);

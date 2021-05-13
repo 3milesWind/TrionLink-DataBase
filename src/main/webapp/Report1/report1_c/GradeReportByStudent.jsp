@@ -45,14 +45,19 @@
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             Statement sm = conn.createStatement();
-            String sql_st = "SELECT Student.ssn, Student.firstname, Student.middlename, Student.lastname FROM Student INNER JOIN Past_Course ON Past_Course.Student_Id = Student.Student_Id";
-            ResultSet st = sm.executeQuery(sql_st);
+            // get ssn without duplicates
+            String sql_get_ssn = "SELECT Student.ssn FROM Student INNER JOIN Past_Course ON Past_Course.Student_Id = Student.Student_Id GROUP BY Student.ssn";
+            String sql_get_name = "SELECT a.ssn, firstname, middlename, lastname FROM (" + sql_get_ssn + ") AS a INNER JOIN Student ON a.ssn = Student.ssn";
+
+            ResultSet st = sm.executeQuery(sql_get_name);
             while(st.next()) {
                 arr_ssn.add(st.getString(1));
                 arr_first.add(st.getString(2));
                 arr_middle.add(st.getString(3));
                 arr_last.add(st.getString(4));
             }
+
+
             sm.close();
             st.close();
             conn.close();
@@ -63,7 +68,7 @@
     <form action="GradeReportByStudentReport.jsp" method="post">
         <h3>Pick a student for grade report</h3>
         Select Student: <select name="ssn">
-            <% for (int i = 0; i < arr_ssn.size(); i++) {
+            <%  for (int i = 0; i < arr_ssn.size(); i++) {
                     if (arr_middle.get(i).equals("")) {   %>
                         <option value="<%=arr_ssn.get(i)%>">
                             <%=arr_ssn.get(i)%>, <%=arr_first.get(i)%>, <%=arr_last.get(i)%>
