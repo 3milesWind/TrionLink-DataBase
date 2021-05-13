@@ -260,7 +260,7 @@ create table Enrollment(
 create table Meeting(
 	CourseId          Text Not Null,
 	SectionId         Text Not Null,	
-	MeetingId         Text Not Null,
+	MeetingId         Text Not Null UNIQUE,
 	Meet_required     Text Not Null,
 	Meet_type	      Text Not Null,
 	Meet_day          Text Not Null,
@@ -275,7 +275,7 @@ create table Meeting(
 create table ReviewSession(
 	CourseId          Text Not Null,
     SectionId         Text Not Null,
-    ReviewId          Text Not Null,
+    ReviewId          Text Not Null UNIQUE,
 	Review_date       Text Not Null,
 	Start_time        Text Not Null,
 	End_time          Text Not Null,
