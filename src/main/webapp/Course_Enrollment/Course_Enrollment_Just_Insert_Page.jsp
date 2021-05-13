@@ -61,7 +61,6 @@
         <br/> <br/>
         <input type="submit" value="Submit"/>
     </form>
-    <a href="../report.jsp"><button> Homepage </button></a>
     <jsp:include page="../footer.jsp"/>
 
 </body>

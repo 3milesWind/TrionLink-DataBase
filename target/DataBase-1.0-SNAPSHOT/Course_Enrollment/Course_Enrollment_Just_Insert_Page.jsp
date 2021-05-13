@@ -58,9 +58,10 @@
         <% } else { %>
         <input type="text" value="<%=grade_option%>" name="GradeOption" readonly/>
         <% } %>
-
         <br/> <br/>
+        <input type="submit" value="Submit"/>
     </form>
+    <jsp:include page="../footer.jsp"/>
 
 </body>
 </html>
