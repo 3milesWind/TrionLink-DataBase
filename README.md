@@ -251,6 +251,7 @@ create table Enrollment(
 	CourseId          Text Not Null,
 	SectionId         Text Not Null,
 	Units             Text Not Null,
+    GradeOption       Text Not Null,
 	Primary key       (StudentId, CourseId),
     Foreign key       (StudentId) references Student on Delete CASCADE on update CASCADE,
 	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
