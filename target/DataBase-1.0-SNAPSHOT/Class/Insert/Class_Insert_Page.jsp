@@ -20,10 +20,10 @@
     Title: <input type="text" name="Title" required/>
     <br/> <br/>
     Quarter: <select name="Quarter">
-    <option>Fall</option>
-    <option>Winter</option>
     <option>Spring</option>
     <option>Summer</option>
+    <option>Fall</option>
+    <option>Winter</option>
     </select>
     <br/> <br/>
     Year: <input type="text" name="Year" required/>
@@ -31,10 +31,10 @@
     Number of Sections: <input type="text" name="NumberSec" required/>
     <br/> <br/>
     Next Offer Time: <select name="NextOfferQuarter">
-    <option>Fall</option>
-    <option>Winter</option>
     <option>Spring</option>
     <option>Summer</option>
+    <option>Fall</option>
+    <option>Winter</option>
     </select> quarter, <input type="text" name="NextOfferYear" required/> year
     <br/> <br/>
     <input type="submit" value="Submit"/>

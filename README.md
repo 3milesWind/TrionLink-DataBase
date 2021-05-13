@@ -66,6 +66,7 @@ create table GRADE_CONVERSION(
 1. attributes(ex. year, units, enrollmentlimit,
 waitlist): should check if numeric (but not yet)
 2. list some required formats on corresponding pages
+3. Each button check duplicate
 
 - Course
 1. table should check minunits <= maxunits, 
@@ -232,20 +233,6 @@ create table Class(
 );
 
 
-create table ReviewSession(
-	CourseId          Text Not Null,
-    SectionId         Text Not Null,
-    ReviewId          Text Not Null,
-	Review_date       Text Not Null,
-	Start_time        Text Not Null,
-	End_time          Text Not Null,
-	Review_room       Text Not Null,
-	Primary key       (ReviewId),
-	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
-	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
-);
-
-
 create table Section(
 	CourseId          Text Not Null,
 	ClassId           Text Not Null,	
@@ -287,8 +274,8 @@ create table Meeting(
 
 create table ReviewSession(
 	CourseId          Text Not Null,
-  SectionId         Text Not Null,
-  ReviewId          Text Not Null,
+    SectionId         Text Not Null,
+    ReviewId          Text Not Null,
 	Review_date       Text Not Null,
 	Start_time        Text Not Null,
 	End_time          Text Not Null,
