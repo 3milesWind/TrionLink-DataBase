@@ -37,6 +37,7 @@
         <%
             String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
             try {
+                is_correct = true;
                 Class.forName("org.postgresql.Driver");
                 Connection conn = DriverManager.getConnection(url);
                 conn.setAutoCommit(false);
@@ -93,29 +94,7 @@
         if (is_correct == false) {
             out.print("<h3>" + wrong + "</h3>");
         }
-        is_correct = true;
-        wrong = "";
     %>
-    <br/> <br/>
-    <H3>Students Have Taken This Class Before</H3>
-
-    <table>
-        <%
-            try {
-                Class.forName("org.postgresql.Driver");
-                Connection conn = DriverManager.getConnection(url);
-                conn.setAutoCommit(false);
-
-                class_id = request.getParameter("classId");
-
-            } catch (Exception e) {
-                is_correct = false;
-                wrong = e.toString();
-                System.out.println(e);
-            }
-        %>
-    </table>
-
     <br/><br/>
     <a href="../../report.jsp"><button> Homepage </button></a>
     <a href="StudentsTakingClass.jsp"><button> Check Others </button></a>
