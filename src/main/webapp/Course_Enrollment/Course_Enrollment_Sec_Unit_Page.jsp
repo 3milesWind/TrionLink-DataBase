@@ -24,13 +24,13 @@
     Keep working on one more step to finish
     <%! String student_id = "" ;%>
     <%! String course_id = "" ;%>
-    <%! Double min_units = 0.0 ;%>
-    <%! Double max_units = 0.0 ;%>
+    <%! Integer min_units = 0 ;%>
+    <%! Integer max_units = 0 ;%>
     <%! String grade_option = "" ;%>
     <%  student_id = (String)session.getAttribute("student_id");%>
     <%  course_id = (String)session.getAttribute("course_id");%>
-    <%  min_units = (Double)session.getAttribute("min_units");%>
-    <%  max_units = (Double)session.getAttribute("max_units");%>
+    <%  min_units = (Integer)session.getAttribute("min_units");%>
+    <%  max_units = (Integer)session.getAttribute("max_units");%>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         try {
@@ -50,7 +50,7 @@
             System.out.println(e);
         }
     %>
-    <form action="Course_Enrollment_Section.jsp" method="post">
+    <form action="Course_Enrollment_Sec_Unit.jsp" method="post">
         Student ID:  <input type="text" value="<%=student_id%>" name="StudentID" readonly/>
         <br/> <br/>
         Course ID: <input type="text" value="<%=course_id%>" name="CourseID" readonly/>
@@ -62,12 +62,12 @@
         <br/> <br/>
         Grade Option:
         <% if (grade_option.equals("Letter or S/U")) { %>
-        <select name="GradeOption">
+        <select name="GradeOption" required>
             <option>Letter</option>
             <option>S/U</option>
         </select>
         <% } else { %>
-        <input type="text" value="<%=grade_option%>" name="GradeOption" readonly/>
+        <input type="text" value="<%=grade_option%>" name="GradeOption" readonly required/>
         <% } %>
         <br/> <br/>
         <input type="submit" value="Submit"/>
