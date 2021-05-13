@@ -126,16 +126,18 @@ create table Course(
 	Check (MinUnits <= MaxUnits)
 );
 
-create table Class(
-	ClassId           Text Not Null,  
+
+create table ReviewSession(
 	CourseId          Text Not Null,
-	Title             Text Not Null,
-	Quarter           Text Not Null,
-	Year              Text Not Null,
-	NumberSec         Text Not Null,
-	Primary key       (ClassId),
+  SectionId         Text Not Null,
+  ReviewId          Text Not Null,
+	Review_date       Text Not Null,
+	Start_time        Text Not Null,
+	End_time          Text Not Null,
+	Review_room       Text Not Null,
+	Primary key       (ReviewId),
 	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE,
-	Check (Quarter In ('Fall', 'Winter', 'Spring', 'Summer'))
+	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
 );
 
 
