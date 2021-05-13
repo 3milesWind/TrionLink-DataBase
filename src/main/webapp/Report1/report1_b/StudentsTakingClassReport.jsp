@@ -1,5 +1,8 @@
 <%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %><%--
+<%@ page import="java.sql.DriverManager" %>
+<%@ page import="java.sql.PreparedStatement" %>
+<%@ page import="javax.xml.transform.Result" %>
+<%@ page import="java.sql.ResultSet" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/13
@@ -40,7 +43,45 @@
 
                 class_id = request.getParameter("classId");
 
-                String sql_find_stu = "SELECT * FROM Enrollment INNER JOIN Section ON Enrollment.SectionId = Section.SectionId";
+                // find stud_id, units, gradeoption of classid
+                String sql_find_stu = "SELECT Enrollment.studentId, Section.ClassId, Enrollment.Units, Enrollment.gradeOption FROM Enrollment INNER JOIN Section ON Enrollment.SectionId = Section.SectionId";
+                // join with Student to get all the attributes of Student
+                String sql_stud_attri = "SELECT a.ClassId, Student.*, a.Units, a.gradeOption FROM (" + sql_find_stu + ") AS a INNER JOIN Student ON a.StudentId = Student.Student_Id";
+                // search for a specific class id
+                String sql_sear_class = "SELECT * FROM (" + sql_stud_attri + ") AS b WHERE b.ClassId = ?";
+
+                PreparedStatement ps = conn.prepareStatement(sql_sear_class);
+                ps.setString(1, class_id);
+                ResultSet rs = ps.executeQuery();
+                out.println("<tr><th>Student ID</th>" +
+                                "<th>SSN</th>" +
+                                "<th>First Name</th>" +
+                                "<th>Middle Name</th>" +
+                                "<th>Last Name</th>" +
+                                "<th>Residency</th>" +
+                                "<th>Enrollment</th>" +
+                                "<th>Student Type</th>" +
+                                "<th>Units</th>" +
+                                "<th>Grade Option</th>" +
+                                "</tr>");
+                while(rs.next()) {
+                    out.println("<tr><th>" + rs.getString(2) + "</th>"
+                                + "<th>" + rs.getString(3) + "</th>"
+                                + "<th>" + rs.getString(4) + "</th>"
+                                + "<th>" + rs.getString(5) + "</th>"
+                                + "<th>" + rs.getString(6) + "</th>"
+                                + "<th>" + rs.getString(7) + "</th>"
+                                + "<th>" + rs.getString(8) + "</th>"
+                                + "<th>" + rs.getString(9) + "</th>"
+                                + "<th>" + rs.getString(10) + "</th>"
+                                + "<th>" + rs.getString(11) + "</th>"
+                                + "</tr>");
+                }
+                rs.close();
+                conn.commit();
+                conn.setAutoCommit(true);
+                ps.close();
+                conn.close();
             } catch (Exception e) {
                 is_correct = false;
                 wrong = e.toString();
@@ -55,7 +96,9 @@
         is_correct = true;
         wrong = "";
     %>
+    <br/> <br/>
     <H3>Students Have Taken This Class Before</H3>
+
     <table>
         <%
             try {
@@ -64,6 +107,8 @@
                 conn.setAutoCommit(false);
 
                 class_id = request.getParameter("classId");
+
+
 
             } catch (Exception e) {
                 is_correct = false;
