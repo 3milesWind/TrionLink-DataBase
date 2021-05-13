@@ -108,7 +108,7 @@
 
                 class_id = request.getParameter("classId");
 
-
+                String sql_stu = "";
 
             } catch (Exception e) {
                 is_correct = false;

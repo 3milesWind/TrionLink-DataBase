@@ -23,7 +23,6 @@
 %>
 <%
     student_id = request.getParameter("Student_Id");
-    System.out.println(student_id);
     Course_Id = request.getParameter("Course_Id");
     Units = Integer.parseInt(request.getParameter("Units"));
     quarter = request.getParameter("quarter");
