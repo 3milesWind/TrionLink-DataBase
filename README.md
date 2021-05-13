@@ -72,6 +72,9 @@ but I didn't catch error, so insert invalid values
 might mess up
 2. should check if minunits & maxunits are numeric
 
+- Class
+1. current year should only be 2018?
+
 - Section
 1. should check if enrollmentlimit and waitlist are numeric
 
