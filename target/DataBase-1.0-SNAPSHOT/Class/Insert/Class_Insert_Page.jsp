@@ -30,12 +30,12 @@
     <br/> <br/>
     Number of Sections: <input type="text" name="NumberSec" required/>
     <br/> <br/>
-    Next Offer Time: <select name="NextOfferQuater">
+    Next Offer Time: <select name="NextOfferQuarter">
     <option>Fall</option>
     <option>Winter</option>
     <option>Spring</option>
     <option>Summer</option>
-    </select> quarter,<input type="text" name="NextOfferYear" required/> year
+    </select> quarter, <input type="text" name="NextOfferYear" required/> year
     <br/> <br/>
     <input type="submit" value="Submit"/>
 </form>

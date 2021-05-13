@@ -25,8 +25,12 @@ but I didn't catch error, so insert invalid values
 might mess up
 2. should check if minunits & maxunits are numeric
 
+- Class
+1. should check if current (quarter,year) is earlier than next offered (quarter,year)
+(for now, I only check if current year is earlier or equal than next offered year)
+
 - Section
-1. check if enrollmentlimit and waitlist are numeric
+1. should check if enrollmentlimit and waitlist are numeric
 
 - updated table creation code
 1. Since I modified enrollment & meeting table, there might be errors
