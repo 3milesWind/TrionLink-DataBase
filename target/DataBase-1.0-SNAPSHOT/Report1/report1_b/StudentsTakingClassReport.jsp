@@ -40,7 +40,7 @@
 
                 class_id = request.getParameter("classId");
 
-                String sql_find_stu = "SELECT";
+                String sql_find_stu = "SELECT * FROM Enrollment INNER JOIN Section ON Enrollment.SectionId = Section.SectionId";
             } catch (Exception e) {
                 is_correct = false;
                 wrong = e.toString();
