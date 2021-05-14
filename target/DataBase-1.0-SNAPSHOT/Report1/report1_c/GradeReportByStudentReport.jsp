@@ -34,7 +34,6 @@
         double total_num_of_units = 0.0;
 
         List<String> arr_taken_year_quarter = new ArrayList<>();
-//        List<String> arr_takenYear = new ArrayList<>();
 
         List<String> arr_class_attri = new ArrayList<>();
         List<String> arr_units = new ArrayList<>();
@@ -50,7 +49,6 @@
         String taken_quarter = "";
         String taken_year = "";
         Dictionary<String, String> dic_quarter_order = new Hashtable<String, String>();
-//        Dictionary<String, Double> dic_gpa_quarter = new Hashtable<String, Double>();
     %>
     <%
         if (arr_taken_year_quarter.size() != 0) {arr_taken_year_quarter.clear();}
@@ -89,7 +87,6 @@
                 taken_quarter = dic_quarter_order.get(rs.getString(1));
                 taken_year = rs.getString(2);
                 arr_taken_year_quarter.add( taken_year + "," + taken_quarter );
-//                arr_takenYear.add(rs.getString(2));
             }
             ps.close();
             rs.close();
@@ -106,7 +103,7 @@
             if (arr_class_attri.size() != 0) {arr_class_attri.clear();}
             if (arr_units.size() != 0) {arr_units.clear();}
             if (arr_grade.size() != 0) {arr_grade.clear();}
-            prev_size = 0;
+            prev_size = 0;      // clear out the prev size such that recheck for others won't get wrong output
             // before loop through each (quarter, year), need to sort quarter_year arrayList
             Collections.sort(arr_taken_year_quarter);
             String[] year_quarter_list;
@@ -124,7 +121,6 @@
                 int temp = 0;
                 gpa_pts_per_quarter = 0.0;
                 num_of_units_per = 0;
-                System.out.println("--- " + (year_quarter_list[1]).substring(2) + " " + year_quarter_list[0]);
                 while(rs1.next()) {
                     String curr_class_id = rs1.getString(1);
                     PreparedStatement st2 = conn.prepareStatement("Select * From Class Where ClassId = ?");
@@ -134,45 +130,34 @@
                     while (rs2.next()) {
                         tempstr = rs2.getString(1) + "://" + rs2.getString(2)+ "://" + rs2.getString(3)+ "://" + rs2.getString(4)+ "://" + rs2.getString(5)+ "://" + rs2.getString(6)+ "://" + rs2.getString(7);
                         arr_class_attri.add(rs2.getString(1) + "://" + rs2.getString(2)+ "://" + rs2.getString(3)+ "://" + rs2.getString(4)+ "://" + rs2.getString(5)+ "://" + rs2.getString(6)+ "://" + rs2.getString(7));
-                        System.out.println("class attri:" + tempstr);
                     }
                     arr_units.add(rs1.getString("units"));
                     arr_grade.add(rs1.getString("grade"));
 
                     PreparedStatement st3 = conn.prepareStatement(sql_grade_convert);
-                    System.out.println("grade: " + rs1.getString("grade"));
                     st3.setString(1, rs1.getString("grade"));
                     ResultSet rs3 = st3.executeQuery();
                     while (rs3.next()) {
-                        System.out.println(Double.parseDouble(rs1.getString("units")) * Double.parseDouble(rs3.getString(1)) + " = " + Double.parseDouble(rs1.getString("units")) + " * " + Double.parseDouble(rs3.getString(1)));
                         gpa_pts_per_quarter += Double.parseDouble(rs1.getString("units")) * Double.parseDouble(rs3.getString(1));
                         total_gpa_pts += Double.parseDouble(rs1.getString("units")) * Double.parseDouble(rs3.getString(1));
                     }
                     num_of_units_per += Double.parseDouble(rs1.getString("units"));
                     total_num_of_units += Double.parseDouble(rs1.getString("units"));
-                    System.out.println("total pts now: " + total_gpa_pts);
-                    System.out.println("total units now: " + total_num_of_units);
 
                     rs3.close();
                     rs2.close();
                     st2.close();
                     temp += 1;
                 }
-                System.out.println("current GPA = " + gpa_pts_per_quarter + " / " + num_of_units_per);
                 arr_gpa_per_quarter.add(gpa_pts_per_quarter / num_of_units_per);
 
                 if (prev_size == 0) {
-                    System.out.println("prev_size: " + prev_size);
-                    System.out.println("current : " + arr_class_attri.size());
                     arr_num_class_per_quar.add( arr_class_attri.size() );
                     prev_size = arr_class_attri.size();
                 } else {
-                    System.out.println("prev_size: " + prev_size);
-                    System.out.println("current : " + (arr_class_attri.size() - prev_size));
                     arr_num_class_per_quar.add( arr_class_attri.size() - prev_size);
                     prev_size = arr_class_attri.size() - prev_size;
                 }
-//                arr_num_class_per_quar.add( arr_class_attri.size() );
                 rs1.close();
                 st1.close();
             }
@@ -182,15 +167,10 @@
             wrong = e.toString();
             System.out.println(e);
         }
-        System.out.println("**************************");
     %>
     <%
         String[] str_list;
         int num = 0;
-        System.out.println("number of quarter: " + arr_num_class_per_quar.size());
-        for (int s = 0; s < arr_num_class_per_quar.size(); s++) {
-            System.out.println(arr_num_class_per_quar.get(s));
-        }
 
         for (int i = 0; i < (arr_taken_year_quarter).size(); i++) {
             str_list = (arr_taken_year_quarter.get(i)).split(",");
@@ -210,7 +190,6 @@
                             "</tr>");
                 for (int j = 0; j < arr_num_class_per_quar.get(i); j++) {
                     String class_attr_per_class = arr_class_attri.get(num);
-                    System.out.println((str_list[1]).substring(2) + " " + str_list[0] + ":  " + class_attr_per_class);
                     String[] class_attri_list = class_attr_per_class.split("://");
                     out.println("<tr><th>" + class_attri_list[0] + "</th>" +
                             "<th>" + class_attri_list[1] + "</th>" +
