@@ -110,9 +110,42 @@ insert into Class values ('CSE8A-wi17', 'CSE8A', 'Introduction to Computer Scien
 ('MAE108-sp17', 'MAE108', 'Probability and Statistics', 'Spring', '2017', '2', 'Fall,2021'),
 ('PHIL10-wi18', 'PHIL10', 'Intro to Logic', 'Winter', '2018', '2', 'Winter,2022'),
 ('PHIL165-fa17', 'PHIL165', 'Freedom, Equality, and the Law', 'Fall', '2017', '2', 'Spring,2022'),
+('MAE108-sp21', 'MAE108', 'Probability and Statistics', 'Spring', '2021', '2', 'Fall,2021'),
+('CSE255-sp21', 'CSE255', 'Data Mining and Predictive Analytics', 'Spring', '2021', '2', 'Winter,2022'),
+('CSE8A-sp21', 'CSE8A', 'Introduction to Computer Science: Java', 'Spring', '2021', '2', 'Spring,2022'),
+('CSE105-sp21', 'CSE105', 'Intro to Theory', 'Spring', '2021', '2', 'Fall,2021'),
+('CSE221-sp21', 'CSE221', 'Operating Systems', 'Spring', '2021', '2', 'Fall,2021'),
+('PHIL12-sp21', 'PHIL12', 'Scientific Reasoning', 'Spring', '2021', '2', 'Spring,2022'),
+('PHIL165-sp21', 'PHIL165', 'Freedom, Equality, and the Law', 'Spring', '2021', '2', 'Spring,2022'),
 ('PHIL165-wi18', 'PHIL165', 'Freedom, Equality, and the Law', 'Winter', '2018', '2', 'Spring,2022');
 
-
+// section
+insert into section values ('CSE8A', 'CSE8A-wi17', 'CSE8A-wi17-1', 'Justin Bieber', '30', '5'),
+('PHIL165', 'PHIL165-fa17', 'PHIL165-fa17-1', 'Flo Rida', '30', '5'),
+('CSE8A', 'CSE8A-fa17', 'CSE8A-fa17-1', 'Selena Gomez', '30', '5'),
+('MAE108', 'MAE108-sp21', 'MAE108-sp21-1', 'Adele', '30', '5'),
+('CSE105', 'CSE105-sp17', 'CSE105-sp17-1', 'Taylor Swift', '30', '5'),
+('CSE8A', 'CSE8A-wi18', 'CSE8A-wi18-1', 'Kelly Clarkson', '30', '5'),
+('CSE250A', 'CSE250A-wi17', 'CSE250A-wi17-1', 'Bjork', '30', '5'),
+('PHIL10', 'PHIL10-wi18', 'PHIL10-wi18-1', 'Bjork', '30', '5'),
+('CSE250B', 'CSE250B-sp17', 'CSE250B-sp17-1', 'Justin Bieber', '30', '5'),
+('CSE255', 'CSE255-sp21', 'CSE255-sp21-1', 'Flo Rida', '30', '5'),
+('MAE108', 'MAE108-sp21', 'MAE108-sp21-2', 'Selena Gomez', '30', '5'),
+('CSE8A', 'CSE8A-sp21', 'CSE8A-sp21-1', 'Adele', '30', '5'),
+('CSE105', 'CSE105-sp21', 'CSE105-sp21-1', 'Taylor Swift', '30', '5'),
+('CSE232A', 'CSE232A-wi18', 'CSE232A-wi18-1', 'Kelly Clarkson', '30', '5'),
+('PHIL165', 'PHIL165-wi18', 'PHIL165-wi18-1', 'Adam Levine', '30', '5'),
+('MAE107', 'MAE107-fa17', 'MAE107-fa17-1', 'Bjork', '30', '5'),
+('CSE221', 'CSE221-sp21', 'CSE221-sp21-1', 'Justin Bieber', '30', '5'),
+('MAE108', 'MAE108-wi17', 'MAE108-wi17-1', 'Selena Gomez', '30', '5'),
+('PHIL12', 'PHIL12-sp21', 'PHIL12-sp21-1', 'Adam Levine', '30', '5'),
+('CSE250A', 'CSE250A-wi18', 'CSE250A-wi18-1', 'Bjork', '30', '5'),
+('PHIL165', 'PHIL165-sp21', 'PHIL165-sp21-1', 'Adam Levine', '30', '5'),
+('CSE221', 'CSE221-sp21', 'CSE221-sp21-2', 'Kelly Clarkson', '30', '5'),
+('CSE221', 'CSE221-sp21', 'CSE221-sp21-3', 'Kelly Clarkson', '30', '5'),
+('CSE255', 'CSE255-wi18', 'CSE255-wi18-1', 'Justin Bieber', '30', '5'),
+('CSE221', 'CSE221-fa17', 'CSE221-fa17-1', 'Justin Bieber', '30', '5'),
+('MAE108', 'MAE108-sp17', 'MAE108-sp17-1', 'Selena Gomez', '30', '5');
 
 ```
 ```sql
