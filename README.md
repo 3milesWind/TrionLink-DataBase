@@ -76,6 +76,17 @@ insert into master values('A1021','Master','CSE',0);
 
 insert into student values('A1022','22','Tim','','K','Non-CA US','Current enrolled','Master');
 insert into master values('A1022','Master','CSE',0);
+
+// faculty
+insert into faculty values('Justin Bieber','Associate Professor','CSE');
+insert into faculty values('Flo Rida','Professor','CSE');
+insert into faculty values('Selena Gomez','Professor','CSE');
+insert into faculty values('Adele','Professorr','CSE');
+insert into faculty values('Taylor Swift','Professor','CSE');
+insert into faculty values('Kelly Clarkson','Professor','CSE');
+insert into faculty values('Adam Levine','Professor','CSE');
+insert into faculty values('Bjork','Professor','CSE');
+
 ```
 ```sql
 create Table Degree(
