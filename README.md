@@ -94,6 +94,25 @@ insert into Course values ('CSE8A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4',
 ('PHIL165', '.', 'CSE', '.', 'Letter or S/U', 'No', '2', '5'),
 ('PHIL167', '.', 'CSE', '.', 'Letter or S/U', 'No', '2', '5');
 
+// class
+insert into Class values ('CSE8A-wi17', 'CSE8A', 'Introduction to Computer Science: Java', 'Winter', '2017', '2', 'Spring,2022'),
+('CSE8A-fa17', 'CSE8A', 'Introduction to Computer Science: Java', 'Fall', '2017', '2', 'Spring,2022'),
+('CSE8A-wi18', 'CSE8A', 'Introduction to Computer Science: Java', 'Winter', '2018', '2', 'Spring,2022'),
+('CSE105-sp17', 'CSE105', 'Intro to Theory', 'Spring', '2017', '2', 'Fall,2021'),
+('CSE250A-wi17', 'CSE250A', 'Probabilistic Reasoning', 'Winter', '2017', '2', 'Winter,2022'),
+('CSE250A-wi18', 'CSE250A', 'Probabilistic Reasoning', 'Winter', '2018', '2', 'Winter,2022'),
+('CSE250B-sp17', 'CSE250B', 'Machine Learning', 'Spring', '2017', '2', 'Fall,2022'),
+('CSE255-wi18', 'CSE255', 'Data Mining and Predictive Analytics', 'Winter', '2018', '2', 'Winter,2022'),
+('CSE232A-wi18', 'CSE232A', 'Databases', 'Winter', '2018', '2', 'Spring,2022'),
+('CSE221-fa17', 'CSE221', 'Operating Systems', 'Fall', '2017', '2', 'Fall,2021'),
+('MAE107-fa17', 'MAE107', 'Computational Methods', 'Fall', '2017', '2', 'Spring,2022'),
+('MAE108-wi17', 'MAE108', 'Probability and Statistics', 'Winter', '2017', '2', 'Fall,2021'),
+('MAE108-sp17', 'MAE108', 'Probability and Statistics', 'Spring', '2017', '2', 'Fall,2021'),
+('PHIL10-wi18', 'PHIL10', 'Intro to Logic', 'Winter', '2018', '2', 'Winter,2022'),
+('PHIL165-fa17', 'PHIL165', 'Freedom, Equality, and the Law', 'Fall', '2017', '2', 'Spring,2022'),
+('PHIL165-wi18', 'PHIL165', 'Freedom, Equality, and the Law', 'Winter', '2018', '2', 'Spring,2022');
+
+
 
 ```
 ```sql
