@@ -30,7 +30,7 @@
     String DegreeType = "";
     String Exception = "";
     boolean is_Error = true;
-    boolean BUG = false;
+    boolean BUG = true;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 //    HashMap<String,List<String>> require_courses = new HashMap<>();
     HashMap<String,String> require_courses = new HashMap<>();
@@ -56,7 +56,7 @@
            break;
        }
     }
-    System.out.println("Success: + " + DegreeName + "+" + DegreeType);
+    //System.out.println("Success: + " + DegreeName + "+" + DegreeType);
     try {
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
@@ -71,7 +71,7 @@
         ResultSet rs = ps_task1.executeQuery();
         // ----> return: concentrations name, courses, minGAp, units
         while(rs.next()) {
-            System.out.println(rs.getString(1));
+            //System.out.println(rs.getString(1));
             if(!require_courses.containsKey(rs.getString(1))) {
                 // get the information of courses
                 leftover_course.put(rs.getString(1),new ArrayList<>());
@@ -197,6 +197,38 @@
 
     %>
 </table>
+
+<h3>The course Student have been taken</h3>
+<table>
+    <%
+
+        try{
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(url);
+            String sql = "select p.course_id, p.units, p.grade from past_course p left join student s on p.student_id = s.student_id\n" +
+                    "where ssn = ?";
+            PreparedStatement ps_task5 = conn.prepareStatement(sql);
+            ps_task5.setString(1,SSN);
+            ResultSet rs5 = ps_task5.executeQuery();
+            out.println("<th>Course</th>" +
+                    "<th>Units</th>" +
+                    "<th>Grade</th>" +
+                    " </tr>");
+            while (rs5.next()){
+                out.print("<tr><th>" + rs5.getString(1) + "</th>" + "<th>" + rs5.getString(2) + "</th>" +
+                        "<th>" + rs5.getString(3)  +"</th></tr>");
+            }
+            ps_task5.close();
+            rs5.close();
+            conn.close();
+        } catch (Exception e) {
+            is_Error = false;
+            Exception = e.toString();
+            System.out.println(e);
+        }
+
+    %>
+</table>
 <h3>Student who have not completed Concentration courses below</h3>
 <%
     for (String key : leftover_course.keySet()) {
@@ -207,11 +239,10 @@
                 try {
                     Class.forName("org.postgresql.Driver");
                     Connection conn = DriverManager.getConnection(url);
-                    String sql = "Select * from class where CourseId = ? and Quarter = ? and Year = ?";
+                    String sql = "select * from class c\n" +
+                            "where c.courseid = ? limit 1";
                     PreparedStatement ps_task4 = conn.prepareStatement(sql);
                     ps_task4.setString(1,course);
-                    ps_task4.setString(2,"Spring");
-                    ps_task4.setString(3,"2018");
                     ResultSet rs4 = ps_task4.executeQuery();
                     if (rs4.next()) {
                         out.print("<h5>" + course + "------------" + "Next Offer: "+ rs4.getString(7) +"</h5>");
