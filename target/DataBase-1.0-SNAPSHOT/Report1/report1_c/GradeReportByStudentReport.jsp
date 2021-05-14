@@ -95,7 +95,6 @@
 //            conn.close();
             %>
             <%!
-//            Object[][][] arrayQuarterYear = new Object[arr_taken_quarter.size()][3][];
             List<Integer> arr_num_class_per_quar = new ArrayList<>();
             int prev_size = 0;
             %>
@@ -104,72 +103,33 @@
             // need to sort quarter_year arrayList
             Collections.sort(arr_taken_year_quarter);
             String[] year_quarter_list;
-//                System.out.println("taken quarter: " + arr_taken_quarter.size());
             for (int i = 0; i < arr_taken_year_quarter.size(); i++) {
-//                System.out.println(i);
-//                out.println("<h3>" + arr_taken_quarter.get(i) + "</h3>");
                 PreparedStatement st1 = conn.prepareStatement(sql_per_quar);
                 st1.setString(1, ssn);
                 year_quarter_list = (arr_taken_year_quarter.get(i)).split(",");
-                System.out.println("taken quarter year: ----- " + (year_quarter_list[1]).substring(2) + " " + year_quarter_list[0]);
+//                System.out.println("taken quarter year: ----- " + (year_quarter_list[1]).substring(2) + " " + year_quarter_list[0]);
                 st1.setString(2, (year_quarter_list[1]).substring(2));
                 st1.setString(3, year_quarter_list[0]);
                 ResultSet rs1 = st1.executeQuery();
                 int temp = 0;
-//                out.println("asdasdas");
                 while(rs1.next()) {
-//                    System.out.println("76869686966");
                     String curr_class_id = rs1.getString(1);
                     PreparedStatement st2 = conn.prepareStatement("Select * From Class Where ClassId = ?");
                     st2.setString(1, curr_class_id);
                     ResultSet rs2 = st2.executeQuery();
-//                    out.println(temp + " --- kkkkkk");
                     String tempstr = "";
                     while (rs2.next()) {
                         tempstr = rs2.getString(1) + ":" + rs2.getString(2)+ ":" + rs2.getString(3)+ ":" + rs2.getString(4)+ ":" + rs2.getString(5)+ ":" + rs2.getString(6)+ ":" + rs2.getString(7);
                         arr_class_attri.add(rs2.getString(1) + ":" + rs2.getString(2)+ ":" + rs2.getString(3)+ ":" + rs2.getString(4)+ ":" + rs2.getString(5)+ ":" + rs2.getString(6)+ ":" + rs2.getString(7));
-                        System.out.println(tempstr);
                     }
                     arr_units.add(rs1.getString("units"));
                     arr_grade.add(rs1.getString("grade"));
-//                    arr_units[temp] = rs1.getString("units");
-//                    arr_grade[temp] = rs1.getString("grade");
-//                    System.out.println(tempstr + "---" + rs1.getString("units") + "---" + rs1.getString("grade"));
+
                     rs2.close();
                     st2.close();
                     temp += 1;
                 }
-//                Object[] arrayPerQuar = new Object[3];
-//                arrayPerQuar[0] = arr_class_attri;
-//                arrayPerQuar[1] = arr_units;
-//                arrayPerQuar[2] = arr_grade;
 
-//                Object[] obj1 = arrayQuarterYear[i][0];
-//                arrayQuarterYear[i][0] = obj_class;
-//                arrayQuarterYear[i][1] = arr_units;
-//                arrayQuarterYear[i][2] = arr_grade;
-
-//                out.println("dssdsfsdfsd" + arr_class_attri.size());
-//                obj_class_attri = new Object[arr_class_attri.size()];
-//                obj_units = new Object[arr_class_attri.size()];
-//                obj_grade = new Object[arr_class_attri.size()];
-//                for (int z = 0; z < arr_class_attri.size(); z++)
-//                {
-//                    System.out.println("I think its below");
-//                    obj_class_attri[z] = arr_class_attri.get(z);
-//
-//                    obj_units[z] = arr_units.get(z);
-//                    obj_grade[z] = arr_grade.get(z);
-//                    System.out.println("I think its above");
-//                }
-//                arrayQuarterYear[i][0] = obj_class_attri;
-//                System.out.println("I think its above");
-//                arrayQuarterYear[i][1] = obj_units;
-//                arrayQuarterYear[i][2] = obj_grade;
-
-//                arrayQuarterYear[i][0] = arr_class_attri;
-//                arrayQuarterYear[i][1] = arr_units;
-//                arrayQuarterYear[i][2] = arr_grade;
                 if (prev_size == 0) {
                     arr_num_class_per_quar.add( arr_class_attri.size() );
                     prev_size = arr_class_attri.size();
@@ -181,6 +141,7 @@
                 rs1.close();
                 st1.close();
             }
+            conn.close();
         } catch (Exception e) {
             is_correct = false;
             wrong = e.toString();
@@ -207,12 +168,8 @@
                             "<th>grade</th>" +
                             "</tr>");
                 for (int j = 0; j < arr_num_class_per_quar.get(i); j++) {
-//                    temp_p = i * 3 + j;
-
-
                     String class_attr_per_class = arr_class_attri.get(num);
                     String[] class_attri_list = class_attr_per_class.split(":");
-//                    String[] class_attri = String.valueOf((arrayQuarterYear[i][0])[j]).split(":");
                     out.println("<tr><th>" + class_attri_list[0] + "</th>" +
                             "<th>" + class_attri_list[1] + "</th>" +
                             "<th>" + class_attri_list[2] + "</th>" +
@@ -230,5 +187,9 @@
             %>
         </table>
     <% } %>
+    <br/><br/>
+    <a href="../../report.jsp"><button> Homepage </button></a>
+    <a href="./GradeReportByStudent.jsp"><button> Check Others </button></a>
+    <jsp:include page="../../footer.jsp"/>
 </body>
 </html>
