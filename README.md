@@ -77,6 +77,24 @@ insert into master values('A1021','Master','CSE',0);
 insert into student values('A1022','22','Tim','','K','Non-CA US','Current enrolled','Master');
 insert into master values('A1022','Master','CSE',0);
 
+
+// faculty
+insert into faculty values('Justin Bieber','Associate Professor','CSE');
+insert into faculty values('Flo Rida','Professor','CSE');
+insert into faculty values('Selena Gomez','Professor','CSE');
+insert into faculty values('Adele','Professorr','CSE');
+insert into faculty values('Taylor Swift','Professor','CSE');
+insert into faculty values('Kelly Clarkson','Professor','CSE');
+insert into faculty values('Adam Levine','Professor','CSE');
+insert into faculty values('Bjork','Professor','CSE');
+
+//degree
+
+INSERT into degree values('B.S.','Computer Science','CSE',40,10,15,15);
+INSERT into degree values('B.A.','Philosophy','CSE',35,15,20,0);
+INSERT into degree values('B.S.','Mechanical Engineering','CSE',50,20,20,10);
+INSERT into degree values('M.S.','Computer Science','CSE',45,0,0,0);
+
 // course
 insert into Course values ('CSE8A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
 ('CSE105', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
@@ -147,6 +165,7 @@ insert into section values ('CSE8A', 'CSE8A-wi17', 'CSE8A-wi17-1', 'Justin Biebe
 ('CSE221', 'CSE221-fa17', 'CSE221-fa17-1', 'Justin Bieber', '30', '5'),
 ('MAE108', 'MAE108-sp17', 'MAE108-sp17-1', 'Selena Gomez', '30', '5');
 
+
 // enrollment
 insert into enrollment values ('A1016', 'CSE221', 'CSE221-sp21-2', '4', 'Letter Grade'),
 ('A1017', 'CSE221', 'CSE221-sp21-1', '4', 'S/U'),
@@ -168,6 +187,7 @@ insert into enrollment values ('A1016', 'CSE221', 'CSE221-sp21-2', '4', 'Letter 
 ('A1013', 'PHIL165', 'PHIL165-sp21-1', '4', 'S/U'),
 ('A1014', 'PHIL12', 'PHIL12-sp21-1', '4', 'Letter Grade'),
 ('A1015', 'PHIL165', 'PHIL165-sp21-1', '4', 'Letter Grade');
+
 
 
 ```
