@@ -85,10 +85,10 @@
             int prev_size = 0;
             %>
             <%
-                System.out.println("taken quarter: " + arr_taken_quarter.size());
+//                System.out.println("taken quarter: " + arr_taken_quarter.size());
             for (int i = 0; i < arr_taken_quarter.size(); i++) {
-                System.out.println(i);
-                out.println("<h3>" + arr_taken_quarter.get(i) + "</h3>");
+//                System.out.println(i);
+//                out.println("<h3>" + arr_taken_quarter.get(i) + "</h3>");
                 PreparedStatement st1 = conn.prepareStatement(sql_per_quar);
                 st1.setString(1, ssn);
                 st1.setString(2, arr_taken_quarter.get(i));
@@ -112,7 +112,7 @@
                     arr_grade.add(rs1.getString("grade"));
 //                    arr_units[temp] = rs1.getString("units");
 //                    arr_grade[temp] = rs1.getString("grade");
-                    System.out.println(tempstr + "---" + rs1.getString("units") + "---" + rs1.getString("grade"));
+//                    System.out.println(tempstr + "---" + rs1.getString("units") + "---" + rs1.getString("grade"));
                     rs2.close();
                     st2.close();
                     temp += 1;
@@ -168,7 +168,7 @@
     <%
         int num = 0;
         for (int i = 0; i < (arr_taken_quarter).size(); i++) { %>
-        <h3><% out.println(arr_taken_quarter.get(i) + "yayaya"); %></h3>
+        <h3><% out.println(arr_taken_quarter.get(i)); %></h3>
         <table>
             <%
                 out.println("<tr><th>Class ID</th>" +

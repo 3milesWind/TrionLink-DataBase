@@ -22,7 +22,7 @@ insert into Undergraduate values('A1003','Computer Science','','Warren');
 insert into student values('A1004','4','Claire','','J','California resident','Current enrolled','Undergraduate');
 insert into Undergraduate values('A1004','Computer Science','','Warren');
 
-insert into student values('A1005','5','Kevin','','L','California resident','Current enrolled','Undergraduate');
+insert into student values('A1005','5','Julie','','C','California resident','Current enrolled','Undergraduate');
 insert into Undergraduate values('A1005','Computer Science','','Warren');
 
 insert into student values('A1006','6','Kevin','','L','California resident','Current enrolled','Undergraduate');
@@ -146,6 +146,29 @@ insert into section values ('CSE8A', 'CSE8A-wi17', 'CSE8A-wi17-1', 'Justin Biebe
 ('CSE255', 'CSE255-wi18', 'CSE255-wi18-1', 'Justin Bieber', '30', '5'),
 ('CSE221', 'CSE221-fa17', 'CSE221-fa17-1', 'Justin Bieber', '30', '5'),
 ('MAE108', 'MAE108-sp17', 'MAE108-sp17-1', 'Selena Gomez', '30', '5');
+
+// enrollment
+insert into enrollment values ('A1016', 'CSE221', 'CSE221-sp21-2', '4', 'Letter Grade'),
+('A1017', 'CSE221', 'CSE221-sp21-1', '4', 'S/U'),
+('A1018', 'CSE221', 'CSE221-sp21-3', '4', 'Letter Grade'),
+('A1019', 'CSE221', 'CSE221-sp21-2', '4', 'Letter Grade'),
+('A1020', 'CSE221', 'CSE221-sp21-1', '4', 'Letter Grade'),
+('A1021', 'CSE221', 'CSE221-sp21-3', '4', 'S/U'),
+('A1022', 'CSE255', 'CSE255-sp21-1', '4', 'Letter Grade'),
+('A1016', 'CSE255', 'CSE255-sp21-1', '4', 'Letter Grade'),
+('A1017', 'CSE255', 'CSE255-sp21-1', '4', 'Letter Grade'),
+('A1001', 'CSE8A', 'CSE8A-sp21-1', '4', 'S/U'),
+('A1005', 'CSE8A', 'CSE8A-sp21-1', '4', 'Letter Grade'),
+('A1003', 'CSE8A', 'CSE8A-sp21-1', '4', 'Letter Grade'),
+('A1007', 'MAE108', 'MAE108-sp21-1', '4', 'Letter Grade'),
+('A1008', 'MAE108', 'MAE108-sp21-1', '4', 'Letter Grade'),
+('A1009', 'MAE108', 'MAE108-sp21-2', '4', 'Letter Grade'),
+('A1004', 'CSE105', 'CSE105-sp21-1', '4', 'Letter Grade'),
+('A1012', 'PHIL12', 'PHIL12-sp21-1', '4', 'Letter Grade'),
+('A1013', 'PHIL165', 'PHIL165-sp21-1', '4', 'S/U'),
+('A1014', 'PHIL12', 'PHIL12-sp21-1', '4', 'Letter Grade'),
+('A1015', 'PHIL165', 'PHIL165-sp21-1', '4', 'Letter Grade');
+
 
 ```
 ```sql
