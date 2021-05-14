@@ -68,13 +68,14 @@
              *  create a new Thesis committee
              * */
             is_correct = true;
-            String sql = "Insert into past_course values (?,?,?,?,?,?)";
+            String sql = "Insert into past_course values (?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,student_id);
             ps.setString(2,Course_Id);
             ps.setInt(3,Units);
             ps.setString(4,grade);
-            ps.setString(5,time);
+            ps.setString(5,quarter);
+            ps.setString(5,year);
             ps.setString(6,section);
             ps.executeUpdate();
             ps.close();

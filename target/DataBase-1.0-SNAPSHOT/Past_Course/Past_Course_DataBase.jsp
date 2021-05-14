@@ -31,12 +31,15 @@
             Statement sm = conn.createStatement();
             ResultSet st = sm.executeQuery("select * from past_course");
             out.println("<H3 align=\"center\">Past Course DataBase</h3>");
-            out.println("<tr><th>StudentID</th><th>CourseID</th><th>Units</th><th>Grade</th><th>Quarter</th></tr>");
+            out.println("<tr><th>StudentID</th><th>CourseID</th><th>Units</th>" +
+                    "<th>Grade</th><th>Quarter</th><th>year</th><th>Section</th></tr>");
             while (st.next()) {
 
                 out.print("<tr><th>" + st.getString(1) + "</th>" + "<th>" + st.getString(2)  + "</th>"
-                        + "<th>" + st.getString(3) + "</th>" + "<th>" + st.getString(4)  +"</th>" +
-                         "<th>" + st.getString(5)  +"</th></tr>");
+                        + "<th>" + st.getString(3) + "</th>" + "<th>" + st.getString(4)
+                        + "</th>" +"<th>" + st.getString(5)  +"</th>" +
+                        "</th>" +"<th>" + st.getString(6)  +"</th>" +
+                         "<th>" + st.getString(7)  +"</th></tr>");
             }
             sm.close();
             st.close();
