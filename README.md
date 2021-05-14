@@ -87,6 +87,13 @@ insert into faculty values('Kelly Clarkson','Professor','CSE');
 insert into faculty values('Adam Levine','Professor','CSE');
 insert into faculty values('Bjork','Professor','CSE');
 
+//degree
+
+INSERT into degree values('B.S.','Computer Science','CSE',40,10,15,15);
+INSERT into degree values('B.A.','Philosophy','CSE',35,15,20,0);
+INSERT into degree values('B.S.','Mechanical Engineering','CSE',50,20,20,10);
+INSERT into degree values('M.S.','Computer Science','CSE',45,0,0,0);
+
 ```
 ```sql
 create Table Degree(
