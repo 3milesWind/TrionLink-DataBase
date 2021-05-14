@@ -1,7 +1,7 @@
-<%@ page import="java.util.List" %>
-<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.*" %>
-<%@ page import="java.util.Arrays" %><%--
+<%@ page import="java.util.Dictionary" %>
+<%@ page import="java.util.Hashtable" %>
+<%@ page import="java.util.*" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/13
@@ -28,7 +28,8 @@
     <%!
         String ssn = "";
         String student_id = "";
-        List<String> arr_taken_quarter = new ArrayList<>();
+        List<String> arr_taken_year_quarter = new ArrayList<>();
+//        List<String> arr_takenYear = new ArrayList<>();
 
         List<String> arr_class_attri = new ArrayList<>();
         List<String> arr_units = new ArrayList<>();
@@ -49,9 +50,19 @@
 //        List<String> arr_grade = new ArrayList<>();
         boolean is_correct = true;
         String wrong = "";
+        String taken_quarter = "";
+        String taken_year = "";
+        Dictionary<String, String> dic_quarter_order = new Hashtable<String, String>();
     %>
     <%
-        if (arr_taken_quarter.size() != 0) {arr_taken_quarter.clear();}
+        if (arr_taken_year_quarter.size() != 0) {arr_taken_year_quarter.clear();}
+//        if (arr_takenYear.size() != 0) {arr_takenYear.clear();}
+        if (dic_quarter_order.isEmpty()) {
+            dic_quarter_order.put("Winter", "1_Winter");
+            dic_quarter_order.put("Spring", "2_Spring");
+            dic_quarter_order.put("Summer", "3_Summer");
+            dic_quarter_order.put("Fall", "4_Fall");
+        }
 
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         try {
@@ -60,12 +71,12 @@
             Connection conn = DriverManager.getConnection(url);
             Statement sm1 = conn.createStatement();
             conn.setAutoCommit(false);
-            String sql_find_stu = "SELECT Section.classid, Past_course.sectionid, Past_course.student_id, Past_course.units, Past_course.grade, Past_course.taken_quarter FROM Past_course INNER JOIN Section ON Section.SectionId = Past_course.SectionId";
+            String sql_find_stu = "SELECT Section.classid, Past_course.sectionid, Past_course.student_id, Past_course.units, Past_course.grade, Past_course.quarter, Past_course.year FROM Past_course INNER JOIN Section ON Section.SectionId = Past_course.SectionId";
             String sql_merge_stu = "SELECT Student.ssn, a.* FROM (" + sql_find_stu + ") AS a INNER JOIN Student ON Student.Student_id = a.student_id";
-            String sql_taken_quarter = "SELECT b.taken_quarter from (" + sql_merge_stu + ") AS b WHERE b.ssn = ?";
+            String sql_taken_quarter = "SELECT b.quarter, b.year from (" + sql_merge_stu + ") AS b WHERE b.ssn = ? GROUP BY b.quarter, b.year";
 
-            String sql_sear_ssn1 = "SELECT b.classid, b.units, b.grade, b.taken_quarter FROM (" + sql_merge_stu + ") AS b WHERE b.ssn = ?";
-            String sql_per_quar = "SELECT c.classid, c.units, c.grade from (" + sql_sear_ssn1 + ") as c where c.taken_quarter = ?";
+            String sql_sear_ssn1 = "SELECT b.classid, b.units, b.grade, b.quarter, b.year FROM (" + sql_merge_stu + ") AS b WHERE b.ssn = ?";
+            String sql_per_quar = "SELECT c.classid, c.units, c.grade from (" + sql_sear_ssn1 + ") as c where c.quarter = ? AND c.year = ?";
 
             ssn = request.getParameter("ssn");
 
@@ -73,25 +84,36 @@
             ps.setString(1, ssn);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                arr_taken_quarter.add(rs.getString(1));
+                // quarter with number (ex. '3_Summer')
+                taken_quarter = dic_quarter_order.get(rs.getString(1));
+                taken_year = rs.getString(2);
+                arr_taken_year_quarter.add( taken_year + "," + taken_quarter );
+//                arr_takenYear.add(rs.getString(2));
             }
             ps.close();
             rs.close();
 //            conn.close();
             %>
             <%!
-            Object[][][] arrayQuarterYear = new Object[arr_taken_quarter.size()][3][];
+//            Object[][][] arrayQuarterYear = new Object[arr_taken_quarter.size()][3][];
             List<Integer> arr_num_class_per_quar = new ArrayList<>();
             int prev_size = 0;
             %>
             <%
+            // before loop through each (quarter, year)
+            // need to sort quarter_year arrayList
+            Collections.sort(arr_taken_year_quarter);
+            String[] year_quarter_list;
 //                System.out.println("taken quarter: " + arr_taken_quarter.size());
-            for (int i = 0; i < arr_taken_quarter.size(); i++) {
+            for (int i = 0; i < arr_taken_year_quarter.size(); i++) {
 //                System.out.println(i);
 //                out.println("<h3>" + arr_taken_quarter.get(i) + "</h3>");
                 PreparedStatement st1 = conn.prepareStatement(sql_per_quar);
                 st1.setString(1, ssn);
-                st1.setString(2, arr_taken_quarter.get(i));
+                year_quarter_list = (arr_taken_year_quarter.get(i)).split(",");
+                System.out.println("taken quarter year: ----- " + (year_quarter_list[1]).substring(2) + " " + year_quarter_list[0]);
+                st1.setString(2, (year_quarter_list[1]).substring(2));
+                st1.setString(3, year_quarter_list[0]);
                 ResultSet rs1 = st1.executeQuery();
                 int temp = 0;
 //                out.println("asdasdas");
@@ -106,7 +128,7 @@
                     while (rs2.next()) {
                         tempstr = rs2.getString(1) + ":" + rs2.getString(2)+ ":" + rs2.getString(3)+ ":" + rs2.getString(4)+ ":" + rs2.getString(5)+ ":" + rs2.getString(6)+ ":" + rs2.getString(7);
                         arr_class_attri.add(rs2.getString(1) + ":" + rs2.getString(2)+ ":" + rs2.getString(3)+ ":" + rs2.getString(4)+ ":" + rs2.getString(5)+ ":" + rs2.getString(6)+ ":" + rs2.getString(7));
-
+                        System.out.println(tempstr);
                     }
                     arr_units.add(rs1.getString("units"));
                     arr_grade.add(rs1.getString("grade"));
@@ -166,9 +188,12 @@
         }
     %>
     <%
+        String[] str_list;
         int num = 0;
-        for (int i = 0; i < (arr_taken_quarter).size(); i++) { %>
-        <h3><% out.println(arr_taken_quarter.get(i)); %></h3>
+        for (int i = 0; i < (arr_taken_year_quarter).size(); i++) {
+            str_list = (arr_taken_year_quarter.get(i)).split(",");
+    %>
+        <h3><% out.println( (str_list[1]).substring(2) + " " + str_list[0] ); %></h3>
         <table>
             <%
                 out.println("<tr><th>Class ID</th>" +
@@ -189,12 +214,12 @@
                     String[] class_attri_list = class_attr_per_class.split(":");
 //                    String[] class_attri = String.valueOf((arrayQuarterYear[i][0])[j]).split(":");
                     out.println("<tr><th>" + class_attri_list[0] + "</th>" +
-                            "<th>" + class_attri_list[0] + "</th>" +
                             "<th>" + class_attri_list[1] + "</th>" +
                             "<th>" + class_attri_list[2] + "</th>" +
                             "<th>" + class_attri_list[3] + "</th>" +
                             "<th>" + class_attri_list[4] + "</th>" +
                             "<th>" + class_attri_list[5] + "</th>" +
+                            "<th>" + class_attri_list[6] + "</th>" +
                             "<th>" + arr_units.get(num) + "</th>" +
                             "<th>" + arr_grade.get(num) + "</th>" +
                             "</tr>");
