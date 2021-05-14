@@ -8,10 +8,74 @@ password: 4645<br/>
 ```Java
 String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 ```
-```MD
-## 我update Degree, concenration, past_course, Grade_conversion -- checkout 
-下面是我修改过的Sql,我也update到总的sql 文档哪里儿！
-删掉了旧的degree 我重新按照database写了一个  外加 concentration，GRADE_CONVERSION 这两个table
+```sql
+// undergrauate
+insert into student values('A1001','1','Benjamin','','B','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1001','Computer Science','','Warren');
+
+insert into student values('A1002','2','Kristen','','W','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1002','Computer Science','','Warren');
+
+insert into student values('A1003','3','Daniel','','F','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1003','Computer Science','','Warren');
+
+insert into student values('A1004','4','Claire','','J','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1004','Computer Science','','Warren');
+
+insert into student values('A1005','5','Kevin','','L','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1005','Computer Science','','Warren');
+
+insert into student values('A1006','6','Kevin','','L','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1006','Mechanical Engineering','','Warren');
+
+insert into student values('A1007','7','Michael','','B','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1007','Mechanical Engineering','','Warren');
+
+insert into student values('A1008','8','Joseph','','J','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1008','Mechanical Engineering','','Warren');
+
+insert into student values('A1009','9','Devin','','P','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1009','Mechanical Engineering','','Warren');
+
+insert into student values('A1010','10','Logan','','F','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1010','Mechanical Engineering','','Warren');
+
+insert into student values('A1011','11','Vikram','','N','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1011','Philosophy','','Warren');
+
+insert into student values('A1012','12','Rachel','','Z','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1012','Philosophy','','Warren');
+
+insert into student values('A1013','13','Zach','','M','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1013','Philosophy','','Warren');
+
+insert into student values('A1014','14','Justin','','H','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1014','Philosophy','','Warren');
+
+insert into student values('A1015','15','Rahul','','R','California resident','Current enrolled','Undergraduate');
+insert into Undergraduate values('A1015','Philosophy','','Warren');
+
+// master
+insert into student values('A1016','16','Dave','','C','Non-CA US','Current enrolled','Master');
+insert into master values('A1016','Master','CSE',0);
+
+insert into student values('A1017','17','Nelson','','H','Non-CA US','Current enrolled','Master');
+insert into master values('A1017','Master','CSE',0);
+
+insert into student values('A1018','18','Andrew','','P','Non-CA US','Current enrolled','Master');
+insert into master values('A1018','Master','CSE',0);
+
+insert into student values('A1019','19','Nathan','','S','Non-CA US','Current enrolled','Master');
+insert into master values('A1019','Master','CSE',0);
+
+insert into student values('A1020','20','John','','H','Non-CA US','Current enrolled','Master');
+insert into master values('A1020','Master','CSE',0);
+
+insert into student values('A1021','21','Anwell','','W','Non-CA US','Current enrolled','Master');
+insert into master values('A1021','Master','CSE',0);
+
+insert into student values('A1022','22','Tim','','K','Non-CA US','Current enrolled','Master');
+insert into master values('A1022','Master','CSE',0);
 ```
 ```sql
 create Table Degree(
