@@ -95,6 +95,50 @@ INSERT into degree values('B.A.','Philosophy','CSE',35,15,20,0);
 INSERT into degree values('B.S.','Mechanical Engineering','CSE',50,20,20,10);
 INSERT into degree values('M.S.','Computer Science','CSE',45,0,0,0);
 
+//past_couse
+insert into past_course values('A1001','CSE8A',4,'A-','Winter','2017','CSE8A-wi17-1','Letter Grade');
+insert into past_course values('A1003','CSE8A',4,'B+','Winter','2017','CSE8A-wi17-1','Letter Grade');
+insert into past_course values('A1002','CSE8A',4,'C-','Fall','2017','CSE8A-fa17-1','Letter Grade');
+insert into past_course values('A1004','CSE8A',4,'A-','Winter','2018','CSE8A-wi18-1','Letter Grade');
+insert into past_course values('A1005','CSE8A',4,'B','Winter','2018','CSE8A-wi18-1','Letter Grade');
+
+insert into past_course values('A1001','CSE105',4,'A-','Spring','2017','CSE105-sp17-1','Letter Grade');
+insert into past_course values('A1005','CSE105',4,'B+','Spring','2017','CSE105-sp17-1','Letter Grade');
+insert into past_course values('A1004','CSE105',4,'C','Spring','2017','CSE105-sp17-1','Letter Grade');
+
+insert into past_course values('A1016','CSE250A',4,'C','Winter','2017','CSE250A-wi17-1','Letter Grade');
+insert into past_course values('A1022','CSE250A',4,'B+','Winter','2018','CSE250A-wi18-1','Letter Grade');
+insert into past_course values('A1018','CSE250A',4,'D','Winter','2018','CSE250A-wi18-1','Letter Grade');
+insert into past_course values('A1019','CSE250A',4,'F','Winter','2018','CSE250A-wi18-1','Letter Grade');
+
+insert into past_course values('A1017','CSE250B',4,'A','Spring','2017','CSE250B-sp17-1','Letter Grade');
+insert into past_course values('A1019','CSE250B',4,'A','Spring','2017','CSE250B-sp17-1','Letter Grade');
+
+insert into past_course values('A1020','CSE255',4,'B-','Winter','2018','CSE255-wi18-1','Letter Grade');
+insert into past_course values('A1018','CSE255',4,'B','Winter','2018','CSE255-wi18-1','Letter Grade');
+insert into past_course values('A1021','CSE255',4,'F','Winter','2018','CSE255-wi18-1','Letter Grade');
+
+insert into past_course values('A1017','CSE232A',4,'A-','Winter','2018','CSE232A-wi18-1','Letter Grade');
+
+insert into past_course values('A1022','CSE221',4,'A','Fall','2017','CSE221-fa17-1','Letter Grade');
+insert into past_course values('A1020','CSE221',4,'A','Fall','2017','CSE221-fa17-1','Letter Grade');
+
+insert into past_course values('A1010','MAE107',4,'B+','Fall','2017','MAE107-fa17-1','Letter Grade');
+
+insert into past_course values('A1008','MAE108',2,'B-','Winter','2017','MAE108-wi17-1','Letter Grade');
+insert into past_course values('A1007','MAE108',2,'A-','Winter','2017','MAE108-wi17-1','Letter Grade');
+insert into past_course values('A1006','MAE108',2,'B','Spring','2017','MAE108-sp17-1','Letter Grade');
+insert into past_course values('A1010','MAE108',2,'B+','Spring','2017','MAE108-sp17-1','Letter Grade');
+
+insert into past_course values('A1011','PHIL10',4,'A','Winter','2018','PHIL10-wi18-1','Letter Grade');
+insert into past_course values('A1012','PHIL10',4,'A','Winter','2018','PHIL10-wi18-1','Letter Grade');
+insert into past_course values('A1013','PHIL10',4,'C-','Winter','2018','PHIL10-wi18-1','Letter Grade');
+insert into past_course values('A1014','PHIL10',4,'C+','Winter','2018','PHIL10-wi18-1','Letter Grade');
+
+insert into past_course values('A1015','PHIL165',2,'F','Fall','2017','PHIL165-fa17-1','Letter Grade');
+insert into past_course values('A1012','PHIL165',2,'D','Fall','2017','PHIL165-fa17-1','Letter Grade');
+insert into past_course values('A1011','PHIL165',2,'A-','Winter','2018','PHIL165-wi18-1','Letter Grade');
+
 // course
 insert into Course values ('CSE8A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
 ('CSE105', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
