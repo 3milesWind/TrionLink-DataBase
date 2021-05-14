@@ -76,6 +76,25 @@ insert into master values('A1021','Master','CSE',0);
 
 insert into student values('A1022','22','Tim','','K','Non-CA US','Current enrolled','Master');
 insert into master values('A1022','Master','CSE',0);
+
+// course
+insert into Course values ('CSE8A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('CSE105', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('CSE123', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('CSE250A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('CSE250B', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('CSE255', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '4'),
+('CSE232A', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '4'),
+('CSE221', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '4'),
+('MAE3', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('MAE107', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('MAE108', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('PHIL10', '.', 'CSE', '.', 'Letter or S/U', 'No', '2', '2'),
+('PHIL12', '.', 'CSE', '.', 'Letter or S/U', 'No', '4', '5'),
+('PHIL165', '.', 'CSE', '.', 'Letter or S/U', 'No', '2', '5'),
+('PHIL167', '.', 'CSE', '.', 'Letter or S/U', 'No', '2', '5');
+
+
 ```
 ```sql
 create Table Degree(
