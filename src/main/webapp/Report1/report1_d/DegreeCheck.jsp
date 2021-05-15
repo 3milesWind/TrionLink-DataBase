@@ -17,6 +17,7 @@
     <%!
         String ssn = "";
         String student_id = "";
+        String degree_type = "";
         String degree_name = "";
         String major = "";
         boolean degree_major_not_match = false;
@@ -27,6 +28,7 @@
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             ssn = request.getParameter("ssn");
+            degree_type = (request.getParameter("degree")).substring(0, 4);
             // get rid of degree type
             degree_name = (request.getParameter("degree")).substring(5);
 
@@ -55,6 +57,7 @@
             if (major.equals(degree_name)) {
                 // if matches, then redirect to another page for report
                 session.setAttribute("student_id", student_id);
+                session.setAttribute("degree_type", degree_type);
                 session.setAttribute("degree_name", degree_name);
                 response.sendRedirect("./DegreeByUndergradReport.jsp");
             } else {
