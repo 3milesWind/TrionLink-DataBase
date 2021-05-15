@@ -95,6 +95,11 @@ INSERT into degree values('B.A.','Philosophy','CSE',35,15,20,0);
 INSERT into degree values('B.S.','Mechanical Engineering','CSE',50,20,20,10);
 INSERT into degree values('M.S.','Computer Science','CSE',45,0,0,0);
 
+// concentration
+Insert into concentration values('Database','Computer Science','M.S.','CSE232A','CSE250A,CSE221,CSE105,MAE107,MAE3',3,4);
+Insert into concentration values('AI','Computer Science','M.S.','CSE255,CSE250A','CSE250A,CSE221,CSE105,MAE107,MAE3',3.1,8);
+Insert into concentration values('System','Computer Science','M.S.','CSE221','CSE250A,CSE221,CSE105,MAE107,MAE3',3.3,4);
+
 //past_couse
 insert into past_course values('A1001','CSE8A',4,'A-','Winter','2017','CSE8A-wi17-1','Letter Grade');
 insert into past_course values('A1003','CSE8A',4,'B+','Winter','2017','CSE8A-wi17-1','Letter Grade');
@@ -259,8 +264,8 @@ insert into meeting values ('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-le', 'Yes'
 ```
 ```sql
 create Table Degree(
- 	Degree_Name Text not null,
-	Degree_Type text not null,
+ 	Degree_Type Text not null,
+	Degree_Name text not null,
 	Department text not null,
 	Total_unit int default 0,
 	lowerDivisionUnit int default 0,
@@ -433,8 +438,8 @@ create table concentration (
 	Foreign Key (degree_name,degree_type) references degree(degree_name,degree_type) on Delete CASCADE on update CASCADE
 )
 create Table Degree(
- 	Degree_Name Text not null,
-	Degree_Type text not null,
+ 	Degree_Type Text not null,
+	Degree_Name text not null,
 	Department text not null,
 	Total_unit int default 0,
 	lowerDivisionUnit int default 0,
@@ -442,6 +447,7 @@ create Table Degree(
 	ElectiveUnit int default 0,
 	primary key(Degree_Name,Degree_Type)
 );
+
 
 create table GRADE_CONVERSION
 ( LETTER_GRADE CHAR(2) NOT NULL,

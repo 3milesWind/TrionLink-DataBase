@@ -67,11 +67,11 @@
         try {
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
-            PreparedStatement sm = conn.prepareStatement("select * from degree where degree_name like ?");
+            PreparedStatement sm = conn.prepareStatement("select * from degree where Degree_Type like ?");
             sm.setString(1,"M.%");
             ResultSet st = sm.executeQuery();
-            out.println("<tr><th>Degree Name</th>" +
-                    "<th>Degree type</th>" +
+            out.println("<tr><th>Degree Type</th>" +
+                    "<th>Degree Name</th>" +
                     "</tr>");
             while(st.next()) {
                 String temp = st.getString(1) + " " + st.getString(2);

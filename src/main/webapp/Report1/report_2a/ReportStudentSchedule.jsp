@@ -82,7 +82,7 @@
 
         String sql_task2 = "select m.courseid, c.classid, m.start_time, m.end_time, m.meet_day from meeting m left outer join Class c\n" +
                 "on m.CourseId = c.CourseId \n" +
-                "where c.quarter = 'Spring' and c.year = '2018'";
+                "where c.quarter = 'Spring' and c.year = '2021'";
         Statement ps_task2 = conn.createStatement();
         ResultSet rs2 = ps_task2.executeQuery(sql_task2);
         while (rs2.next()) {
