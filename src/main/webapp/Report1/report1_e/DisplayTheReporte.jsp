@@ -51,8 +51,10 @@
     Degree = request.getParameter("degree");
     for (int i = 0; i < Degree.length(); i++) {
        if (Degree.charAt(i) == ' ') {
-           DegreeName = Degree.substring(0,i);
-           DegreeType = Degree.substring(i+1);
+           DegreeType = Degree.substring(0,i);
+           System.out.println("degree type " +DegreeType);
+           DegreeName = Degree.substring(i+1);
+           System.out.println("degree name " +DegreeName);
            break;
        }
     }
@@ -71,7 +73,7 @@
         ResultSet rs = ps_task1.executeQuery();
         // ----> return: concentrations name, courses, minGAp, units
         while(rs.next()) {
-            //System.out.println(rs.getString(1));
+            System.out.println(rs.getString(1));
             if(!require_courses.containsKey(rs.getString(1))) {
                 // get the information of courses
                 leftover_course.put(rs.getString(1),new ArrayList<>());
@@ -223,7 +225,7 @@
             conn.close();
         } catch (Exception e) {
             is_Error = false;
-            Exception = e.toString();
+            Exception = "The course Student have been taken " + e.toString();
             System.out.println(e);
         }
 
@@ -254,7 +256,7 @@
                     conn.close();
                 } catch (Exception e) {
                     is_Error = false;
-                    Exception = e.toString();
+                    Exception = "Student who have not completed Concentration courses below " + e.toString();
                     System.out.println(e);
                 }
             }
