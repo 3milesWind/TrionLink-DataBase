@@ -14,7 +14,7 @@
 <h3 align="center">Create Degree requirement</h3>
 <form action="Degree_insert.jsp" method="post">
     Degree Name:
-    <select name="degreeName">
+    <select name="Type">
         <option>B.S.</option>
         <option>B.A.</option>
         <option>M.S</option>
@@ -22,7 +22,7 @@
         <option>Phd</option>
     </select>
     <br/> <br/>
-    Type: <select name="Type">
+    Type: <select name="degreeName">
     <option>Computer Science</option>
     <option>Philosophy</option>
     <option>Mechanical Engineering</option>

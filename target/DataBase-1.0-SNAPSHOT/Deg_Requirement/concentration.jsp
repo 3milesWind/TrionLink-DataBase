@@ -17,14 +17,14 @@
     <input  type="text" name="concentration_name"/>
     <br/> <br/>
     Degree Name:
-    <select name="degreeName">
+    <select name="Type">
         <option>B.S.</option>
         <option>B.A.</option>
         <option>M.S</option>
         <option>M.A</option>
         <option>Phd</option>
     </select>
-    Type: <select name="Type">
+    Type: <select name="degreeName">
     <option>Computer Science</option>
     <option>Philosophy</option>
     <option>Mechanical Engineering</option>
