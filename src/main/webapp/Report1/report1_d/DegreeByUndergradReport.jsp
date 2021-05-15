@@ -130,7 +130,7 @@
     %>
     <h2>Still need <%=total_units - student_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
     <h3>Minimum units for each categories:</h3>
-    <h3>Lower Division: (should have <%=lower_units%> units in total)</h3>
+    <h3 align="center">Lower Division: (should have <%=lower_units%> units in total)</h3>
     <table>
         <%
             Double num_units = 0.0;
@@ -144,8 +144,8 @@
         %>
     </table>
     <h3>Still have <%=lower_units - num_units%> units.</h3>
-    <br/><br/>
-    <h3>Upper Division: (should have <%=upper_units%> units in total)</h3>
+    <br/>
+    <h3 align="center">Upper Division: (should have <%=upper_units%> units in total)</h3>
     <table>
         <%
             num_units = 0.0;
@@ -159,8 +159,8 @@
         %>
     </table>
     <h3>Still have <%=upper_units - num_units%> units.</h3>
-    <br/><br/>
-    <h3>Electives: (should have <%=elective_units%> units in total)</h3>
+    <br/>
+    <h3 align="center">Electives: (should have <%=elective_units%> units in total)</h3>
     <table>
         <%
             num_units = 0.0;
