@@ -15,7 +15,7 @@
     table {
         font-family: sans-serif;
         border-collapse: collapse;
-        width: 50%;
+        width: 80%;
     }
     td, th {
         border: 1px solid black;
@@ -28,9 +28,8 @@
     boolean is_correct = true;
     String Exception = "";
     HashMap<String,List<int []>>cur_schedule = new HashMap<>();
-    List<String []> res = new ArrayList<>();
+    HashMap<String,List<String>> res = new HashMap<>();
     HashSet<String> hashset = new HashSet<>();
-    List<List<String>> full_schedule = new ArrayList<>();
     boolean BUG = false;
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
@@ -52,20 +51,31 @@
         }
         // Get the student ID
         student_id = rs_id.getString(1);
-        System.out.println("Input: " + student_id);
+//        System.out.println("Input: " + student_id);
 
         // collect the
-        String sql_task1 = "select m.courseid, m.start_time, m.end_time, m.meet_day from meeting m left outer join enrollment e\n" +
+        String sql_task1 = "select m.courseid, m.start_time, m.end_time, m.meet_day, m.meet_type from meeting m left outer join enrollment e\n" +
                 "on m.courseid = e.courseid and m.sectionid = e.sectionid\n" +
                 "where studentid = ?";
         PreparedStatement ps_task1 = conn.prepareStatement(sql_task1);
         ps_task1.setString(1,student_id);
         ResultSet rs = ps_task1.executeQuery();
-
+        cur_schedule.clear();
+        hashset.clear();
         // return --> course id, start time, end time, day of week
+        out.print("<table>");
+        out.println("<tr><th>Courses</th><th>meet_days</th><th>Start</th><th>End</th><th>Meeting Type</th></tr>");
         while(rs.next()) {
+            out.println("<tr><th>" + rs.getString(1)+ "</th>" +
+                    "<th>" + rs.getString(4) + "</th>" +
+                    "<th>" + rs.getString(2) + "</th>" +
+                    "<th>" + rs.getString(3)+ "</th>" +
+                    "<th>" + rs.getString(5) + "</th>" +
+                    "</tr>");
+
             String [] days = rs.getString(4).split(",");
             hashset.add(rs.getString(1));
+
             for (String day : days) {
                 // create a hash table
                 if(!cur_schedule.containsKey(day)) cur_schedule.put(day,new ArrayList<>());
@@ -76,11 +86,11 @@
                 cur_schedule.get(day).add(new int[] {Integer.parseInt(start),Integer.parseInt(end)});
             }
         }
-
+        out.println("</table>");
 
         // collect the current available time
 
-        String sql_task2 = "select m.courseid, c.classid, m.start_time, m.end_time, m.meet_day from meeting m left outer join Class c\n" +
+        String sql_task2 = "select m.courseid, c.classid, m.start_time, m.end_time, m.meet_day, m.meet_type from meeting m left outer join Class c\n" +
                 "on m.CourseId = c.CourseId \n" +
                 "where c.quarter = 'Spring' and c.year = '2021'";
         Statement ps_task2 = conn.createStatement();
@@ -100,7 +110,7 @@
                 end = end.substring(0,2) + end.substring(3);
                 int startTime = Integer.parseInt(start);
                 int endTime = Integer.parseInt(end);
-                System.out.println(startTime + " " + endTime);
+//                System.out.println(startTime + " " + endTime);
 
                 // if the cure schedule did not have, skip
                 if(!cur_schedule.containsKey(day)) {
@@ -119,24 +129,39 @@
                 });
                 boolean return1 = false;
                 // check whether the time conflict the schedule
+                System.out.print("Starting check time: " + startTime + "--" + endTime + "\n");
                 for (int i = 0; i < link.size(); i++) {
                      int [] cmp = link.get(i);
                      if (startTime < cmp[1] && startTime > cmp[0]) {
                          return1 = true;
+                         System.out.print("====work1======: " + startTime + "--" + endTime+ "\n");
                          break;
                      } else if (endTime > cmp[0] && endTime < cmp[1]) {
+                         System.out.print("====work2======: " + startTime + "--" + endTime+ "\n");
                          return1 = true;
                          break;
                      } else if (startTime < cmp[0] && endTime > cmp[1]) {
+                         System.out.print("====work3======: " + startTime + "--" + endTime+ "\n");
                          return1 = true;
                          break;
                      } else if (startTime > cmp[0] && endTime < cmp[1]) {
+                         System.out.print("====work4======: " + startTime + "--" + endTime+ "\n");
+                         return1 = true;
+                         break;
+                     } else if (startTime == cmp[0] && endTime == cmp[1]) {
+                         System.out.print("====work5======: " + startTime + "--" + endTime+ "\n");
                          return1 = true;
                          break;
                      }
                 }
                 if (return1 == true) {
-                    res.add(new String[]{rs2.getString(1), rs2.getString(2)});
+                    String data = rs2.getString(1) + "," + rs2.getString(2) + "," + rs2.getString(5);
+                    if (!res.containsKey(data)) {
+                        res.put(data,new ArrayList<>());
+                    }
+                    res.get(data).add(rs2.getString(6));
+                    res.get(data).add(rs2.getString(3));
+                    res.get(data).add(rs2.getString(4));
                     break;
                 }
 
@@ -158,12 +183,12 @@
             if (res.isEmpty()) {
                 System.out.println("none avaliable course");
             } else {
-                for (String[] key : res) {
-                    System.out.println("course: " + key[0] + "---" + "class: " + key[1]);
+                for (String key : res.keySet()) {
+                    String [] cc = key.split(",");
+                    System.out.println("course: " + cc[0] + "---" + "class: " + cc[1] + "comflict with: " + res.get(key));
                 }
             }
         }
-
         conn.commit();
         conn.setAutoCommit(true);
         conn.close();
@@ -177,16 +202,22 @@
 <h3>Conflict schedule</h3>
 <table>
     <%
-        out.println("<tr><th>Conflict Courses</th><th>Class Title</th></tr>");
+        out.println("<tr><th>Conflict Courses</th><th>Class Title</th><th>Meeting Type</th><th>Days</th><th>Start</th><th>End</th></tr>");
         if (res.isEmpty()) {
            out.println("none avaliable course");
         } else {
-            for (String[] key : res) {
-
-                out.println("<tr><th>" + key[0] + "</th>" +
-                             "<th>" + key[1] + "</th></tr>");
+            for (String key : res.keySet()) {
+                String [] cc = key.split(",");
+                out.println("<tr><th>" + cc[0] + "</th>" +
+                             "<th>" + cc[1]  + "</th>" +
+                             "<th>" + res.get(key).get(0) + "</th>" +
+                        "<th>" + cc[2] + "</th>" +
+                        "<th>" + res.get(key).get(1) + "</th>" +
+                        "<th>" + res.get(key).get(2) + "</th>" +
+                        "</tr>");
             }
         }
+        res.clear();
     %>
 </table>
 <a href="../../report.jsp"><button> Homepage </button></a>
