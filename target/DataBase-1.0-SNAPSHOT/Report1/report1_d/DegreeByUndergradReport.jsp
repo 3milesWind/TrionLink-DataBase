@@ -98,7 +98,7 @@
                 // determine whether the current course id is lower, or upper
                 String[] course_number = rs2.getString(1).split("[a-zA-Z]");
                 for (int i = 0;i < course_number.length; i++) {
-                    System.out.println(i + "---" + course_number[i]);
+//                    System.out.println(i + "---" + course_number[i]);
                     if (! course_number[i].equals("")) {
                         if (0 < Double.parseDouble(course_number[i]) & Double.parseDouble(course_number[i]) < 100) {
                             arr_lower_id.add(rs2.getString(1));
