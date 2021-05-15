@@ -28,6 +28,9 @@
         String degree_type = "";
         String degree_name = "";
         Double total_units = 0.0;
+        Double lower_units = 0.0;
+        Double upper_units = 0.0;
+        Double elective_units = 0.0;
         Double student_units = 0.0;
 
     %>
@@ -45,13 +48,16 @@
             total_units = 0.0;
             student_units = 0.0;
 
-            String sql_get_total_units = "SELECT total_unit FROM Degree WHERE Degree_type = ? AND Degree_name = ?";
+            String sql_get_total_units = "SELECT total_unit, lowerdivisionunit, upperdivisionunit, electiveunit FROM Degree WHERE Degree_type = ? AND Degree_name = ?";
             PreparedStatement st1 = conn.prepareStatement(sql_get_total_units);
             st1.setString(1, degree_type);
             st1.setString(2, degree_name);
             ResultSet rs1 = st1.executeQuery();
             while (rs1.next()) {
                 total_units = Double.parseDouble(rs1.getString(1));
+                lower_units = Double.parseDouble(rs1.getString(2));
+                upper_units = Double.parseDouble(rs1.getString(3));
+                elective_units = Double.parseDouble(rs1.getString(4));
             }
 //            System.out.println("total units: " + total_units);
             rs1.close();
