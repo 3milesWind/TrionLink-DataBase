@@ -44,7 +44,7 @@
         Dictionary<Integer, Integer> dic_md = new Hashtable<Integer, Integer>();
         Dictionary<Integer, String> dic_num_month = new Hashtable<Integer, String>();
         Dictionary<String, Integer> dic_month_num = new Hashtable<String, Integer>();
-
+        List<String> arr_time_interval = new ArrayList<>();
     %>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -111,6 +111,20 @@
             if (arr_thurs.size() != 0) {arr_thurs.clear();}
             if (arr_fri.size() != 0) {arr_fri.clear();}
 
+            if (arr_time_interval.size() == 0) {
+                Integer temp_hr = 8;
+                String temp_hr_format = "";
+                for (int i = 0; i < 12; i++) {
+                    if (temp_hr + i < 10) {
+                        temp_hr_format = "0" + String.valueOf(temp_hr + i) + ":00";
+                    } else {
+                        temp_hr_format = String.valueOf(temp_hr + i) + ":00";
+                    }
+                    System.out.println(temp_hr_format);
+                    arr_time_interval.add(temp_hr_format);
+                }
+            }
+
             section_id = request.getParameter("sectionid");
             from_month = request.getParameter("fromMonth");
             from_date = request.getParameter("fromDate");
@@ -166,11 +180,56 @@
             Integer current_end_day = dic_md.get( Integer.parseInt(from_month) );
             Integer current_date = Integer.parseInt(from_date);
             String current_mon = dic_num_month.get( Integer.parseInt(from_month) );
+
+
+            String cur_time;
+            Integer cur_hr;
+            String next_hr;
             for (int j = 0; j < num_between; j++) {
                 current_day = dic_num_day.get(num_day);
                 System.out.println(current_mon + " " + current_date + " " + current_day);
 
-                if (current_date == current_end_day) {
+                for (int i = 0; i < arr_time_interval.size(); i++) {
+                    cur_time = arr_time_interval.get(i);
+                    if (current_day.equals("Monday")) {
+                        if ( !arr_mon.contains(cur_time)) {
+                            cur_hr = Integer.parseInt((cur_time.split(":"))[0]);
+                            if (cur_hr+1 < 10) { next_hr = "0" + String.valueOf(cur_hr+1) + ":00"; }
+                            else { next_hr = String.valueOf(cur_hr+1) + ":00"; }
+                            out.println("<h3>" + current_mon + " " + current_date + " " + current_day + " " + cur_time + " - " + next_hr + "</h3>");
+                        }
+                    } else if (current_day.equals("Tuesday")) {
+                        if ( !arr_tues.contains(cur_time)) {
+                            cur_hr = Integer.parseInt((cur_time.split(":"))[0]);
+                            if (cur_hr+1 < 10) { next_hr = "0" + String.valueOf(cur_hr+1) + ":00"; }
+                            else { next_hr = String.valueOf(cur_hr+1) + ":00"; }
+                            out.println("<h3>" + current_mon + " " + current_date + " " + current_day + " " + cur_time + " - " + next_hr + "</h3>");
+                        }
+                    } else if (current_day.equals("Wednesday")) {
+                        if ( !arr_wed.contains(cur_time)) {
+                            cur_hr = Integer.parseInt((cur_time.split(":"))[0]);
+                            if (cur_hr+1 < 10) { next_hr = "0" + String.valueOf(cur_hr+1) + ":00"; }
+                            else { next_hr = String.valueOf(cur_hr+1) + ":00"; }
+                            out.println("<h3>" + current_mon + " " + current_date + " " + current_day + " " + cur_time + " - " + next_hr + "</h3>");
+                        }
+                    } else if (current_day.equals("Thursday")) {
+                        if ( !arr_thurs.contains(cur_time)) {
+                            cur_hr = Integer.parseInt((cur_time.split(":"))[0]);
+                            if (cur_hr+1 < 10) { next_hr = "0" + String.valueOf(cur_hr+1) + ":00"; }
+                            else { next_hr = String.valueOf(cur_hr+1) + ":00"; }
+                            out.println("<h3>" + current_mon + " " + current_date + " " + current_day + " " + cur_time + " - " + next_hr + "</h3>");
+                        }
+                    } else if (current_day.equals("Friday")) {
+                        if ( !arr_fri.contains(cur_time)) {
+                            cur_hr = Integer.parseInt((cur_time.split(":"))[0]);
+                            if (cur_hr+1 < 10) { next_hr = "0" + String.valueOf(cur_hr+1) + ":00"; }
+                            else { next_hr = String.valueOf(cur_hr+1) + ":00"; }
+                            out.println("<h3>" + current_mon + " " + current_date + " " + current_day + " " + cur_time + " - " + next_hr + "</h3>");
+                        }
+                    }
+                }
+
+                if (current_date.equals(current_end_day)) {
                     current_date = 1; // start date of next month
                     current_mon = dic_num_month.get(((dic_month_num.get(current_mon)) + 1) % 12 + 1);
                     current_end_day = dic_md.get( dic_month_num.get(current_mon) );
@@ -187,5 +246,7 @@
             System.out.println(e);
         }
     %>
+    <a href="../../report.jsp"><button> Homepage </button></a>
+    <jsp:include page="../../footer.jsp"/>
 </body>
 </html>
