@@ -232,7 +232,29 @@ insert into enrollment values ('A1016', 'CSE221', 'CSE221-sp21-2', '4', 'Letter 
 ('A1014', 'PHIL12', 'PHIL12-sp21-1', '4', 'Letter Grade'),
 ('A1015', 'PHIL165', 'PHIL165-sp21-1', '4', 'Letter Grade');
 
-
+// meeting
+insert into meeting values ('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-le', 'Yes', 'LE', 'Monday,Wednesday,Friday', '10:00', '11:00', 'R203'),
+('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-di', 'Yes', 'DI', 'Tuesday,Thursday', '10:00', '11:00', 'R203'),
+('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-la', 'Yes', 'LA', 'Friday', '18:00', '19:00', 'R203'),
+('CSE221', 'CSE221-sp21-2', 'CSE221-sp21-2-le', 'Yes', 'LE', 'Monday,Wednesday,Friday', '10:00', '11:00', 'R203'),
+('CSE221', 'CSE221-sp21-2', 'CSE221-sp21-2-di', 'Yes', 'DI', 'Tuesday,Thursday', '11:00', '12:00', 'R203'),
+('CSE255', 'CSE255-sp21-1', 'CSE255-sp21-1-le', 'Yes', 'LE', 'Monday,Wednesday,Friday', '12:00', '13:00', 'R203'),
+('PHIL12', 'PHIL12-sp21-1', 'PHIL12-sp21-1-le', 'Yes', 'LE', 'Monday,Wednesday,Friday', '12:00', '13:00', 'R203'),
+('PHIL12', 'PHIL12-sp21-1', 'PHIL12-sp21-1-di', 'Yes', 'DI', 'Wednesday,Friday', '13:00', '14:00', 'R203'),
+('CSE221', 'CSE221-sp21-3', 'CSE221-sp21-3-le', 'Yes', 'LE', 'Monday,Wednesday,Friday', '12:00', '13:00', 'R203'),
+('CSE221', 'CSE221-sp21-3', 'CSE221-sp21-3-di', 'Yes', 'DI', 'Tuesday,Thursday', '12:00', '13:00', 'R203'),
+('CSE105', 'CSE105-sp21-1', 'CSE105-sp21-1-le', 'Yes', 'LE', 'Tuesday,Thursday', '14:00', '15:00', 'R203'),
+('CSE105', 'CSE105-sp21-1', 'CSE105-sp21-1-di', 'Yes', 'DI', 'Friday', '18:00', '19:00', 'R203'),
+('PHIL165', 'PHIL165-sp21-1', 'PHIL165-sp21-1-le', 'Yes', 'LE', 'Tuesday,Thursday', '15:00', '16:00', 'R203'),
+('PHIL165', 'PHIL165-sp21-1', 'PHIL165-sp21-1-di', 'Yes', 'DI', 'Tuesday', '13:00', '14:00', 'R203'),
+('MAE108', 'MAE108-sp21-2', 'MAE108-sp21-2-le', 'Yes', 'LE', 'Tuesday,Thursday', '15:00', '16:00', 'R203'),
+('MAE108', 'MAE108-sp21-2', 'MAE108-sp21-2-di', 'Yes', 'DI', 'Monday', '15:00', '16:00', 'R203'),
+('MAE108', 'MAE108-sp21-2', 'MAE108-sp21-2-la', 'Yes', 'LA', 'Friday', '17:00', '18:00', 'R203'),
+('CSE221', 'CSE221-sp21-1', 'CSE221-sp21-1-le', 'Yes', 'LE', 'Tuesday,Thursday', '17:00', '18:00', 'R203'),
+('CSE221', 'CSE221-sp21-1', 'CSE221-sp21-1-di', 'Yes', 'DI', 'Monday,Friday', '09:00', '10:00', 'R203'),
+('CSE8A', 'CSE8A-sp21-1', 'CSE8A-sp21-1-le', 'Yes', 'LE', 'Tuesday,Thursday', '17:00', '18:00', 'R203'),
+('CSE8A', 'CSE8A-sp21-1', 'CSE8A-sp21-1-di', 'Yes', 'DI', 'Wednesday', '19:00', '20:00', 'R203'),
+('CSE8A', 'CSE8A-sp21-1', 'CSE8A-sp21-1-la', 'Yes', 'LA', 'Tuesday,Thursday', '15:00', '16:00', 'R203');
 
 ```
 ```sql
