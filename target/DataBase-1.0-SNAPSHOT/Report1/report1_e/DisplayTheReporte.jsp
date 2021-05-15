@@ -63,6 +63,12 @@
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
         conn.setAutoCommit(false);
+
+        //clear process
+        require_courses.clear();
+        require_num.clear();
+        require_record.clear();
+        leftover_course.clear();
         // Return concentrate name
         String sql_task1 = "select c.concen_name,c.courses, c.mingpa,c.minunit from degree d left outer join concentration c\n" +
                 "on d.Degree_Name = c.Degree_Name and d.Degree_Type = c.Degree_Type\n" +
