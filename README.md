@@ -307,6 +307,8 @@ with the same course id
 
 - Meeting
 1. time format (hh:mm) check for hh and mm
+2. (Important) check all files since one of the attributes (meet_required) 
+is deleted, so insertion and deletion part of meeting would have some errors.
 
 - Section
 1. should check if enrollmentlimit and waitlist are numeric
@@ -494,7 +496,6 @@ create table Meeting(
 	CourseId          Text Not Null,
 	SectionId         Text Not Null,	
 	MeetingId         Text Not Null UNIQUE,
-	Meet_required     Text Not Null,
 	Meet_type	      Text Not Null,
 	Meet_day          Text Not Null,
 	Start_time        Text Not Null,

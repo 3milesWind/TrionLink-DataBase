@@ -2,8 +2,7 @@
 <%@ page import="java.util.ArrayList" %>
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.Statement" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/14
@@ -47,25 +46,9 @@
             String sql_get_ssn = "SELECT Student.ssn FROM Student INNER JOIN Enrollment ON Enrollment.Student_Id = Student.Student_Id GROUP BY Student.ssn";
             String sql_get_name = "SELECT a.ssn, firstname, middlename, lastname FROM (" + sql_get_ssn + ") AS a INNER JOIN Student ON a.ssn = Student.ssn";
 
-            ResultSet st = sm.executeQuery(sql_get_name);
-            while(st.next()) {
-                arr_ssn.add(st.getString(1));
-                arr_first.add(st.getString(2));
-                arr_middle.add(st.getString(3));
-                arr_last.add(st.getString(4));
-            }
 
-            String sql_get_degree = "SELECT Degree_Type, Degree_Name FROM Degree WHERE Degree_Type = 'B.S.' OR Degree_Type = 'B.A.'";
-            st = sm.executeQuery(sql_get_degree);
-            while(st.next()) {
-                arr_degree_type.add(st.getString(1));
-                arr_degree_name.add(st.getString(2));
-            }
-            sm.close();
-            st.close();
-            conn.close();
         } catch (Exception e) {
-            System.out.println(e);
+
         }
     %>
 </body>
