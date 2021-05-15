@@ -25,6 +25,7 @@
 <body>
     <%!
         String student_id = "";
+        String degree_type = "";
         String degree_name = "";
         Double total_units = 0.0;
         Double student_units = 0.0;
@@ -32,6 +33,7 @@
     %>
     <%
         student_id = (String)session.getAttribute("student_id");
+        degree_type = (String)session.getAttribute("degree_type");
         degree_name = (String)session.getAttribute("degree_name");
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         try {
@@ -43,13 +45,15 @@
             total_units = 0.0;
             student_units = 0.0;
 
-            String sql_get_total_units = "SELECT total_unit FROM Degree WHERE Degree_name = ?";
+            String sql_get_total_units = "SELECT total_unit FROM Degree WHERE Degree_type = ? AND Degree_name = ?";
             PreparedStatement st1 = conn.prepareStatement(sql_get_total_units);
-            st1.setString(1, degree_name);
+            st1.setString(1, degree_type);
+            st1.setString(2, degree_name);
             ResultSet rs1 = st1.executeQuery();
             while (rs1.next()) {
                 total_units = Double.parseDouble(rs1.getString(1));
             }
+//            System.out.println("total units: " + total_units);
             rs1.close();
             st1.close();
 
@@ -60,6 +64,7 @@
             while (rs2.next()) {
                 student_units += Double.parseDouble(rs2.getString(1));
             }
+//            System.out.println("student units: " + student_units);
             rs2.close();
             st2.close();
 
@@ -67,6 +72,6 @@
             System.out.print(e);
         }
     %>
-    <h2>Still need <%=total_units - student_units%> units to graduate</h2>
+    <h2>Still need <%=total_units - student_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
 </body>
 </html>
