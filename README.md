@@ -546,4 +546,10 @@ create table ReviewSession(
 	Foreign key       (CourseId, SectionId) references Section on Delete CASCADE on update CASCADE
 );
 
+create table Electives(
+	CourseId          Text Not Null,
+	Primary key       (CourseId),
+	Foreign key       (CourseId) references Course on Delete CASCADE on update CASCADE
+);
+
 
