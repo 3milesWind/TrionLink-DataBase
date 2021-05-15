@@ -36,9 +36,9 @@
     Class.forName("org.postgresql.Driver");
     Connection conn = DriverManager.getConnection(url);
     Statement sm = conn.createStatement();
-    ResultSet st = sm.executeQuery("select student.* from student " +
-            "left outer join Enrollment on student.student_id = enrollment.StudentId" +
-            " group by student.student_id");
+    ResultSet st = sm.executeQuery("select * from student left outer join enrollment \n" +
+     "on student.student_id = enrollment.studentId\n" +
+    "where sectionId is not null");
     out.println("<tr><th>Student SSN</th>" +
     "<th>First Name</th>" +
     "<th>Middle Name</th>" +

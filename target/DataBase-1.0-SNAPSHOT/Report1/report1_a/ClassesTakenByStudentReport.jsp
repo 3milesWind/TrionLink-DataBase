@@ -29,8 +29,7 @@
     String wrong = "";
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
-<H3>Classes Taken By Student X</H3>
-<table>
+
 <%
     try {
         Class.forName("org.postgresql.Driver");
@@ -50,28 +49,29 @@
         student_id = rs_id.getString(1);
 
         // generate the class that student current take
-        String sql = "select * from enrollment e left outer join class c\n" +
+        String sql = "select e.courseid, c.classid,c.title, e.sectionid,e.units from enrollment e left outer join class c\n" +
                 "on e.courseid = c.courseId\n" +
-                "where e.studentid = ?\n";
+                "where e.studentid = ? and c.quarter ='Spring' and c.year = '2021'";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1,student_id);
         ResultSet res = ps.executeQuery();
+        out.print("<h3> Current Course taken by " + ssn +  "</h3>");
+        out.print("<table>");
         out.println("<tr><th>Couse ID</th>" +
                 "<th>Class ID</th>" +
                 "<th>Title</th>" +
-                "<th>Number section</th>" +
-                "<th>Section Id</th>" +
+                "<th>section</th>" +
                 "<th>Units</th>" +
                 "</tr>");
         while(res.next()) {
-            out.print("<tr><th>" + res.getString(2) + "</th>"
-                    + "<th>" + res.getString(5) + "</th>"
-                    + "<th>" + res.getString(7) + "</th>"
-                    + "<th>" + res.getString(10) + "</th>"
+            out.print("<tr><th>" + res.getString(1) + "</th>"
+                    + "<th>" + res.getString(2) + "</th>"
                     + "<th>" + res.getString(3) + "</th>"
                     + "<th>" + res.getString(4) + "</th>"
+                    + "<th>" + res.getString(5) + "</th>"
                     + "</tr>");
         }
+        out.print("</table>");
         res.close();
         conn.commit();
         conn.setAutoCommit(true);
@@ -85,7 +85,6 @@
         System.out.println(e);
     }
 %>
-</table>
 <%if (is_correct == false) {
     out.print("<h3>" + wrong + "</h3>");
 }%>
