@@ -30,20 +30,21 @@
         List<String> arr_course_name = new ArrayList<>();
         List<String> arr_month = new ArrayList<String>(){
             {
-                add("January");
-                add("February");
-                add("March");
-                add("April");
-                add("May");
-                add("June");
-                add("July");
-                add("August");
-                add("September");
-                add("October");
-                add("November");
-                add("December");
+                add("1,January");
+                add("2,February");
+                add("3,March");
+                add("4,April");
+                add("5,May");
+                add("6,June");
+                add("7,July");
+                add("8,August");
+                add("9,September");
+                add("10,October");
+                add("11,November");
+                add("12,December");
             }
         };
+        String[] temp_list;
     %>
     <%
         // clean the data
@@ -82,15 +83,19 @@
         </select>
         <br/><br/>
         From: Month: <select name="fromMonth">
-        <% for (int i = 0; i < arr_month.size(); i++) { %>
-            <option><%=arr_month.get(i)%></option>
+        <% for (int i = 0; i < arr_month.size(); i++) {
+            temp_list = arr_month.get(i).split(",");
+        %>
+            <option value="<%=temp_list[0]%>"><%=temp_list[1]%></option>
         <% } %>
         </select>
         Date: <input type="number" name="fromDate" min="1" max="31"/>
         <br/><br/>
         To: Month: <select name="toMonth">
-        <% for (int i = 0; i < arr_month.size(); i++) { %>
-            <option><%=arr_month.get(i)%></option>
+        <% for (int i = 0; i < arr_month.size(); i++) {
+            temp_list = arr_month.get(i).split(",");
+        %>
+            <option value="<%=temp_list[0]%>"><%=temp_list[1]%></option>
         <% } %>
         </select>
         Date: <input type="number" name="toDate" min="1" max="31"/>
