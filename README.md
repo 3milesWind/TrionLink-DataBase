@@ -313,6 +313,14 @@ insert into grade_conversion values('C', 2.0);
 insert into grade_conversion values('C-', 1.7);
 insert into grade_conversion values('D', 1.0);
 insert into grade_conversion values('F', 0.0);
+
+// electives
+insert into electives values ('CSE250A'),
+('CSE221'),
+('CSE105'),
+('MAE107'),
+('MAE3');
+
 ```
 ```MD
 - General
