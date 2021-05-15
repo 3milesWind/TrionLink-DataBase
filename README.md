@@ -411,8 +411,8 @@ create table concentration (
 	Foreign Key (degree_name,degree_type) references degree(degree_name,degree_type) on Delete CASCADE on update CASCADE
 )
 create Table Degree(
- 	Degree_Name Text not null,
-	Degree_Type text not null,
+ 	Degree_Type Text not null,
+	Degree_Name text not null,
 	Department text not null,
 	Total_unit int default 0,
 	lowerDivisionUnit int default 0,
