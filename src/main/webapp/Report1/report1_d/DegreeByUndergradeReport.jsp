@@ -10,7 +10,20 @@
 <head>
     <title>Title</title>
 </head>
+<style>
+    table {
+        font-family: sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+    }
+</style>
 <body>
+    <%!
 
+    %>
 </body>
 </html>

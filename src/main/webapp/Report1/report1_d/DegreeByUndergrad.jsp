@@ -76,7 +76,7 @@
             System.out.println(e);
         }
     %>
-    <form action="DegreeByUndergradeReport.jsp" method="post">
+    <form action="DegreeCheck.jsp" method="post">
         <h3>Pick a student for report</h3>
         Select Student: <select name="ssn">
             <%  for (int i = 0; i < arr_ssn.size(); i++) {

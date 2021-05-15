@@ -358,10 +358,10 @@ CREATE TABLE Student(
 );
 
 CREATE TABLE Undergraduate (
-  student_id TEXT,
-  college TEXT NOT NULL,
-  major TEXT NOT NULL,
+    student_id TEXT,
+    major TEXT NOT NULL,
 	monir TEXT,
+    college TEXT NOT NULL,
 	Primary Key (student_id),
 	Foreign Key (student_id) references student(student_id) on Delete CASCADE on update CASCADE
 );
