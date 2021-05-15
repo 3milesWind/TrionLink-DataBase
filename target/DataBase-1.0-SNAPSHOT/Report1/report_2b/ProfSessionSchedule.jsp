@@ -28,6 +28,22 @@
         List<String> arr_section_id = new ArrayList<>();
         List<String> arr_course_id = new ArrayList<>();
         List<String> arr_course_name = new ArrayList<>();
+        List<String> arr_month = new ArrayList<String>(){
+            {
+                add("January");
+                add("February");
+                add("March");
+                add("April");
+                add("May");
+                add("June");
+                add("July");
+                add("August");
+                add("September");
+                add("October");
+                add("November");
+                add("December");
+            }
+        };
     %>
     <%
         // clean the data
@@ -64,6 +80,20 @@
             </option>
         <% } %>
         </select>
+        <br/><br/>
+        From: Month: <select name="fromMonth">
+        <% for (int i = 0; i < arr_month.size(); i++) { %>
+            <option><%=arr_month.get(i)%></option>
+        <% } %>
+        </select>
+        Date: <input type="number" name="fromDate" min="1" max="31"/>
+        <br/><br/>
+        To: Month: <select name="toMonth">
+        <% for (int i = 0; i < arr_month.size(); i++) { %>
+            <option><%=arr_month.get(i)%></option>
+        <% } %>
+        </select>
+        Date: <input type="number" name="toDate" min="1" max="31"/>
         <br/><br/>
         <input type="submit" value="Submit" />
     </form>
