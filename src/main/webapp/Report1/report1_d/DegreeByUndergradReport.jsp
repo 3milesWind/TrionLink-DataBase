@@ -79,5 +79,10 @@
         }
     %>
     <h2>Still need <%=total_units - student_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
+    <h3>Minimum Units for each categories:</h3>
+    <h4>Lower Division: <%=lower_units%> units</h4>
+    <h4>Upper Division: <%=upper_units%> units</h4>
+    <h4>Electives: <%=elective_units%> units</h4>
+
 </body>
 </html>

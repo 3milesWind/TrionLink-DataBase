@@ -21,6 +21,9 @@
         border: 1px solid black;
         text-align: left;
     }
+    .tab {
+        tab-size: 4;
+    }
 </style>
 <body>
     <%!
@@ -28,6 +31,9 @@
         String degree_type = "";
         String degree_name = "";
         Double total_units = 0.0;
+        Double lower_units = 0.0;
+        Double upper_units = 0.0;
+        Double elective_units = 0.0;
         Double student_units = 0.0;
 
     %>
@@ -45,15 +51,18 @@
             total_units = 0.0;
             student_units = 0.0;
 
-            String sql_get_total_units = "SELECT total_unit FROM Degree WHERE Degree_type = ? AND Degree_name = ?";
+            String sql_get_total_units = "SELECT total_unit, lowerdivisionunit, upperdivisionunit, electiveunit FROM Degree WHERE Degree_type = ? AND Degree_name = ?";
             PreparedStatement st1 = conn.prepareStatement(sql_get_total_units);
             st1.setString(1, degree_type);
             st1.setString(2, degree_name);
             ResultSet rs1 = st1.executeQuery();
             while (rs1.next()) {
                 total_units = Double.parseDouble(rs1.getString(1));
+                lower_units = Double.parseDouble(rs1.getString(2));
+                upper_units = Double.parseDouble(rs1.getString(3));
+                elective_units = Double.parseDouble(rs1.getString(4));
             }
-            System.out.println("total units: " + total_units);
+//            System.out.println("total units: " + total_units);
             rs1.close();
             st1.close();
 
@@ -64,7 +73,7 @@
             while (rs2.next()) {
                 student_units += Double.parseDouble(rs2.getString(1));
             }
-            System.out.println("student units: " + student_units);
+//            System.out.println("student units: " + student_units);
             rs2.close();
             st2.close();
 
@@ -73,5 +82,10 @@
         }
     %>
     <h2>Still need <%=total_units - student_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
+    <h3>Minimum Units for each categories:</h3>
+    <h4 class="tab">Lower Division:     <%=lower_units%> units</h4>
+    <h4 class="tab">Upper Division:     <%=upper_units%> units</h4>
+    <h4 class="tab">Electives:          <%=elective_units%> units</h4>
+
 </body>
 </html>
