@@ -364,6 +364,8 @@ with the same course id
 - Meeting
 1. time format (hh:mm) check for hh and mm
 
+- report 1d: 40 - 4*3 (fix it)
+
 - Section
 1. should check if enrollmentlimit and waitlist are numeric
 

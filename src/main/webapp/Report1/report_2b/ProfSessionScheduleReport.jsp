@@ -42,6 +42,8 @@
         List<String> arr_thurs = new ArrayList<>();
         List<String> arr_fri = new ArrayList<>();
         Dictionary<Integer, Integer> dic_md = new Hashtable<Integer, Integer>();
+        Dictionary<Integer, String> dic_num_month = new Hashtable<Integer, String>();
+        Dictionary<String, Integer> dic_month_num = new Hashtable<String, Integer>();
 
     %>
     <%
@@ -59,6 +61,7 @@
                 dic_num_day.put(5, "Thursday");
                 dic_num_day.put(6, "Friday");
                 dic_num_day.put(7, "Saturday");
+                dic_num_day.put(0, "Saturday");
             }
             if (dic_md.isEmpty()) {
                 dic_md.put(1, 31);
@@ -73,6 +76,34 @@
                 dic_md.put(10, 31);
                 dic_md.put(11, 30);
                 dic_md.put(12, 31);
+            }
+            if (dic_num_month.isEmpty()) {
+                dic_num_month.put(1, "January");
+                dic_num_month.put(2, "February");
+                dic_num_month.put(3, "March");
+                dic_num_month.put(4, "April");
+                dic_num_month.put(5, "May");
+                dic_num_month.put(6, "June");
+                dic_num_month.put(7, "July");
+                dic_num_month.put(8, "August");
+                dic_num_month.put(9, "September");
+                dic_num_month.put(10, "October");
+                dic_num_month.put(11, "November");
+                dic_num_month.put(12, "December");
+            }
+            if (dic_month_num.isEmpty()) {
+                dic_month_num.put("January", 1);
+                dic_month_num.put("February", 2);
+                dic_month_num.put("March", 3);
+                dic_month_num.put("April", 4);
+                dic_month_num.put("May", 5);
+                dic_month_num.put("June", 6);
+                dic_month_num.put("July", 7);
+                dic_month_num.put("August", 8);
+                dic_month_num.put("September", 9);
+                dic_month_num.put("October", 10);
+                dic_month_num.put("November", 11);
+                dic_month_num.put("December", 12);
             }
             if (arr_mon.size() != 0) {arr_mon.clear();}
             if (arr_tues.size() != 0) {arr_tues.clear();}
@@ -113,21 +144,42 @@
 
             Calendar c = Calendar.getInstance();
             c.set(Integer.parseInt(current_year), Integer.parseInt(from_month)-1, Integer.parseInt(from_date));
-            Integer num_dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            String from_dayOfWeek = dic_num_day.get(num_dayOfWeek);
+            Integer from_num_dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            String from_dayOfWeek = dic_num_day.get(from_num_dayOfWeek);
 
             c.set(Integer.parseInt(current_year), Integer.parseInt(to_month)-1, Integer.parseInt(to_date));
-            num_dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
-            String to_dayOfWeek = dic_num_day.get(num_dayOfWeek);
+            Integer to_num_dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
+            String to_dayOfWeek = dic_num_day.get(to_num_dayOfWeek);
             System.out.println(current_year + " " + from_month + " " + from_date + " --> " + from_dayOfWeek);
             System.out.println(current_year + " " + to_month + " " + to_date + " --> " + to_dayOfWeek);
 
             Integer num_between;
             if (from_month.equals(to_month)) {  // if same month
-                num_between = Integer.parseInt(to_date) - Integer.parseInt(from_date);
-                System.out.print(num_between);
+                num_between = Integer.parseInt(to_date) - Integer.parseInt(from_date) + 1;
+            } else {
+                Integer end_date = dic_md.get(Integer.parseInt(from_month));
+                num_between = ( end_date - Integer.parseInt(from_date)) + Integer.parseInt(to_date) + 1;
             }
 
+            Integer num_day = from_num_dayOfWeek;
+            String current_day = "";
+            Integer current_end_day = dic_md.get( Integer.parseInt(from_month) );
+            Integer current_date = Integer.parseInt(from_date);
+            String current_mon = dic_num_month.get( Integer.parseInt(from_month) );
+            for (int j = 0; j < num_between; j++) {
+                current_day = dic_num_day.get(num_day);
+                System.out.println(current_mon + " " + current_date + " " + current_day);
+
+                if (current_date == current_end_day) {
+                    current_date = 1; // start date of next month
+                    current_mon = dic_num_month.get(((dic_month_num.get(current_mon)) + 1) % 12 + 1);
+                    current_end_day = dic_md.get( dic_month_num.get(current_mon) );
+                } else {
+                    current_date += 1;
+                }
+
+                num_day = ((num_day + 1) % 7);
+            }
 
         } catch (Exception e) {
             is_correct = false;
