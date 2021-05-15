@@ -95,6 +95,11 @@ INSERT into degree values('B.A.','Philosophy','CSE',35,15,20,0);
 INSERT into degree values('B.S.','Mechanical Engineering','CSE',50,20,20,10);
 INSERT into degree values('M.S.','Computer Science','CSE',45,0,0,0);
 
+// concentration
+Insert into concentration values('M.S.','Database','Computer Science','CSE232A','CSE250A,CSE221,CSE105,MAE107,MAE3',3,4);
+Insert into concentration values('M.S.','AI','Computer Science','CSE255,CSE250A','CSE250A,CSE221,CSE105,MAE107,MAE3',3.1,8);
+Insert into concentration values('M.S.','System','Computer Science','CSE221','CSE250A,CSE221,CSE105,MAE107,MAE3',3.3,4);
+
 //past_couse
 insert into past_course values('A1001','CSE8A',4,'A-','Winter','2017','CSE8A-wi17-1','Letter Grade');
 insert into past_course values('A1003','CSE8A',4,'B+','Winter','2017','CSE8A-wi17-1','Letter Grade');
