@@ -11,7 +11,7 @@
     <br/><br/>
     <a href="Report1/report1_c/GradeReportByStudent.jsp"><button>Report1.c: Grade report of student x</button></a>
     <br/><br/>
-    <a href="Report1/report1_d/DegreeByUndergrad.jsp"><button>Report1.d: Degree report of student x</button></a>
+    <a href="Report1/report1_d/DegreeByUndergrad.jsp"><button>Report1.d: Check BS/BA Degree</button></a>
     <br/><br/>
     <a href="Report1/report1_e/MsStudentDegree.jsp"><button>Report1.e: Check MS Degree</button></a>
     <br/><br/>

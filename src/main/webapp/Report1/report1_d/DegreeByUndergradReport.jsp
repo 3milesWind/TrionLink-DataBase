@@ -25,5 +25,6 @@
     <%!
 
     %>
+    ready to print out degree report of student
 </body>
 </html>
