@@ -1,5 +1,7 @@
 <%@ page import="java.sql.*" %>
-<%@ page import="java.nio.DoubleBuffer" %><%--
+<%@ page import="java.nio.DoubleBuffer" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.ArrayList" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/14
@@ -32,9 +34,19 @@
         Double upper_units = 0.0;
         Double elective_units = 0.0;
         Double student_units = 0.0;
-
+        List<String> arr_course_id = new ArrayList<>();
+        List<Double> arr_course_units = new ArrayList<>();
+        List<Double> arr_lower_id = new ArrayList<>();
+        List<Double> arr_upper_id = new ArrayList<>();
+        List<Double> arr_elective_id = new ArrayList<>();
     %>
     <%
+        if (arr_course_id.size() != 0) {arr_course_id.clear();}
+        if (arr_course_units.size() != 0) {arr_course_units.clear();}
+        if (arr_lower_id.size() != 0) {arr_lower_id.clear();}
+        if (arr_upper_id.size() != 0) {arr_upper_id.clear();}
+        if (arr_elective_id.size() != 0) {arr_elective_id.clear();}
+
         student_id = (String)session.getAttribute("student_id");
         degree_type = (String)session.getAttribute("degree_type");
         degree_name = (String)session.getAttribute("degree_name");
@@ -63,12 +75,20 @@
             rs1.close();
             st1.close();
 
-            String sql_get_student_units = "SELECT units FROM Past_course WHERE Student_id = ?";
+            String sql_get_student_units = "SELECT course_id, units FROM Past_course WHERE Student_id = ?";
             PreparedStatement st2 = conn.prepareStatement(sql_get_student_units);
             st2.setString(1, student_id);
             ResultSet rs2 = st2.executeQuery();
             while (rs2.next()) {
-                student_units += Double.parseDouble(rs2.getString(1));
+                arr_course_id.add(rs2.getString(1));
+                arr_course_units.add(Double.parseDouble(rs2.getString(2)));
+                student_units += Double.parseDouble(rs2.getString(2));
+
+                // determine whether the current course id is lower, upper, or elective (can be two of them)
+                String[] course_number = rs2.getString(1).split("[a-zA-Z]");
+                for (int i = 0;i < course_number.length; i++) {
+                    System.out.println(i + "---" + course_number[i]);
+                }
             }
 //            System.out.println("student units: " + student_units);
             rs2.close();
