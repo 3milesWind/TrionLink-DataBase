@@ -1,4 +1,5 @@
-<%--
+<%@ page import="java.sql.*" %>
+<%@ page import="java.nio.DoubleBuffer" %><%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/14
@@ -23,8 +24,49 @@
 </style>
 <body>
     <%!
+        String student_id = "";
+        String degree_name = "";
+        Double total_units = 0.0;
+        Double student_units = 0.0;
 
     %>
-    ready to print out degree report of student
+    <%
+        student_id = (String)session.getAttribute("student_id");
+        degree_name = (String)session.getAttribute("degree_name");
+        String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection conn = DriverManager.getConnection(url);
+//            Statement sm1 = conn.createStatement();
+            conn.setAutoCommit(false);
+
+            total_units = 0.0;
+            student_units = 0.0;
+
+            String sql_get_total_units = "SELECT total_unit FROM Degree WHERE Degree_name = ?";
+            PreparedStatement st1 = conn.prepareStatement(sql_get_total_units);
+            st1.setString(1, degree_name);
+            ResultSet rs1 = st1.executeQuery();
+            while (rs1.next()) {
+                total_units = Double.parseDouble(rs1.getString(1));
+            }
+            rs1.close();
+            st1.close();
+
+            String sql_get_student_units = "SELECT units FROM Past_course WHERE Student_id = ?";
+            PreparedStatement st2 = conn.prepareStatement(sql_get_student_units);
+            st2.setString(1, student_id);
+            ResultSet rs2 = st2.executeQuery();
+            while (rs2.next()) {
+                student_units += Double.parseDouble(rs2.getString(1));
+            }
+            rs2.close();
+            st2.close();
+
+        } catch (Exception e) {
+            System.out.print(e);
+        }
+    %>
+    <h2>Still need <%=total_units - student_units%> units to graduate</h2>
 </body>
 </html>
