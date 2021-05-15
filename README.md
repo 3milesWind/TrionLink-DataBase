@@ -264,8 +264,8 @@ insert into meeting values ('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-le', 'Yes'
 ```
 ```sql
 create Table Degree(
- 	Degree_Name Text not null,
-	Degree_Type text not null,
+ 	Degree_Type Text not null,
+	Degree_Name text not null,
 	Department text not null,
 	Total_unit int default 0,
 	lowerDivisionUnit int default 0,
@@ -447,6 +447,7 @@ create Table Degree(
 	ElectiveUnit int default 0,
 	primary key(Degree_Name,Degree_Type)
 );
+
 
 create table GRADE_CONVERSION
 ( LETTER_GRADE CHAR(2) NOT NULL,
