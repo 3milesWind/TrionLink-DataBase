@@ -120,7 +120,7 @@
                     } else {
                         temp_hr_format = String.valueOf(temp_hr + i) + ":00";
                     }
-                    System.out.println(temp_hr_format);
+//                    System.out.println(temp_hr_format);
                     arr_time_interval.add(temp_hr_format);
                 }
             }
@@ -164,8 +164,8 @@
             c.set(Integer.parseInt(current_year), Integer.parseInt(to_month)-1, Integer.parseInt(to_date));
             Integer to_num_dayOfWeek = c.get(Calendar.DAY_OF_WEEK);
             String to_dayOfWeek = dic_num_day.get(to_num_dayOfWeek);
-            System.out.println(current_year + " " + from_month + " " + from_date + " --> " + from_dayOfWeek);
-            System.out.println(current_year + " " + to_month + " " + to_date + " --> " + to_dayOfWeek);
+//            System.out.println(current_year + " " + from_month + " " + from_date + " --> " + from_dayOfWeek);
+//            System.out.println(current_year + " " + to_month + " " + to_date + " --> " + to_dayOfWeek);
 
             Integer num_between;
             if (from_month.equals(to_month)) {  // if same month
@@ -187,7 +187,7 @@
             String next_hr;
             for (int j = 0; j < num_between; j++) {
                 current_day = dic_num_day.get(num_day);
-                System.out.println(current_mon + " " + current_date + " " + current_day);
+//                System.out.println(current_mon + " " + current_date + " " + current_day);
 
                 for (int i = 0; i < arr_time_interval.size(); i++) {
                     cur_time = arr_time_interval.get(i);
