@@ -128,11 +128,11 @@
             System.out.print(e);
         }
     %>
-    <h2>Still need <%=total_units - student_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
     <h3>Minimum units for each categories:</h3>
     <h3 align="center">Lower Division: (should have <%=lower_units%> units in total)</h3>
     <table>
         <%
+            Double sum_units = 0.0;
             Double num_units = 0.0;
             out.println("<tr><th>Course ID</th>" +
                         "<th>Units</th></tr>");
@@ -141,6 +141,7 @@
                         + "<th>" + arr_lower_units.get(i) + "</th></tr>");
                 num_units += arr_lower_units.get(i);
             }
+            sum_units += num_units;
         %>
     </table>
     <h3>Still have <%=lower_units - num_units%> units.</h3>
@@ -156,6 +157,7 @@
                         + "<th>" + arr_upper_units.get(i) + "</th></tr>");
                 num_units += arr_upper_units.get(i);
             }
+            sum_units += num_units;
         %>
     </table>
     <h3>Still have <%=upper_units - num_units%> units.</h3>
@@ -171,9 +173,11 @@
                         + "<th>" + arr_elective_units.get(i) + "</th></tr>");
                 num_units += arr_elective_units.get(i);
             }
+            sum_units += num_units;
         %>
     </table>
     <h3>Still have <%=elective_units - num_units%> units.</h3>
+    <h2>Student <%=student_id%> still needs <%=total_units - sum_units%> units to graduate with <%=degree_type%> <%=degree_name%></h2>
     <br/><br/>
     <a href="../../report.jsp"><button> Homepage </button></a>
     <a href="./DegreeByUndergrad.jsp"><button> Check Others </button></a>
