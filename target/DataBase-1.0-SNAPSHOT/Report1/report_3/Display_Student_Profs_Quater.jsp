@@ -206,7 +206,7 @@
         ps.setString(1,Course);
         ps.setString(2,Profs);
         ResultSet rs = ps.executeQuery();
-        out.print("<h3> Average degree <h3>");
+        out.print("<h3> Average GPA <h3>");
         while (rs.next()) {
             out.print("<h3>" + rs.getString(1) + "</h3>");
         }
