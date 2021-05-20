@@ -212,14 +212,14 @@
         out.print("<h3>" + Exception + "</h3>");
     } else {
 
-        if (res.isEmpty()) {
+        if (res2.isEmpty()) {
             out.print("no find useful information");
         } else {
             out.print("<table>");
             out.println("<tr><th>Grade</th><th>count</th></tr>");
-            for (String key : res.keySet()) {
+            for (String key : res2.keySet()) {
                 out.println("<tr><th>" + key + "</th>" +
-                        "<th>" +res.get(key) + "</th></tr>");
+                        "<th>" +res2.get(key) + "</th></tr>");
             }
 
             out.print("</table>");
