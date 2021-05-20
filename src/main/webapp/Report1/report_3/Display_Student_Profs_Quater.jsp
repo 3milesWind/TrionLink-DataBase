@@ -29,9 +29,11 @@
     String Quarter = "";
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
     boolean is_correct = true;
+    String year = "";
     String Exception = "";
     HashMap<String,Integer> res = new HashMap<>();
     HashMap<String,Integer> res2 = new HashMap<>();
+    HashMap<String,Integer> res3 = new HashMap<>();
 %>
 <%
     try {
@@ -45,19 +47,22 @@
         Course = request.getParameter("Course");
         Profs = request.getParameter("Profs");
         Quarter = request.getParameter("Quarter");
+        year = request.getParameter("year");
         System.out.println(Course +  " " + Profs + " " + Quarter + " ");
         conn.setAutoCommit(false);
         String sql = "select p.grade, count(grade) from past_course p left outer join section s\n" +
                 "on p.course_id = s.courseid and p.sectionid = s.sectionid\n" +
-                "where course_id = ? and quarter = ? and faculty_name = ?\n" +
+                "where course_id = ? and quarter = ? and faculty_name = ? and year = ?\n" +
                 "group by grade";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1,Course);
         ps.setString(3,Profs);
         ps.setString(2,Quarter);
+        ps.setString(4,year);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             String ch = rs.getString(1);
+            out.print("<h5> " + ch + " </h5>");
             if(!res.containsKey(ch)) {
                 res.put("other",res.get("other") + Integer.parseInt(rs.getString(2)));
             } else {
@@ -94,9 +99,14 @@
     }
 
 %>
+<h3 >===================Split line====================</h3>
 <%
     try {
-
+        res3.put("A",0);
+        res3.put("B",0);
+        res3.put("C",0);
+        res3.put("D",0);
+        res3.put("other",0);
         Class.forName("org.postgresql.Driver");
         Connection conn = DriverManager.getConnection(url);
         Course = request.getParameter("Course");
@@ -104,20 +114,27 @@
 //    Quarter = request.getParameter("Quarter");
 //    System.out.println(Course +  " " + Profs + " " + Quarter + " ");
         conn.setAutoCommit(false);
-        String sql = "select p.student_id, p.grade from past_course p left outer join section s\n" +
+        String sql = "select p.grade, count(p.grade) from past_course p left outer join section s\n" +
                 "on p.course_id = s.courseid and p.sectionid = s.sectionid\n" +
-                "where course_id = ?";
+                "where course_id = ? group by grade";
         PreparedStatement ps = conn.prepareStatement(sql);
         ps.setString(1,Course);
         ResultSet rs = ps.executeQuery();
-        out.print("<h3> Given student x grade for " + Course + " over years</h3>" );
-        out.print("<table>");
-        out.println("<tr><th>StudentID</th><th>Grade</th></tr>");
+//        out.print("<h3> Given student x grade for " + Course + " over years</h3>" );
+//        out.print("<table>");
+//        out.println("<tr><th>StudentID</th><th>Grade</th></tr>");
         while (rs.next()) {
-            out.println("<tr><th>" + rs.getString(1) + "</th>" +
-                    "<th>" +rs.getString(2) + "</th></tr>");
+            String ch = rs.getString(1);
+            out.print("<h5> " + ch + " </h5>");
+            if(!res3.containsKey(ch)) {
+                res3.put("other",res3.get("other") + Integer.parseInt(rs.getString(2)));
+            } else {
+                res3.put(ch,res3.get(ch) + Integer.parseInt(rs.getString(2)));
+            }
+//            out.println("<tr><th>" + rs.getString(1) + "</th>" +
+//                    "<th>" +rs.getString(2) + "</th></tr>");
         }
-        out.print("</table>");
+//        out.print("</table>");
         conn.commit();
         conn.setAutoCommit(true);
         conn.close();
@@ -127,7 +144,28 @@
         System.out.println(e.toString());
     }
 %>
+<h3 >Given student x grade over years counts</h3>
+<%
+    if (is_correct == false) {
+        out.print("<h3>" + Exception + "</h3>");
+    } else {
 
+        if (res3.isEmpty()) {
+            out.print("no find useful information");
+        } else {
+            out.print("<table>");
+            out.println("<tr><th>Grade</th><th>count</th></tr>");
+            for (String key : res3.keySet()) {
+                out.println("<tr><th>" + key + "</th>" +
+                        "<th>" +res3.get(key) + "</th></tr>");
+            }
+
+            out.print("</table>");
+        }
+    }
+
+%>
+<h3 >===================Split line====================</h3>
 <%
     try {
         res2.put("A",0);
@@ -152,6 +190,7 @@
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
             String ch = rs.getString(1);
+            out.print("<h5> " + ch + " </h5>");
             if(!res2.containsKey(ch)) {
                 res2.put("other",res2.get("other") + Integer.parseInt(rs.getString(2)));
             } else {
@@ -188,6 +227,7 @@
     }
 
 %>
+<h3 >===================Split line====================</h3>
 <%
     try {
         Class.forName("org.postgresql.Driver");
