@@ -52,8 +52,8 @@
             Statement sm = conn.createStatement();
 
             // get ssn without duplicates
-//            String sql_get_ssn = "SELECT Student.ssn FROM Student INNER JOIN Enrollment ON Enrollment.StudentId = Student.Student_Id GROUP BY Student.ssn";
-            String sql_get_ssn = "SELECT ssn FROM Student GROUP BY Student.ssn";
+            String sql_get_ssn = "SELECT Student.ssn FROM Student INNER JOIN Enrollment ON Enrollment.StudentId = Student.Student_Id GROUP BY Student.ssn";
+//            String sql_get_ssn = "SELECT ssn FROM Student GROUP BY Student.ssn";
 
             String sql_get_name = "SELECT a.ssn, firstname, middlename, lastname FROM (" + sql_get_ssn + ") AS a INNER JOIN Student ON a.ssn = Student.ssn";
 
