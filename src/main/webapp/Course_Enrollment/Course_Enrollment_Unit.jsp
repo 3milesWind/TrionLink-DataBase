@@ -20,10 +20,13 @@
         String Section_ID = "";
         String Units = "";
         String Grade_Option = "";
+        boolean is_correct = true;
+        String wrong = "";
     %>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         try {
+            is_correct = true;
             Class.forName("org.postgresql.Driver");
             Connection conn = DriverManager.getConnection(url);
             conn.setAutoCommit(false);
@@ -45,11 +48,21 @@
             conn.setAutoCommit(true);
             conn.close();
         } catch (Exception e) {
+            is_correct = false;
+            wrong = e.toString();
             System.out.println(e);
         }
     %>
     <%
-        out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
+        if (is_correct) {
+            out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
+        } else {
+            if (wrong.contains("Exceed the enrollment limit")) {
+                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
+            } else {
+                out.print("<h3>" + wrong + "</h3>");
+            }
+        }
     %>
     <br/><br>
     Student ID: <%= Student_ID%>
@@ -62,6 +75,7 @@
     <br/><br>
     Grade Option: <%=Grade_Option%>
     <br/><br>
+    <a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
     <a href="../Course_Enrollment/Course_Enrollment_Database.jsp"><button> Check Database </button></a>
     <a href="./../index.jsp"><button> Homepage </button></a>
     <jsp:include page="../footer.jsp"/>

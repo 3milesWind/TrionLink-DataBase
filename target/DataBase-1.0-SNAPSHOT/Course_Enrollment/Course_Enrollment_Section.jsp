@@ -90,7 +90,11 @@
     if (no_section_existed) {
         out.println("<H3><u>The section ID shown below does not exists, Please, try again</u></b>");
     } else if (is_correct == false) {
-        out.print("<h3>" + wrong + "</h3>");
+        if (wrong.contains("Exceed the enrollment limit")) {
+            out.print("<h3>Exceed the enrollment limit</h3>");
+        } else {
+            out.print("<h3>" + wrong + "</h3>");
+        }
     }
     else {
         out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
@@ -107,6 +111,7 @@ Units: <%=Units%>
 <br/><br>
 Grade Option: <%=GradeOption%>
 <br/><br>
+<a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
 <a href="../Course_Enrollment/Course_Enrollment_Database.jsp"><button> Check Database </button></a>
 <a href="./../index.jsp"><button> Homepage </button></a>
 <jsp:include page="../footer.jsp"/>
