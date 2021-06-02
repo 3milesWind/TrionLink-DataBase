@@ -1,7 +1,9 @@
 <%@ page import="java.sql.Connection" %>
 <%@ page import="java.sql.DriverManager" %>
 <%@ page import="java.sql.PreparedStatement" %>
-<%@ page import="java.sql.ResultSet" %><%--
+<%@ page import="java.sql.ResultSet" %>
+<%@ page isErrorPage="true" %>
+<%--
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/10
@@ -29,6 +31,7 @@
         boolean dup_course_meeting = false;
         boolean time_format_not_match = false;
         boolean start_gt_end = false; // check start < end
+        boolean error_flag = false;
     %>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -48,6 +51,8 @@
             room = request.getParameter("Room");
             String sql_ck_1 = "SELECT * FROM Course WHERE CourseId = ?";
             String sql_ck_2 = "SELECT * FROM Section WHERE CourseId = ? AND SectionId = ?";
+            String sql_ck_3 = "SELECT * FROM Meeting WHERE MeetingId = ?";
+
 
             PreparedStatement ck_1 = conn.prepareStatement(sql_ck_1);
             ck_1.setString(1, course_ID);
@@ -58,11 +63,16 @@
             ck_2.setString(2, section_ID);
             ResultSet rs_2 = ck_2.executeQuery();
 
+            PreparedStatement ck_3 = conn.prepareStatement(sql_ck_3);
+            ck_3.setString(1, meeting_ID);
+            ResultSet rs_3 = ck_3.executeQuery();
+
             no_course_existed = false;
             no_section_existed = false;
             no_day_selected = false;
             start_gt_end = false;
             time_format_not_match = false;
+            dup_course_meeting = false;
 
             if (day == null || day.length == 0) { // check if days are selected
                 no_day_selected = true;
@@ -76,6 +86,9 @@
             } else if (!start_time.matches("\\d{2}:\\d{2}") || ! end_time.matches("\\d{2}:\\d{2}")) { // check if start time and end time matches the format dd:dd
                 time_format_not_match = true;
                 System.out.println("Meeting insert -- time format not match 'dd:dd'");
+            } else if (rs_3.next()) {
+                dup_course_meeting = true;
+                System.out.println("Meeting insert -- duplicate meeting id");
             }
             else {
                 // if so, then check if start time <= end time
@@ -111,11 +124,14 @@
             ck_2.close();
             conn.close();
         } catch (Exception e) {
+            error_flag = true;
             System.out.println(e);
         }
     %>
     <%
-        if (no_course_existed) {
+        if (error_flag) {
+            out.println("<H3><u>Overlapping existing meeting, Please, try again</u></b>");
+        } else if (no_course_existed) {
             out.println("<H3><u>The course ID shown below does not exists, Please, try again</u></b>");
         } else if (no_section_existed) {
             out.println("<H3><u>The (course ID, section ID) shown below does not exists, Please, try again</u></b>");
@@ -125,6 +141,8 @@
             out.println("<H3><u>The start time is later than end time, Please, try again</u></b>");
         } else if (time_format_not_match) {
             out.println("<H3><u>The time format shown below does not match 'dd:dd', Please, try again</u></b>");
+        } else if (dup_course_meeting) {
+            out.println("<H3><u>The meetingId already exists, Please, try again</u></b>");
         } else {
             out.println("<H3><u>Successfully insert new weekly meeting into the database</u></b>");
         }
