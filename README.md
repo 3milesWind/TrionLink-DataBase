@@ -364,15 +364,130 @@ with the same course id
 - Meeting
 1. time format (hh:mm) check for hh and mm
 
-- report 1d: 40 - 4*3 (fix it)
-
 - Section
 1. should check if enrollmentlimit and waitlist are numeric
 
-- updated table creation code
-1. Since I modified enrollment & meeting table, there might be errors
-while testing the corresponding parts.
+- Milestone4 
+(part 2): should check (just insert / multiple units / multiple sections & units)
+
 ```
+
+```sql
+// milestone 4 - trigger 
+
+// (1) section should not overlaps 
+create function check_meeting_function()
+	returns trigger
+	language plpgsql
+as 
+$$
+declare
+	day1 varchar;
+	day2 varchar;
+	day3 varchar;
+	day4 varchar;
+	day5 varchar;
+begin
+	day1 = split_part(new.meet_day, ',', 1);
+	day2 = split_part(new.meet_day, ',', 2);
+	day3 = split_part(new.meet_day, ',', 3);
+	day4 = split_part(new.meet_day, ',', 4);
+	day5 = split_part(new.meet_day, ',', 5);
+	
+	if exists(
+		select * from meeting
+		where meeting.sectionId = new.sectionId and 
+					(
+						(day1 <> '' and position(day1 in meeting.meet_day) <> 0) or
+						(day2 <> '' and position(day2 in meeting.meet_day) <> 0) or
+						(day3 <> '' and position(day3 in meeting.meet_day) <> 0) or
+						(day4 <> '' and position(day4 in meeting.meet_day) <> 0) or
+						(day5 <> '' and position(day5 in meeting.meet_day) <> 0)
+					) and
+					(
+						(
+							split_part(meeting.start_time, ':', 1) < split_part(new.start_time, ':', 1)
+							and
+							split_part(meeting.end_time, ':', 1) > split_part(new.start_time, ':', 1)
+						) or
+						(
+							split_part(meeting.start_time, ':', 1) < split_part(new.end_time, ':', 1)
+							and
+							split_part(meeting.end_time, ':', 1) > split_part(new.start_time, ':', 1)
+						)
+					)
+	) then 
+		begin
+			raise exception 'Overlapping existing meeting (LE/DI/LA)';
+			rollback;
+			return null;
+		end;
+	end if;
+	return new;
+end;
+$$;
+
+# drop function check_meeting_function;
+# drop trigger check_meeting on meeting;
+
+create trigger check_meeting
+before insert
+on meeting
+for each row
+	execute procedure check_meeting_function();
+
+// test cases for (1)
+insert into meeting values('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-di2', 'Yes', 'DI', 'Friday', '10:00', '11:00', 'R203');
+
+// (2) enrollment limit
+create function check_enrollment_function()
+	returns trigger
+	language plpgsql
+as 
+$$
+declare
+	total_num integer;
+	num_enrolling integer;
+begin
+	
+	select cast(section.enrollmentlimit as integer) as count1 into total_num from section where section.sectionid = new.sectionid;
+
+	select count(*) as count2 into num_enrolling from enrollment where enrollment.sectionid = new.sectionid group by enrollment.sectionid;
+	
+	if (num_enrolling >= total_num ) then 
+		begin
+			raise exception 'Exceed the enrollment limit';
+			rollback;
+			return null;
+		end;
+	end if;
+	return new;
+end;
+$$;
+
+# drop function check_enrollment_function;
+# drop trigger check_enrollment on enrollment;
+
+create trigger check_enrollment 
+before insert
+on enrollment
+for each row
+	execute procedure check_enrollment_function();
+
+// test cases for (2)
+// -- just insert
+// -- multiple sections
+insert into enrollment values('A1001', 'CSE221', 'CSE221-sp21-2', '4', 'Letter Grade');
+// -- multiple units
+// -- multiple sections & units
+
+// (3) prof should not have multiple sections at the same time 
+
+// test cases for (3)
+
+```
+
+
 
 ```sql
 
