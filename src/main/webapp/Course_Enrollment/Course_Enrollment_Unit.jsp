@@ -59,7 +59,7 @@
         } else {
 //            if (wrong.contains("Exceed the enrollment limit")) {
 //                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
-//            } else { 
+//            } else {
 //                out.print("<h3>" + wrong + "</h3>");
 //            }
             out.print("<h3>" + wrong + "</h3>");

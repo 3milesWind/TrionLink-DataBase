@@ -32,6 +32,7 @@
         boolean time_format_not_match = false;
         boolean start_gt_end = false; // check start < end
         boolean error_flag = false;
+        String wrong = "";
     %>
     <%
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
@@ -125,12 +126,14 @@
             conn.close();
         } catch (Exception e) {
             error_flag = true;
+            wrong = e.toString();
             System.out.println(e);
         }
     %>
     <%
         if (error_flag) {
-            out.println("<H3><u>Overlapping existing meeting, Please, try again</u></b>");
+            out.println("<H3><u>" + wrong + "</u></b>");
+            out.println("<H3><u>Please, try again</u></b>");
         } else if (no_course_existed) {
             out.println("<H3><u>The course ID shown below does not exists, Please, try again</u></b>");
         } else if (no_section_existed) {
