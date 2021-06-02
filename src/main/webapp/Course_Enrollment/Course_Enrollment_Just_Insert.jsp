@@ -69,11 +69,12 @@
     %>
     <%
         if (is_correct == false) {
-            if (wrong.contains("Exceed the enrollment limit")) {
-                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
-            } else {
-                out.print("<h3>" + wrong + "</h3>");
-            }
+//            if (wrong.contains("Exceed the enrollment limit")) {
+//                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
+//            } else {
+//                out.print("<h3>" + wrong + "</h3>");
+//            }
+            out.print("<h3>" + wrong + "</h3>");
         } else {
             out.println("<H3><u>Successfully insert new enrollment into the database</u></b>");
         }

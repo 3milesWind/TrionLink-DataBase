@@ -57,11 +57,12 @@
         if (is_correct) {
             out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
         } else {
-            if (wrong.contains("Exceed the enrollment limit")) {
-                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
-            } else {
-                out.print("<h3>" + wrong + "</h3>");
-            }
+//            if (wrong.contains("Exceed the enrollment limit")) {
+//                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
+//            } else { 
+//                out.print("<h3>" + wrong + "</h3>");
+//            }
+            out.print("<h3>" + wrong + "</h3>");
         }
     %>
     <br/><br>

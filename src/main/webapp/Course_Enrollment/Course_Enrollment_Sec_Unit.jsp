@@ -73,11 +73,12 @@
         if (no_section_existed) {
             out.println("<H3><u>The section ID shown below does not exists, Please, try again</u></b>");
         } else if (is_correct == false) {
-            if (wrong.contains("Exceed the enrollment limit")) {
-                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
-            } else {
-                out.print("<h3>" + wrong + "</h3>");
-            }
+//            if (wrong.contains("Exceed the enrollment limit")) {
+//                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
+//            } else {
+//                out.print("<h3>" + wrong + "</h3>");
+//            }
+            out.print("<h3>" + wrong + "</h3>");
         }
         else {
             out.println("<H3><u>Successful Insert new Enrollment into the dataBase</u></b>");
