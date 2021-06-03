@@ -20,6 +20,7 @@
     String grade = "";
     String section = "";
     boolean is_correct = true;
+    String ExceptionError = "";
     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
 %>
 <%
@@ -67,15 +68,16 @@
              *  create a new Thesis committee
              * */
             is_correct = true;
-            String sql = "Insert into past_course values (?,?,?,?,?,?,?)";
+            String sql = "Insert into past_course values (?,?,?,?,?,?,?,?)";
             PreparedStatement ps = conn.prepareStatement(sql);
             ps.setString(1,student_id);
             ps.setString(2,Course_Id);
             ps.setInt(3,Units);
             ps.setString(4,grade);
             ps.setString(5,quarter);
-            ps.setString(5,year);
-            ps.setString(6,section);
+            ps.setString(6,year);
+            ps.setString(7,section);
+            ps.setString(8,"Letter Grade");
             ps.executeUpdate();
             ps.close();
         }
@@ -87,18 +89,13 @@
 //        Thesis_St.close();
     } catch (Exception e) {
         is_correct = false;
+        ExceptionError = e.toString();
         System.out.println(e);
     }
 %>
 <% if (is_correct) {%>
 <h3>Have been add your course info</h3>
-<% } else { %>
-<h3>Please,check the information.</h3>
-<br/>
-<h3>Student Id/course/Section name may not correct</h3>
-<br/>
-<h3> or it may existed in our dataBase</h3>
-<% } %>
+<% } else { out.println("<h3>" + ExceptionError + "</h3>");} %>
 <a href="./Past_Course_Submission.jsp"><button> Enter More </button></a>
 <a href="./Past_Course_DataBase.jsp"><button> Check Database </button></a>
 <a href="../../insertPage.jsp"><button> Homepage</button></a>
