@@ -11,5 +11,6 @@
     <br/><br/>
     <a href="insertPage.jsp"><button>Insert Entry</button></a>
     <a href="report.jsp"><button>Report</button></a>
+    <a href="final_report.jsp"><button>Report</button></a>
 </body>
 </html>
