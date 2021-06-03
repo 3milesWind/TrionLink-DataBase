@@ -69,6 +69,11 @@
     %>
     <%
         if (is_correct == false) {
+//            if (wrong.contains("Exceed the enrollment limit")) {
+//                out.print("<h3>Exceed the enrollment limit of selected section.</h3>");
+//            } else {
+//                out.print("<h3>" + wrong + "</h3>");
+//            }
             out.print("<h3>" + wrong + "</h3>");
         } else {
             out.println("<H3><u>Successfully insert new enrollment into the database</u></b>");
@@ -85,6 +90,7 @@
     <br/><br>
     Grade Option: <%=GradeOption%>
     <br/><br>
+    <a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
     <a href="../Course_Enrollment/Course_Enrollment_Database.jsp"><button> Check Database </button></a>
     <a href="./../index.jsp"><button> Homepage </button></a>
     <jsp:include page="../footer.jsp"/>
