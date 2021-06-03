@@ -85,7 +85,7 @@ Course ID: <%=course_ID%>
 Course Name: <%=course_name%>
 <br/><br/>
 <a href="../Course_DataBase_Info.jsp"><button> Check Database </button></a>
-<a href="./../../index.jsp"><button> Homepage </button></a>
+<a href="./../../insertPage.jsp"><button> Homepage </button></a>
 <jsp:include page="../../footer.jsp"/>
 
 </body>
