@@ -5,13 +5,13 @@
   Created by IntelliJ IDEA.
   User: AmberWang
   Date: 2021/5/2
-  Time: 上午 03:29
+  Time: 上午 03:30
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Course Deletion</title>
+    <title>Title</title>
 </head>
 <style>
     table {
@@ -33,12 +33,12 @@
     <div style="height: 200px; overflow: scroll">
         <table>
             <%
-                try {
+                try{
                     String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
                     Class.forName("org.postgresql.Driver");
                     Connection conn = DriverManager.getConnection(url);
                     Statement sm = conn.createStatement();
-                    ResultSet st = sm.executeQuery("SELECT * FROM Course");
+                    ResultSet st = sm.executeQuery("SELECT * FROM Course order by courseid");
                     out.println("<tr><th>Course ID</th>" +
                             "<th>Course Name</th>" +
                             "<th>Department</th>" +
@@ -68,9 +68,9 @@
             %>
         </table>
     </div>
-    <P> Please, Input Name for Deleting Course</P>
-    <form action="Course_Delete.jsp" method="post">
-        Course ID: <input type="text" name="CourseID" required/>
+    <P> Please, input the ID for updating </P>
+    <form action="Course_Update_New_Info.jsp" method="post">
+        Course ID: <input type="text" name="course_id" />
         <br/> <br/>
         <input type="submit" value="Submit"/>
     </form>

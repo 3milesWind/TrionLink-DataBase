@@ -25,45 +25,45 @@
     }
 </style>
 <body>
-<h1 align="center"> Course Database</h1>
-<table>
-    <%
-        String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
-        try{
-            Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection(url);
-            Statement sm = conn.createStatement();
-            ResultSet st = sm.executeQuery("select * from Course");
-            out.println("<tr><th>Course ID</th>" +
-                    "<th>Course Name</th>" +
-                    "<th>Department</th>" +
-                    "<th>Prerequisites</th>" +
-                    "<th>Grade Option</th>" +
-                    "<th>Lab</th>" +
-                    "<th>Min. Units</th>" +
-                    "<th>Max Units</th>" +
-                    " </tr>");
-            while(st.next()) {
-                out.print("<tr><th>" + st.getString(1) + "</th>"
-                                + "<th>" + st.getString(2) + "</th>"
-                                + "<th>" + st.getString(3) + "</th>"
-                                + "<th>" + st.getString(4) + "</th>"
-                                + "<th>" + st.getString(5) + "</th>"
-                                + "<th>" + st.getString(6) + "</th>"
-                                + "<th>" + st.getString(7) + "</th>"
-                                + "<th>" + st.getString(8) + "</th>"
-                        + "</tr>");
-            }
-            sm.close();
-            st.close();
-            conn.close();
+    <h1 align="center"> Course Database</h1>
+    <table>
+        <%
+            String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
+            try{
+                Class.forName("org.postgresql.Driver");
+                Connection conn = DriverManager.getConnection(url);
+                Statement sm = conn.createStatement();
+                ResultSet st = sm.executeQuery("select * from Course order by courseid");
+                out.println("<tr><th>Course ID</th>" +
+                        "<th>Course Name</th>" +
+                        "<th>Department</th>" +
+                        "<th>Prerequisites</th>" +
+                        "<th>Grade Option</th>" +
+                        "<th>Lab</th>" +
+                        "<th>Min. Units</th>" +
+                        "<th>Max Units</th>" +
+                        " </tr>");
+                while(st.next()) {
+                    out.print("<tr><th>" + st.getString(1) + "</th>"
+                                    + "<th>" + st.getString(2) + "</th>"
+                                    + "<th>" + st.getString(3) + "</th>"
+                                    + "<th>" + st.getString(4) + "</th>"
+                                    + "<th>" + st.getString(5) + "</th>"
+                                    + "<th>" + st.getString(6) + "</th>"
+                                    + "<th>" + st.getString(7) + "</th>"
+                                    + "<th>" + st.getString(8) + "</th>"
+                            + "</tr>");
+                }
+                sm.close();
+                st.close();
+                conn.close();
 
-        }catch(Exception e){
-            System.out.println(e);
-        }
-    %>
-</table>
-<a href="../index.jsp"><button>Back to HomePage</button></a>
-<jsp:include page="./../footer.jsp"/>
+            }catch(Exception e){
+                System.out.println(e);
+            }
+        %>
+    </table>
+    <a href="../insertPage.jsp"><button>Back to HomePage</button></a>
+    <jsp:include page="./../footer.jsp"/>
 </body>
 </html>

@@ -42,7 +42,7 @@ Degree Requirements:
 <br/><br/>
 Course Entry:
 <a href="Course/Insert/Course_Insert_Page.jsp"><button>Insert</button></a>
-<a href="Course/Update/Course_Update_Page.jsp"><button>Update</button></a>
+<a href="Course/Update/Course_Update_Page_ID.jsp"><button>Update</button></a>
 <a href="Course/Delete/Course_Delete_Page.jsp"><button>Delete</button></a>
 <a href="Course/Course_DataBase_Info.jsp"><button>Course Info Database</button></a>
 <br/><br/>

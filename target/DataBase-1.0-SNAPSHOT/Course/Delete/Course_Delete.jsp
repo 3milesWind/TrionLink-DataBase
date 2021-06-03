@@ -62,7 +62,7 @@
 <% } else {%>
     <h3>Please, check the course ID. And try again </h3>
     <a href="Course_Delete_Page.jsp"><button> Re-Enter </button></a>
-    <a href="../../index.jsp"><button> HomePage </button></a>
+    <a href="../../insertPage.jsp"><button> HomePage </button></a>
     <jsp:include page="../../footer.jsp"/>
 <% } %>
 
