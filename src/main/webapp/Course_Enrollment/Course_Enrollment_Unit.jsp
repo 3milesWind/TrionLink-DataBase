@@ -78,7 +78,7 @@
     <br/><br>
     <a href="Course_Enrollment_Submission.jsp"><button> Submit again </button></a>
     <a href="../Course_Enrollment/Course_Enrollment_Database.jsp"><button> Check Database </button></a>
-    <a href="./../index.jsp"><button> Homepage </button></a>
+    <a href="./../insertPage.jsp"><button> Homepage </button></a>
     <jsp:include page="../footer.jsp"/>
 </body>
 </html>

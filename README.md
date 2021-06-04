@@ -373,9 +373,9 @@ with the same course id
 ```
 
 ```sql
-// milestone 4 - trigger 
+-- milestone 4 - trigger 
 
-// (1) section should not overlaps 
+-- (1) section should not overlaps 
 create function check_meeting_function()
 	returns trigger
 	language plpgsql
@@ -427,8 +427,8 @@ begin
 end;
 $$;
 
-# drop function check_meeting_function;
-# drop trigger check_meeting on meeting;
+-- drop function check_meeting_function;
+-- drop trigger check_meeting on meeting;
 
 create trigger check_meeting
 before insert
@@ -436,10 +436,12 @@ on meeting
 for each row
 	execute procedure check_meeting_function();
 
-// test cases for (1)
+-- test cases for (1)
 insert into meeting values('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-di2', 'Yes', 'DI', 'Friday', '10:00', '11:00', 'R203');
+insert into meeting values('CSE221', 'CSE221-sp21-1', 'CSE221-sp21-1-la', 'Yes', 'LA', 'Monday,Wednesday', '09:00', '10:00', 'R203');
 
-// (2) enrollment limit
+
+-- (2) enrollment limit
 create function check_enrollment_function()
 	returns trigger
 	language plpgsql
@@ -465,8 +467,8 @@ begin
 end;
 $$;
 
-# drop function check_enrollment_function;
-# drop trigger check_enrollment on enrollment;
+-- drop function check_enrollment_function;
+-- drop trigger check_enrollment on enrollment;
 
 create trigger check_enrollment 
 before insert
@@ -474,14 +476,21 @@ on enrollment
 for each row
 	execute procedure check_enrollment_function();
 
-// test cases for (2)
-// -- just insert
-// -- multiple sections
+-- test cases for (2)
+-- just insert (fixed unit & single section)
+-- multiple sections
+update section set enrollmentlimit = 2 where sectionid = 'CSE221-sp21-2';
 insert into enrollment values('A1001', 'CSE221', 'CSE221-sp21-2', '4', 'Letter Grade');
-// -- multiple units
-// -- multiple sections & units
 
-// (3) prof should not have multiple sections at the same time 
+update section set enrollmentlimit = 3 where sectionid = 'CSE255-sp21-1';
+insert into enrollment values('A1001', 'CSE255', 'CSE255-sp21-1', '4', 'Letter Grade');
+
+-- multiple units
+-- multiple sections & units
+update section set enrollmentlimit = 1 where sectionid = 'CSE105-sp21-1';
+insert into enrollment values('A1002', 'CSE105', 'CSE105-sp21-1', '4', 'Letter Grade');
+
+-- (3) prof should not have multiple sections at the same time 
 create function check_prof_section_function()
 	returns trigger
 	language plpgsql
@@ -543,8 +552,8 @@ end;
 $$;
 
 
-# drop function check_prof_section_function;
-# drop trigger check_prof_section on meeting;
+-- drop function check_prof_section_function;
+-- drop trigger check_prof_section on meeting;
 
 
 create trigger check_prof_section
@@ -553,8 +562,9 @@ on meeting
 for each row
 	execute procedure check_prof_section_function();
 
-// test cases for (3)
+-- test cases for (3)
 insert into meeting values('CSE8A', 'CSE8A-sp21-1', 'CSE8A-sp21-1-la2', 'Yes', 'LA', 'Friday', '18:00', '19:00', 'R203');
+insert into meeting values('PHIL12', 'PHIL12-sp21-1', 'PHIL12-sp21-1-la', 'Yes', 'LA', 'Wednesday,Thrusday', '15:00', '16:00', 'R203');
 ```
 
 
