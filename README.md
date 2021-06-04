@@ -565,6 +565,70 @@ for each row
 -- test cases for (3)
 insert into meeting values('CSE8A', 'CSE8A-sp21-1', 'CSE8A-sp21-1-la2', 'Yes', 'LA', 'Friday', '18:00', '19:00', 'R203');
 insert into meeting values('PHIL12', 'PHIL12-sp21-1', 'PHIL12-sp21-1-la', 'Yes', 'LA', 'Wednesday,Thrusday', '15:00', '16:00', 'R203');
+
+-- Extra Credit
+create function check_prof_rs_function()
+	returns trigger
+	language plpgsql
+as 
+$$
+declare
+	prof_name varchar;
+	
+begin
+	
+
+	select section.faculty_name into prof_name from section where section.sectionid = new.sectionid;
+
+	create table section_taught_by_prof as select section.sectionid from section where section.faculty_name = prof_name;
+	create table section_info as select reviewsession.review_date, reviewsession.start_time, reviewsession.end_time from section_taught_by_prof inner join reviewsession on section_taught_by_prof.sectionid = reviewsession.sectionid;
+	
+	if exists (
+		select * from section_info
+		where (
+							section_info.review_date = new.review_date
+					) and
+					(
+						(
+							split_part(section_info.start_time, ':', 1) < split_part(new.start_time, ':', 1)
+							and
+							split_part(section_info.end_time, ':', 1) > split_part(new.start_time, ':', 1)
+						) or
+						(
+							split_part(section_info.start_time, ':', 1) < split_part(new.end_time, ':', 1)
+							and
+							split_part(section_info.end_time, ':', 1) > split_part(new.start_time, ':', 1)
+						)
+					)
+	) then 
+		begin
+			raise exception 'A Professor cannot have multiple review sessions at the same time';
+			rollback;
+			drop table section_taught_by_prof;
+			drop table section_info;
+			return null;
+		end;
+	end if;
+	drop table section_taught_by_prof;
+	drop table section_info;
+	return new;
+end;
+$$;
+
+
+-- drop function check_prof_rs_function;
+-- drop trigger check_prof_rs on reviewsession;
+
+
+create trigger check_prof_rs
+before insert
+on reviewsession
+for each row
+	execute procedure check_prof_rs_function();
+
+-- test cases for ec
+insert into reviewsession values('MAE108', 'MAE108-sp21-1', 'MAE108-sp21-1-review', '06/01', '11:00', '12:00', 'R204');
+
 ```
 
 
