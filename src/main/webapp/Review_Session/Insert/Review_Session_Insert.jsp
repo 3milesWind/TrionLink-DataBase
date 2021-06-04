@@ -31,8 +31,11 @@
         boolean date_format_not_match = false;
         boolean invalid_mon_date = false;
         boolean start_gt_end = false; // check start < end
+        boolean is_correct = true;
+        String wrong = "";
     %>
     <%
+        is_correct = true;
         String url = "jdbc:postgresql://localhost:5432/postgres?user=postgres&password=4645";
         try {
             Class.forName("org.postgresql.Driver");
@@ -138,11 +141,16 @@
             conn.close();
 
         } catch (Exception e) {
+            is_correct = false;
+            wrong = e.toString();
             System.out.println(e);
         }
     %>
     <%
-        if (no_course_existed) {
+        if (is_correct == false) {
+            out.println("<H3><u>" + wrong + "</u></b>");
+            out.println("<H3><u> Please, try again</u></b>");
+        } else if (no_course_existed) {
             out.println("<H3><u>The course ID shown below does not exists, Please, try again</u></b>");
         } else if (no_section_existed) {
             out.println("<H3><u>The (course ID, section ID) shown below does not exists, Please, try again</u></b>");
@@ -167,7 +175,7 @@
     <br/><br/>
     <a href="Review_Session_Submission.jsp"><button> Submit again </button></a>
     <a href="../Review_Session_Database.jsp"><button> Check Database </button></a>
-    <a href="../../index.jsp"><button> Homepage </button></a>
+    <a href="../../insertPage.jsp"><button> Homepage </button></a>
     <jsp:include page="../../footer.jsp"/>
 </body>
 </html>

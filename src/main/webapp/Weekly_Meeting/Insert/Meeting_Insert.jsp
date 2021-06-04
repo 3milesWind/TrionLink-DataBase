@@ -161,7 +161,7 @@
     <br/><br/>
     <a href="Meeting_Insert_Page.jsp"><button> Submit again </button></a>
     <a href="../Weekly_Meeting_Database.jsp"><button> Check Database </button></a>
-    <a href="../../index.jsp"><button> Homepage </button></a>
+    <a href="../../insertPage.jsp"><button> Homepage </button></a>
     <jsp:include page="../../footer.jsp"/>
 </body>
 </html>
