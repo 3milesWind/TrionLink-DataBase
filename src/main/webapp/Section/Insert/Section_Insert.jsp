@@ -37,7 +37,7 @@
         Course_ID = request.getParameter("CourseID");
         Class_ID = request.getParameter("ClassID");
         Section_ID = request.getParameter("SectionID");
-        Faculty_Name = (request.getParameter("FacultyName")).toLowerCase();
+        Faculty_Name = (request.getParameter("FacultyName"));
         Enrollment_Limit = request.getParameter("EnrollmentLimit");
         Wait_List = request.getParameter("WaitList");
 
